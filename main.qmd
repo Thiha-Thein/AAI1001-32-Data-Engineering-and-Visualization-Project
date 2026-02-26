@@ -1,8 +1,8 @@
 ---
-title: "Too Many Graduates, Too Few PMET Jobs?"
-subtitle: "A Critical Analysis & Redesign of Singapore's Education–Workforce Visualization"
-author: "Team Project — Data Engineering and Visualization Module"
-date: "January 2026"
+title: "Singapore Employment Rate by Education Attaintment Across Age & Gender Visualization & Analysis"
+subtitle: "AAI1001 Team Project Proposal"
+author: "AAI1001 Team 32"
+date: "26th February 2026"
 format:
   html:
     toc: true
@@ -29,9 +29,25 @@ opts_chunk$set(echo = TRUE)
 
 ---
 
-# 1. Original Data Visualization {#sec-original}
+# Team Information
 
-## 1.1 Source & Context
+|Name|Student ID|
+|---|---|
+|Adheesh|2500670|
+|Shannon|2403263|
+|Thiha Thein|2502266|
+|Jing Hong|2503049|
+|Zafri|2403108|
+
+---
+
+# 1. Introduction and Project Overview {#sec-original}
+
+## 1.1 The Story We're Telling
+
+What our project seeks to answer --> what the final visualization will show. This is a concise, one-paragraph summary of the narrative we want to communicate through our visualization. It should be specific about the key insights or messages we aim to convey to our audience. [TO UPDATE]
+
+## 1.2 Source & Context
 
 The original visualization was published by **FYT Consultants** in a blog post titled *"A Data-Driven Look at Singapore's Graduate Unemployment Debate"* (September 2025), available at:
 
@@ -39,7 +55,7 @@ The original visualization was published by **FYT Consultants** in a blog post t
 
 The underlying data comes from the **Singapore Department of Statistics (SingStat)**, specifically the annual dataset: *Singapore Residents Aged 25 Years and Over by Highest Qualification Attained (HQA), Sex and Age Group*.
 
-## 1.2 The Visualization
+## 1.3 The Original Visualization
 
 ```{=html}
 <div style="text-align:center; margin: 24px 0;">
@@ -55,7 +71,7 @@ The underlying data comes from the **Singapore Department of Statistics (SingSta
 </div>
 ```
 
-## 1.3 The Story It Tells
+### 1.3.1 The Story It Tells
 
 The visualization is embedded within a broader article arguing that Singapore may be producing **more tertiary graduates than the economy has PMET (Professional, Managerial, Executive & Technical) roles to absorb**. The specific chart displays:
 
@@ -67,7 +83,7 @@ Reading left to right, a striking generational divide emerges: residents aged 25
 
 ---
 
-# 2. Strengths & Weaknesses {#sec-critique}
+# 2. Critital Analysis of Original Visualization {#sec-critique}
 
 ## 2.1 Strengths
 
@@ -98,7 +114,7 @@ Ordering age groups from youngest (left) to oldest (right) creates an intuitive 
 </div>
 ```
 
-## 2.2 Weaknesses
+## 2.2 Limitation and Weaknesses
 
 ```{=html}
 <div style="border-left: 4px solid #e74c3c; background: #fdf4f4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
@@ -141,6 +157,8 @@ The chart encodes: Education Level, Age Group, and Gender — only 3 dimensions.
 
 # 3. Proposed Improvements {#sec-improvements}
 
+## 3.1 Enhancement Strategy 
+
 Based on the weaknesses identified above, we propose five concrete improvements:
 
 | # | Weakness Addressed | Improvement | Method |
@@ -151,7 +169,7 @@ Based on the weaknesses identified above, we propose five concrete improvements:
 | I4 | W6 — No annotations | Add threshold line at 50% and call out the year each cohort crossed majority-graduate status | Annotation layer |
 | I5 | W7 — Few dimensions | Encode 6 dimensions: Age Group, Education, Gender, Year, Count, Labour Force Size | Multi-chart dashboard |
 
-### Justification for Redesign Approach
+## 3.2 Justification for Redesign Approach
 
 Rather than reconstructing the Tableau chart identically, we redesign it as an **interactive HTML dashboard** (rendered in Quarto). This is justified because:
 
@@ -159,9 +177,152 @@ Rather than reconstructing the Tableau chart identically, we redesign it as an *
 2. A Quarto document allows the visualization and its explanation to coexist — fulfilling both the "effective communication" and "aesthetically pleasing and professional" requirements
 3. The enriched dataset (Labour Force + Employment Rate) adds dimensions that cannot be shoe-horned into the original's layout without a redesign
 
+## 3.3 Proposed Visualization Design
+
+### Interactive Horizontally Stacked Butterfly Chart
+
+*Chart Type*: Butterfly Chart with interactive filters and tooltip features
+
+*Visual Design structure*:
+
+The three charts below constitute our improved visualization. They are fully interactive (hover for values) and together encode **6 dimensions**: Age Group, Education Level, Gender, Year, Population Count, and Labour Force Size.
+
+```{=html}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+  .viz-section {
+    background: #f8f9fc;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+  .viz-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a2744;
+    margin-bottom: 4px;
+  }
+  .viz-subtitle {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-bottom: 18px;
+  }
+  .insight-pill {
+    display: inline-block;
+    background: #1a2744;
+    color: white;
+    font-size: 0.78rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .improvement-tag {
+    display: inline-block;
+    background: #2d7d9a;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .annotation-50 {
+    font-size:0.82rem; color:#888; font-style:italic; margin-top:8px;
+  }
+</style>
+
+<!-- ══════════════════════════════════════════════
+     CHART 2 — Diverging butterfly (2024, 30–34 age group)
+     Improvement: Replaces cluttered dual-chart (W3), excludes 65+ distortion (W4)
+═══════════════════════════════════════════════ -->
+<div class="viz-section">
+  <div class="viz-title">
+    Chart 2: Education Breakdown by Gender — Age 30–34 (2024)
+    <span class="improvement-tag">Improves W3: Cleaner gender layout</span>
+    <span class="improvement-tag">Improves W4: Working-age focus</span>
+  </div>
+  <div class="viz-subtitle">
+    Diverging bar chart: females extend left (orange), males extend right (navy). 
+    Bars show number of residents. In the 30–34 group, females outpace males in university attainment (65.9% vs 57.7%).
+  </div>
+  <canvas id="chart2" height="160"></canvas>
+  <p class="annotation-50">
+    💡 <strong>Key insight:</strong> Among 30–34 year olds, there are 100,500 female university graduates 
+    vs 81,200 male — females have both a higher share (65.9%) and higher absolute count. 
+    The original chart's layout made this near-impossible to see clearly.
+  </p>
+</div>
+
+<script>
+// ── Shared colour palette ──────────────────────────────────────
+const EDU_COLORS = {
+  'University':                         '#1a2744',
+  'Diploma & Prof. Qual.':              '#2d7d9a',
+  'Post-Secondary (Non-Tert.)':         '#4db6ac',
+  'Secondary':                          '#78909c',
+  'Below Secondary':                    '#b0bec5',
+};
+
+// ══════════════════════════════════════════════════════════
+// CHART 2 DATA — Diverging butterfly, 30-34 age group, 2024
+// ══════════════════════════════════════════════════════════
+const eduLabels = ['Below Secondary', 'Secondary', 'Post-Secondary\n(Non-Tert.)', 'Diploma &\nProf. Qual.', 'University'];
+const maleData   = [3000,  10200, 13400, 32800, 81200];
+const femaleData = [-4000, -8300, -8300,-31300,-100500];
+
+const ctx2 = document.getElementById('chart2').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['Below\nSecondary','Secondary','Post-Secondary\n(Non-Tert.)','Diploma &\nProf. Qual.','University'],
+    datasets: [
+      { label: 'Males',   data: maleData,   backgroundColor: '#1a2744', borderRadius: 4 },
+      { label: 'Females', data: femaleData, backgroundColor: '#e67e22', borderRadius: 4 }
+    ]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'top', labels: { boxWidth: 14, font: { size: 11 } } },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: ${Math.abs(ctx.parsed.x).toLocaleString()} residents`
+        }
+      }
+    },
+    scales: {
+      x: {
+        title: { display: true, text: '← Females   |   Males →' },
+        ticks: { callback: v => Math.abs(v).toLocaleString() },
+        grid: { color: '#ebebeb' }
+      },
+      y: { grid: { display: false } }
+    }
+  }
+});
+</script>
+```
+
+
+*Interaction Features*: Hovering over any bar segment reveals a tooltip with the exact count and percentage for that education level. 
+
+*Toggle Filters*: Dropdowns allow users to switch between age groups (25–29, 30–34, etc.) and years (2000–2024), dynamically updating the chart to show how the gender gap in educational attainment has evolved over time and across cohorts.
+
+### 3.3.2 Key Design Decisions
+
+1. **Diverging butterfly layout**: Clear left-right separation of genders while maintaining the same education categories on the y-axis. This eliminates diagonal labels and allows for direct visual comparison.
+
+2. **Colour consistency**: We maintain the original's education-level colour scheme for continuity, while using a diverging layout to separate genders. 
+
 ---
 
-# 4. Data Sources {#sec-data}
+# 4. Data Sources & Data Quality {#sec-data}
+
+## selected Data Sources
 
 We use all three datasets provided, each sourced from **Singapore Department of Statistics (SingStat)** via [data.gov.sg](https://data.gov.sg):
 
@@ -171,10 +332,27 @@ We use all three datasets provided, each sourced from **Singapore Department of 
 | 2 | *Resident Labour Force Aged 15+ by HQA and Sex, End June (Annual)* | 1997–2025 | CSV (wide) | **Enrichment** — adds labour market supply dimension |
 | 3 | *Employment Rate of Residents Aged 25–64 (Total)* | 1991–2022 | CSV (long) | **Context** — validates whether the market absorbed graduates |
 
-**Why these datasets?**  
+## Dataset Justifications
+
 Dataset 1 directly matches the original visualization and contains 35 years of history that were ignored in the original chart (Weakness W1). Dataset 2 allows us to close the "PMET jobs" narrative gap (Weakness W2) by showing how the composition of the labour force itself has shifted. Dataset 3 provides a macro check: if employment rates stayed high despite graduate surges, the "oversupply crisis" framing may be overstated.
 
 Together, the three datasets yield **6 active dimensions** in our improved visualization: Age Group, Education Level, Gender, Year (2000–2024), Population Count, and Labour Force Count — well exceeding the 4-dimension minimum requirement.
+
+## 4.3 Data Quality Assessment
+
+### 4.3.1 Strengths
+
+1. Trusted Sources: All three datasets are official government statistics, collected through rigorous surveys and administrative records. They are widely cited in academic research and policy discussions, lending them high credibility. The data is complete for the specified time spans, with no known major revisions or anomalies.
+
+2. Standardized Definitions: The datasets use consistent definitions for key variables (e.g., education levels, age groups) across years, enabling valid longitudinal analysis. The "Highest Qualification Attained" categories are well-defined and align with international standards.
+
+### 4.3.2 Limitations
+
+1. Inconsistent Formatting: The raw CSV files are in wide format with years as column headers, and hierarchical data encoded through indentation in the "DataSeries" column. This non-tidy structure requires significant cleaning and transformation to be usable for visualization.
+
+2. Missing Data: The Labour Force dataset uses "na" string literals for missing years (pre-2008), which must be handled carefully to avoid misinterpretation as zero values.
+
+3. Age Group Binning: The "65 Years & Over" category aggregates a wide range of ages, distorting comparisons with the more granular 5-year bands. This requires careful consideration in the visualization to avoid misleading impressions about the working-age population.
 
 ---
 
@@ -331,283 +509,7 @@ print("✅ Pipeline complete.")
 
 ---
 
-# 6. Improved Visualization {#sec-viz}
-
-The three charts below constitute our improved visualization. They are fully interactive (hover for values) and together encode **6 dimensions**: Age Group, Education Level, Gender, Year, Population Count, and Labour Force Size.
-
-```{=html}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
-<style>
-  .viz-section {
-    background: #f8f9fc;
-    border: 1px solid #dee2e6;
-    border-radius: 10px;
-    padding: 24px 28px;
-    margin: 28px 0;
-  }
-  .viz-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #1a2744;
-    margin-bottom: 4px;
-  }
-  .viz-subtitle {
-    font-size: 0.85rem;
-    color: #6c757d;
-    margin-bottom: 18px;
-  }
-  .insight-pill {
-    display: inline-block;
-    background: #1a2744;
-    color: white;
-    font-size: 0.78rem;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-  }
-  .improvement-tag {
-    display: inline-block;
-    background: #2d7d9a;
-    color: white;
-    font-size: 0.75rem;
-    padding: 2px 10px;
-    border-radius: 12px;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-  .annotation-50 {
-    font-size:0.82rem; color:#888; font-style:italic; margin-top:8px;
-  }
-</style>
-
-<!-- ══════════════════════════════════════════════
-     CHART 1 — University % over time by age cohort
-     Improvement: Adds TIME dimension (W1), annotations (W6)
-═══════════════════════════════════════════════ -->
-<div class="viz-section">
-  <div class="viz-title">
-    Chart 1: Rising University Attainment by Age Cohort (2000–2024)
-    <span class="improvement-tag">Improves W1: Time trend added</span>
-    <span class="improvement-tag">Improves W6: 50% threshold annotated</span>
-  </div>
-  <div class="viz-subtitle">
-    % of residents in each age group who hold a university degree. 
-    Dashed line marks the 50% majority-graduate threshold. 
-    The 25–34 age band crossed it around 2013–2014.
-  </div>
-  <canvas id="chart1" height="95"></canvas>
-  <p class="annotation-50">
-    💡 <strong>Key insight:</strong> The 25–29 cohort passed 50% university attainment in 2013; 
-    30–34 followed in 2015; 35–39 in 2022. Older cohorts remain well below 50%, 
-    reflecting a generation that was educated before Singapore's university expansion.
-  </p>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     CHART 2 — Diverging butterfly (2024, 30–34 age group)
-     Improvement: Replaces cluttered dual-chart (W3), excludes 65+ distortion (W4)
-═══════════════════════════════════════════════ -->
-<div class="viz-section">
-  <div class="viz-title">
-    Chart 2: Education Breakdown by Gender — Age 30–34 (2024)
-    <span class="improvement-tag">Improves W3: Cleaner gender layout</span>
-    <span class="improvement-tag">Improves W4: Working-age focus</span>
-  </div>
-  <div class="viz-subtitle">
-    Diverging bar chart: females extend left (orange), males extend right (navy). 
-    Bars show number of residents. In the 30–34 group, females outpace males in university attainment (65.9% vs 57.7%).
-  </div>
-  <canvas id="chart2" height="160"></canvas>
-  <p class="annotation-50">
-    💡 <strong>Key insight:</strong> Among 30–34 year olds, there are 100,500 female university graduates 
-    vs 81,200 male — females have both a higher share (65.9%) and higher absolute count. 
-    The original chart's layout made this near-impossible to see clearly.
-  </p>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     CHART 3 — Labour force by education (2010–2024)
-     Improvement: Adds LABOUR MARKET dimension (W2)
-═══════════════════════════════════════════════ -->
-<div class="viz-section">
-  <div class="viz-title">
-    Chart 3: Resident Labour Force by Education Level (2010–2024, '000s)
-    <span class="improvement-tag">Improves W2: Labour market supply added</span>
-    <span class="improvement-tag">Improves W7: 6th dimension added</span>
-  </div>
-  <div class="viz-subtitle">
-    Stacked bar showing how the composition of Singapore's labour force has shifted. 
-    Degree holders grew from 565K (2010) to 1,061K (2024) — an 88% increase — while 
-    below-secondary workers declined by 39%.
-  </div>
-  <canvas id="chart3" height="110"></canvas>
-  <p class="annotation-50">
-    💡 <strong>Key insight:</strong> Degree holders overtook all other education groups combined 
-    in the labour force around 2022. The question is no longer whether graduates dominate the supply — 
-    they clearly do — but whether PMET job creation has kept pace.
-  </p>
-</div>
-
-<script>
-// ── Shared colour palette ──────────────────────────────────────
-const EDU_COLORS = {
-  'University':                         '#1a2744',
-  'Diploma & Prof. Qual.':              '#2d7d9a',
-  'Post-Secondary (Non-Tert.)':         '#4db6ac',
-  'Secondary':                          '#78909c',
-  'Below Secondary':                    '#b0bec5',
-};
-
-// ══════════════════════════════════════════════════════════
-// CHART 1 DATA — University % by age group, 2000–2024
-// ══════════════════════════════════════════════════════════
-const years = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
-               2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-               2020,2021,2022,2023,2024];
-
-const chart1Datasets = [
-  { label: '25–29 Yrs', data: [26.67,28.91,32.18,35.63,36.57,37.12,39.4,38.05,43.25,43.94,45.83,45.69,47.31,49.98,50.84,51.07,53.12,53.98,54.13,55.81,55.86,60.05,58.26,57.65,58.33], borderColor:'#c0392b', backgroundColor:'#c0392b18', tension:0.35, pointRadius:2, borderWidth:2.5 },
-  { label: '30–34 Yrs', data: [19.76,23.35,26.59,29.46,32.22,33.49,35.0,37.21,40.34,42.29,44.65,45.72,46.38,48.19,50.17,51.65,53.45,55.07,56.37,57.89,59.83,61.83,60.79,61.63,61.94], borderColor:'#e67e22', backgroundColor:'#e67e2218', tension:0.35, pointRadius:2, borderWidth:2.5 },
-  { label: '35–39 Yrs', data: [13.75,16.36,18.72,20.73,23.17,24.84,26.55,28.31,30.87,32.82,35.52,37.24,39.15,41.45,43.66,45.44,47.84,50.04,52.21,53.75,55.77,57.52,58.66,59.91,61.81], borderColor:'#f1c40f', backgroundColor:'#f1c40f18', tension:0.35, pointRadius:2, borderWidth:2.5 },
-  { label: '40–44 Yrs', data: [9.48,11.26,13.33,15.13,17.11,18.88,20.68,22.55,25.13,27.23,29.81,31.89,34.1,36.38,38.97,41.22,43.92,46.4,48.86,51.05,53.82,55.93,56.69,57.55,57.12], borderColor:'#27ae60', backgroundColor:'#27ae6018', tension:0.35, pointRadius:2, borderWidth:2.5 },
-  { label: '45–49 Yrs', data: [6.15,7.14,8.47,9.68,11.28,12.66,14.2,16.12,18.58,20.56,23.19,25.41,27.76,29.99,32.58,34.97,37.56,40.22,42.39,44.71,47.25,49.56,50.85,51.79,50.31], borderColor:'#2980b9', backgroundColor:'#2980b918', tension:0.35, pointRadius:2, borderWidth:2.5 },
-  { label: '55–59 Yrs', data: [4.1,4.76,5.72,6.82,7.95,9.12,10.56,12.21,14.38,16.46,19.13,21.61,24.05,26.72,29.13,31.64,34.41,37.13,39.88,42.38,44.82,46.48,47.86,48.39,48.9], borderColor:'#8e44ad', backgroundColor:'#8e44ad18', tension:0.35, pointRadius:2, borderWidth:2.5 },
-];
-
-const ctx1 = document.getElementById('chart1').getContext('2d');
-new Chart(ctx1, {
-  type: 'line',
-  data: { labels: years, datasets: chart1Datasets },
-  options: {
-    responsive: true,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      legend: { position: 'right', labels: { boxWidth: 14, font: { size: 11 } } },
-      tooltip: {
-        callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%`
-        }
-      }
-    },
-    scales: {
-      y: {
-        title: { display: true, text: '% University-Educated' },
-        min: 0, max: 75,
-        grid: { color: '#ebebeb' }
-      },
-      x: {
-        grid: { display: false },
-        ticks: { maxTicksLimit: 13 }
-      }
-    }
-  },
-  plugins: [{
-    id: 'threshold50',
-    afterDraw(chart) {
-      const { ctx, scales: { x, y } } = chart;
-      const yPx = y.getPixelForValue(50);
-      ctx.save();
-      ctx.setLineDash([5, 5]);
-      ctx.strokeStyle = '#aaa';
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.moveTo(x.left, yPx);
-      ctx.lineTo(x.right, yPx);
-      ctx.stroke();
-      ctx.fillStyle = '#888';
-      ctx.font = '11px Arial';
-      ctx.fillText('50% threshold', x.right - 90, yPx - 5);
-      ctx.restore();
-    }
-  }]
-});
-
-// ══════════════════════════════════════════════════════════
-// CHART 2 DATA — Diverging butterfly, 30-34 age group, 2024
-// ══════════════════════════════════════════════════════════
-const eduLabels = ['Below Secondary', 'Secondary', 'Post-Secondary\n(Non-Tert.)', 'Diploma &\nProf. Qual.', 'University'];
-const maleData   = [3000,  10200, 13400, 32800, 81200];
-const femaleData = [-4000, -8300, -8300,-31300,-100500];
-
-const ctx2 = document.getElementById('chart2').getContext('2d');
-new Chart(ctx2, {
-  type: 'bar',
-  data: {
-    labels: ['Below\nSecondary','Secondary','Post-Secondary\n(Non-Tert.)','Diploma &\nProf. Qual.','University'],
-    datasets: [
-      { label: 'Males',   data: maleData,   backgroundColor: '#1a2744', borderRadius: 4 },
-      { label: 'Females', data: femaleData, backgroundColor: '#e67e22', borderRadius: 4 }
-    ]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      legend: { position: 'top', labels: { boxWidth: 14, font: { size: 11 } } },
-      tooltip: {
-        callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${Math.abs(ctx.parsed.x).toLocaleString()} residents`
-        }
-      }
-    },
-    scales: {
-      x: {
-        title: { display: true, text: '← Females   |   Males →' },
-        ticks: { callback: v => Math.abs(v).toLocaleString() },
-        grid: { color: '#ebebeb' }
-      },
-      y: { grid: { display: false } }
-    }
-  }
-});
-
-// ══════════════════════════════════════════════════════════
-// CHART 3 DATA — Labour force by education, 2010–2024
-// ══════════════════════════════════════════════════════════
-const lfYears = [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
-const lfDatasets = [
-  { label: 'Below Secondary',        data: [455.3,446.6,438.7,423.0,419.7,407.3,411.5,398.9,365.0,352.0,334.8,311.6,309.5,297.3,279.6], backgroundColor: '#b0bec5', stack: 's' },
-  { label: 'Secondary',              data: [410.3,420.1,407.8,400.6,390.1,406.8,386.6,374.0,375.9,373.3,360.8,344.0,340.3,330.5,323.3], backgroundColor: '#78909c', stack: 's' },
-  { label: 'Post-Secondary (Non-Tert.)', data: [246.0,245.2,254.0,247.6,250.4,267.7,260.3,257.1,264.3,261.8,269.3,267.8,278.1,278.1,282.0], backgroundColor: '#4db6ac', stack: 's' },
-  { label: 'Diploma & Prof. Qual.',  data: [370.3,378.9,396.8,394.0,426.1,431.1,438.7,429.5,446.7,468.7,464.3,484.1,495.7,497.4,501.1], backgroundColor: '#2d7d9a', stack: 's' },
-  { label: 'University (Degree)',    data: [565.4,589.2,622.2,673.5,699.0,719.4,760.4,810.1,841.0,872.7,916.3,990.3,1014.2,1032.9,1060.5], backgroundColor: '#1a2744', stack: 's' },
-];
-
-const ctx3 = document.getElementById('chart3').getContext('2d');
-new Chart(ctx3, {
-  type: 'bar',
-  data: { labels: lfYears, datasets: lfDatasets },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { position: 'right', labels: { boxWidth: 14, font: { size: 11 }, reverse: true } },
-      tooltip: {
-        callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}K workers`
-        }
-      }
-    },
-    scales: {
-      y: {
-        title: { display: true, text: "Labour Force ('000s)" },
-        stacked: true,
-        grid: { color: '#ebebeb' }
-      },
-      x: {
-        stacked: true,
-        grid: { display: false }
-      }
-    }
-  }
-});
-</script>
-```
-
----
-
-# 7. Insights & Analysis {#sec-analysis}
+# 6. Insights & Analysis {#sec-analysis}
 
 Using the cleaned data and improved visualizations, we derive three key analytical insights:
 
@@ -628,7 +530,7 @@ Degree holders in the resident labour force grew from **565,000 (2010)** to **1,
 
 ---
 
-# 8. Planned Work Distribution {#sec-workdist}
+# 7. Planned Work Distribution {#sec-workdist}
 
 | Team Member | Primary Tasks | Est. Hours |
 |---|---|---|
@@ -642,4 +544,16 @@ Degree holders in the resident labour force grew from **565,000 (2010)** to **1,
 
 ---
 
-*Data sourced from the Singapore Department of Statistics (SingStat) — [data.gov.sg](https://data.gov.sg). Visualization redesign by the project team. Original article by FYT Consultants (September 2025).*
+# 8. References
+
+## 8.1 Article Source
+
+- D. Yuen, “A Data-Driven Look at Singapore’s ‘Graduate Unemployment’ Debate,” fyt-consulting, Sep. 17, 2025. https://www.fytconsultants.com/single-post/a-data-driven-look-at-singapore-s-graduate-unemployment-debate
+
+## 8.2 Data Sources
+
+- Singapore Department of Statistics, 2026, "Singapore Residents Aged 25 Years & Over By Highest Qualification Attained (HQA), Sex And Age Group, Annual", data.gov.sg. Accessed: February 26, 2026. [Online]. Available: https://data.gov.sg/datasets/d_1020b8ee03923042a8ab8e26eef58093/view
+
+- Ministry of Manpower, “Labour Force in Singapore 2024,” Mom.gov.sg, 2024. https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2024.aspx
+
+
