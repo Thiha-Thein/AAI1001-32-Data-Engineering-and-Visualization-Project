@@ -41,13 +41,9 @@ opts_chunk$set(echo = TRUE)
 
 ---
 
-# 1. Introduction and Project Overview {#sec-original}
+## 1. The Chosen Visualization and Its Story
 
-## 1.1 The Story We're Telling
-
-What our project seeks to answer --> what the final visualization will show. This is a concise, one-paragraph summary of the narrative we want to communicate through our visualization. It should be specific about the key insights or messages we aim to convey to our audience. [TO UPDATE]
-
-## 1.2 Source & Context
+### 1.1 Source & Context
 
 The original visualization was published by **FYT Consultants** in a blog post titled *"A Data-Driven Look at Singapore's Graduate Unemployment Debate"* (September 2025), available at:
 
@@ -55,7 +51,7 @@ The original visualization was published by **FYT Consultants** in a blog post t
 
 The underlying data comes from the **Singapore Department of Statistics (SingStat)**, specifically the annual dataset: *Singapore Residents Aged 25 Years and Over by Highest Qualification Attained (HQA), Sex and Age Group*.
 
-## 1.3 The Original Visualization
+### 1.2 The Visualization
 
 ```{=html}
 <div style="text-align:center; margin: 24px 0;">
@@ -71,87 +67,80 @@ The underlying data comes from the **Singapore Department of Statistics (SingSta
 </div>
 ```
 
-### 1.3.1 The Story It Tells
+The visualization selected is a **dual-panel stacked bar chart** titled *"Population by Education and Gender Over Time – 2024"*. The bar chart illustrates Singapore's resident population aged 25 and above, broken down simultaneously across three dimensions:
 
-The visualization is embedded within a broader article arguing that Singapore may be producing **more tertiary graduates than the economy has PMET (Professional, Managerial, Executive & Technical) roles to absorb**. The specific chart displays:
+1. **Age group** - From ages 25–29 years old through to 65 years old & over
+2. **Gender** - Females and Males displayed as adjacent bar pairs within each age group
+3. **Highest Educational Attainment** - University, Diploma & Professional Qualification, Post Secondary (Non-Tertiary), Secondary, and Below Secondary
 
-- The **proportion** (%) of residents in each education level per age group (top stacked bar)  
-- The **absolute count** of male and female residents per age group (bottom bar chart)  
-- Data frozen at **2024**, with 5 education categories and 9 age groups
+The chart comprises of two vertically stacked panels:
 
-Reading left to right, a striking generational divide emerges: residents aged 25–44 are majority university-educated, while those aged 55 and above skew heavily towards below-secondary qualifications. This pattern reflects Singapore's dramatic educational upgrading over four decades.
+- **Top panel (proportional / 100% stacked bars):** Shows the *percentage share* of each education level within a given age–gender group, enabling comparison of educational composition across cohorts.
+- **Bottom panel (absolute count bars):** Shows the *actual number of residents* in each age–gender group, providing population size context that the proportional view alone cannot convey.
+
+### 1.3 The Story Being Told
+
+The visualization narrates a **generational shift in educational attainment in Singapore**. Several narratives emerge when analysing the stacked bar chart:
+
+**Younger cohorts are markedly more educated.** In the 25–34 age bands, University (dark navy) dominates the top proportional panel, exceeding 50% for both males and females. This proportion of university graduates decreases dramatically as the age group increases.
+
+**Older cohorts show high "Below Secondary" and "Secondary" attainment.** The Below Secondary (yellow) education level becomes prominent in the 60–64 and 65+ groups, reflecting limited access to higher levels of education in the earlier decades.
+
+**The 65+ age group is by far the largest in absolute size.** The bottom panel reveals a striking spike in the 65+ bars compared to all other age groups, reflecting Singapore's ageing population and contextualising the large "Below Secondary" proportion in that cohort, representing a numerically substantial group.
+
+**Gender differences in educational attainment are visible but subtle.** In younger cohorts, females and males show comparable university rates; in older cohorts, males sometimes show slightly higher university proportions, reflecting historical gender gaps in access to education.
+
+The bar chart's dual-panel design is the most distinctive structural feature — it attempts to showcase two stories at once; the composition story (top chart), and the population size story (bottom chart).
 
 ---
 
-# 2. Critital Analysis of Original Visualization {#sec-critique}
+## 2. Strengths and Weaknesses
 
-## 2.1 Strengths
+### Strengths
 
-```{=html}
-<div style="border-left: 4px solid #2ecc71; background: #f0faf4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>✅ S1 — Dual encoding of proportion and magnitude</strong><br>
-The top chart shows <em>relative composition</em> (what share each education level holds), while the bottom shows <em>absolute counts</em>. This dual-panel approach lets readers answer two different questions simultaneously — "Which education group dominates?" and "How large is each cohort?" — without requiring a mental switch between chart types.
-</div>
+**S1 — Dual-panel design provides complementary context**
 
-<div style="border-left: 4px solid #2ecc71; background: #f0faf4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>✅ S2 — Intuitive sequential colour palette</strong><br>
-The colour gradient from dark navy (University, highest) through teal, pink, green, to olive-yellow (Below Secondary, lowest) aligns naturally with the education hierarchy. Readers do not need to consult the legend repeatedly — colour itself encodes rank.
-</div>
+The most significant design strength is the pairing of a 100% stacked bar (proportional) with an absolute count bar beneath it. A proportional chart alone can be misleading, whereby a cohort with 80% university graduates might represent only a tiny absolute population. Thus, the bottom panel justifies the misinterpretation by revealing the raw counts, making the 65+ spike immediately apparent. This design decision showcases awareness of a well-known pitfall in compositional visualization.
 
-<div style="border-left: 4px solid #2ecc71; background: #f0faf4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>✅ S3 — Gender disaggregation within each age group</strong><br>
-Separating Male and Female bars within every age group enables direct gender comparison, revealing — for example — that females in the 25–44 range actually have <em>higher</em> university attainment rates than males, a non-obvious finding that would be lost in a gender-aggregated view.
-</div>
+**S2 — Consistent colour encoding across education levels**
 
-<div style="border-left: 4px solid #2ecc71; background: #f0faf4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>✅ S4 — Natural left-to-right generational narrative</strong><br>
-Ordering age groups from youngest (left) to oldest (right) creates an intuitive reading direction that maps onto the flow of time. Viewers naturally follow the education "gradient" as a story of national progress.
-</div>
+The 5 education levels utilized in the visualization are mapped to a sequential–diverging palette, with a legend attached for easy referencing. The dark navy (University) and medium blue (Diploma) occupy the "cool" end of the colour spectrum, while the yellow-green (Below Secondary) anchors the "warm" end. The colour logic illustrated in the visualization is intuitive, whereby darker/cooler tones are associated with higher educational attainment levels and lighter/warmer tones with lower ones, making readability and understanding efficient.
 
-<div style="border-left: 4px solid #2ecc71; background: #f0faf4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>✅ S5 — Provocative, policy-relevant title</strong><br>
-"Too Many Graduates, Too Few PMET Jobs?" frames the data as a question, inviting critical engagement rather than passive reading. It anchors the chart within a live national debate, giving the visualization immediate relevance.
-</div>
-```
+**S3 — Multi-variable analysis in a single chart**
 
-## 2.2 Limitation and Weaknesses
+The chart successfully visualizes the intersectional characteristics of age, gender, and education in a single view from a genuinely complex multidimensional dataset. Alternative data visualization approaches such as faceted line charts and heat maps would require the viewer to toggle between multiple panels to perceive these relationships together.
 
-```{=html}
-<div style="border-left: 4px solid #e74c3c; background: #fdf4f4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>❌ W1 — No temporal dimension</strong><br>
-The chart is a single-year (2024) snapshot. It cannot answer whether educational upgrading is accelerating, plateauing, or reversing. A viewer has no way to know if 58% university attainment in the 25–29 group is a recent surge or a long-standing plateau. The dataset covers 1990–2024 — 34 years of trend data are left completely unused.
-</div>
+**S4 — Clear legend and descriptive subtitle**
 
-<div style="border-left: 4px solid #e74c3c; background: #fdf4f4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>❌ W2 — No labour market linkage</strong><br>
-The title promises a narrative about PMET job supply vs. graduate supply, but the chart only shows the <em>supply side</em> (educational attainment). There is no employment, labour force, or job vacancy data shown. Readers must accept the "oversupply" conclusion on faith, without any demand-side evidence presented visually.
-</div>
+The legend is well-labelled, easy to understand, and directly matches the colour categories used in the bars. The subtitle below the stacked bar chart explains what is being shown in both the top and bottom panels, which is necessary given the chart's complexity for viewers who may not be familiar with the dataset or the intended narrative behind the visualization.
 
-<div style="border-left: 4px solid #e74c3c; background: #fdf4f4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>❌ W3 — Cluttered x-axis with 18 diagonal labels</strong><br>
-Each age group generates two bars (Female, Male), resulting in 18 bars with rotated text. The diagonal labels are hard to read and force viewers to tilt their head. A cleaner layout — such as small multiples or a diverging chart — would eliminate this visual noise while conveying the same information.
-</div>
+---
 
-<div style="border-left: 4px solid #e74c3c; background: #fdf4f4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>❌ W4 — Distorted absolute chart due to the 65+ "catch-all" bin</strong><br>
-The "65 Years & Over" age group accumulates everyone aged 65 to 90+, resulting in a population of ~781,000 — more than double any other 5-year band. This dwarfs all other bars in the absolute count chart, compressing the visual differences between the working-age groups (25–64) that are most relevant to the PMET jobs story.
-</div>
+### Weaknesses
 
-<div style="border-left: 4px solid #e74c3c; background: #fdf4f4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>❌ W5 — Dual-chart misalignment</strong><br>
-The percentage chart (top) and absolute count chart (bottom) share the same x-axis categories but have completely different y-scales and visual logic. There is no visual bridge between them. A reader looking at the top chart cannot intuit population size from it, and vice versa — the connection is implicit at best.
-</div>
+**W1 — Poor readability from severe x-axis label crowding**
 
-<div style="border-left: 4px solid #e74c3c; background: #fdf4f4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>❌ W6 — No annotations or callouts</strong><br>
-Key inflection points — such as the age group where university becomes the majority, or the cohort that first crossed 50% — are not highlighted. Readers must scan all bars and mentally compute thresholds. Strategic annotations would dramatically reduce cognitive load and make the key insight immediately visible.
-</div>
+The age group labels are printed vertically above the top panel, while the gender labels, "Female" and "Male" are rotated vertically below the bottom panel. With 9 age groups × 2 genders = 18 bar pairs, the labels overlap and are difficult to read at normal resolution. Additionally, since there are 9 age groups, the gender labels are printed repeatedly, which can seem overcrowding and redundant. Essentially, the viewer must invest significant effort in tracking which bar belongs to which age group, undermining immediate legibility and understanding.
 
-<div style="border-left: 4px solid #e74c3c; background: #fdf4f4; border-radius:6px; padding: 16px 20px; margin-bottom:16px;">
-<strong>❌ W7 — Only 3 active data dimensions</strong><br>
-The chart encodes: Education Level, Age Group, and Gender — only 3 dimensions. The dataset supports at least 6 (adding: Year, Count vs. Percentage, and linkable Labour Force size). Using so few dimensions on such a rich dataset leaves significant analytical depth unexplored.
-</div>
-```
+**W2 — Visual discontinuity between the two panels**
+
+The top and bottom panels are not visually connected by gridlines, reference lines, nor shading. The viewer must visually and mentally align the bars across the two panels to link a proportional observation (e.g., "older females have high Below Secondary rates") with its absolute count (e.g., "and there are 400K+ of them"). The lack of a linking visual device weakens the narrative connection that is the chart's core strength.
+
+**W3 — Stacked bars make mid-segment comparison almost impossible**
+
+Since (Below Secondary, yellow-green) is the only education level that is anchored to a common baseline (0% and 0K), all other education categories float at varying heights across the different age group bars. For instance, when comparing the "Post Secondary (Non-Tertiary)" share between 35–39 year old females and 55–59 year old males, the viewer is required to estimate the start and end of the floating segment in two different bars, which is a task that is almost impossible for people.
+
+**W4 — The 65+ absolute bar dwarfs all other bars, distorting the bottom panel**
+
+The 65+ cohort is so much larger (400K+) that all other bars in the bottom panel appear compressed and difficult to differentiate. The y-axis scale is set to accommodate the maximum value, which reduces comparative resolution across all other age groups. A log scale or a callout inset for the 65+ group could have mitigated this and improve the overall readability of the absolute panel.
+
+**W5 — No direct value annotations**
+
+Neither panel included data labels or tooltips for all the bars as the visualization appears to be a static export. Consequently, the viewer cannot determine the precise percentages or counts without a reference grid, making it difficult to cite specific values or make quantitative comparisons beyond rough visual estimation.
+
+**W6 — Colour palette has accessibility concerns**
+
+The distinction between the light blue (Diploma & Professional Qualification) and light green (Post Secondary Non-Tertiary) segments is subtle and may be difficult to distinguish for viewers with colour vision deficiencies. The visualization could have utilized a colour palette with greater luminance contrast so as to allow colourblind individuals to view the visualization with greater ease, improving overall inclusivity.
 
 ---
 
