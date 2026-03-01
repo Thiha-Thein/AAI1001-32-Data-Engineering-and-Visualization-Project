@@ -1,5 +1,5 @@
 ---
-title: "Singapore Employment Rate by Education Attaintment Across Age & Gender Visualization & Analysis"
+title: "Singapore Employment Rate by Education Attainment Across Age & Gender"
 subtitle: "AAI1001 Team Project Proposal"
 author: "AAI1001 Team 32"
 date: "26th February 2026"
@@ -7,15 +7,296 @@ format:
   html:
     toc: true
     toc-depth: 3
-    toc-title: "Contents"
+    toc-title: "Table of Contents"
     toc-location: left
-    theme: flatly
     smooth-scroll: true
     embed-resources: true
     code-fold: true
     code-summary: "Show Code"
     fig-width: 9
     fig-height: 5
+    include-in-header:
+      text: |
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+        <style>
+        /* ══════════════════════════════════════════
+           GLOBAL TYPOGRAPHY & COLOUR SYSTEM
+        ══════════════════════════════════════════ */
+        :root {
+          --bg: #fafaf8;
+          --surface: #ffffff;
+          --ink: #18181b;
+          --ink2: #3f3f46;
+          --muted: #71717a;
+          --faint: #e4e4e7;
+          --rule: #d4d4d8;
+          --accent: #1e3a5f;
+          --c1:#5a5a5a; --c2:#0072b2; --c3:#e69f00; --c4:#7b2d8b; --c5:#009e73;
+          --male-col: #1e3a5f; --fem-col: #7c2d12;
+          --male-bg: linear-gradient(to left, #ddeaf8, #eef4fc);
+          --fem-bg:  linear-gradient(to right, #fce8ec, #fdf2f4);
+        }
+        body {
+          font-family: 'IBM Plex Sans', sans-serif;
+          background: var(--bg);
+          color: var(--ink);
+          line-height: 1.75;
+          font-size: 15px;
+        }
+        h1, h2, h3, h4, h5 {
+          font-family: 'Lora', serif;
+          line-height: 1.25;
+          color: var(--ink);
+        }
+        h1 { color: var(--accent); }
+        code, pre, .sourceCode {
+          font-family: 'IBM Plex Mono', monospace !important;
+        }
+        /* TOC font */
+        #TOC { font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; }
+        #TOC a { color: var(--ink2); }
+        #TOC a:hover { color: var(--accent); }
+
+        /* ── SECTION HEADER ACCENT ── */
+        .section-header { border-left: 4px solid var(--accent); padding-left: 18px; margin-bottom: 32px; }
+        .section-header .section-num { font-family: 'IBM Plex Mono', monospace; font-size: .8rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+        .section-header p { font-size: 14px; color: var(--muted); margin-top: 6px; }
+
+        /* ── TABLES (native Quarto + custom imp-table) ── */
+        table { font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; border-collapse: collapse; width: 100%; }
+        thead tr { background: var(--accent); color: white; }
+        thead th { padding: 10px 14px; text-align: left; font-weight: 500; letter-spacing: .03em; }
+        tbody tr { border-bottom: 1px solid var(--faint); }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:nth-child(even) { background: #f4f4f5; }
+        tbody td { padding: 9px 14px; vertical-align: top; line-height: 1.5; }
+        .imp-table-wrap { overflow-x: auto; margin: 20px 0 28px; border: 1px solid var(--rule); border-radius: 8px; }
+        .imp-table-wrap table thead tr { background: var(--accent); color: white; }
+        .imp-table-wrap table tbody td:first-child { font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--accent); white-space: nowrap; }
+
+        /* ── WEAKNESS / STRENGTH BADGES ── */
+        .badge {
+          display: inline-block;
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: 10.5px;
+          font-weight: 600;
+          letter-spacing: .04em;
+          padding: 2px 7px;
+          border-radius: 4px;
+          white-space: nowrap;
+          vertical-align: middle;
+          margin: 1px 2px;
+        }
+        .badge-w { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+        .badge-s { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+        .badge-i { background: #ede9fe; color: #4c1d95; border: 1px solid #c4b5fd; }
+
+        /* ── STRENGTHS PRESERVED CALLOUT ── */
+        .strengths-preserved {
+          background: #ecfdf5;
+          border: 1px solid #6ee7b7;
+          border-left: 4px solid #059669;
+          border-radius: 0 8px 8px 0;
+          padding: 14px 18px;
+          margin: 18px 0 24px;
+          font-size: 13.5px;
+          line-height: 1.65;
+        }
+        .strengths-preserved .sp-title {
+          font-family: 'Lora', serif;
+          font-weight: 600;
+          font-size: 14px;
+          color: #065f46;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+        }
+        .sp-row { display: flex; gap: 10px; align-items: flex-start; padding: 5px 0; }
+        .sp-row + .sp-row { border-top: 1px solid #a7f3d0; }
+        .sp-badge { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #065f46; background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 4px; padding: 1px 6px; flex-shrink: 0; margin-top: 2px; }
+        .sp-text { color: #047857; font-size: 13px; }
+
+        /* ── 3.2 JUSTIFICATION CARDS ── */
+        .justify-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 20px 0 28px; }
+        @media(max-width:640px) { .justify-grid { grid-template-columns: 1fr; } }
+        .jcard { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 18px; position: relative; overflow: hidden; }
+        .jcard::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); border-radius: 10px 10px 0 0; }
+        .jcard-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+        .jcard-title { font-family: 'Lora', serif; font-size: .95rem; font-weight: 600; color: var(--ink); margin-bottom: 7px; line-height: 1.3; }
+        .jcard-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .jcard-body strong { color: var(--ink2); }
+
+        /* ── CUSTOM CALLOUT ── */
+        .callout-custom { border-left: 3px solid var(--accent); background: #eef2f9; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 18px 0; font-size: 14px; }
+        .callout-custom.insight { border-color: #059669; background: #ecfdf5; }
+        .callout-custom strong { display: block; margin-bottom: 4px; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+
+        /* ── DECISION LIST ── */
+        .decision-list { list-style: none; margin: 12px 0 20px; padding: 0; }
+        .decision-list li { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--faint); font-size: 14px; line-height: 1.6; }
+        .decision-list li:last-child { border-bottom: none; }
+        .decision-num { flex-shrink: 0; width: 26px; height: 26px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; margin-top: 1px; }
+
+        /* ── DIM PILLS ── */
+        .dim-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+        .dim-pill { display: flex; align-items: center; gap: 7px; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 12px; font-size: 13px; }
+        .dim-pill .dim-icon { font-size: 16px; }
+        .dim-pill .dim-label { font-weight: 500; color: var(--ink2); }
+
+        /* ── FEATURE GRID ── */
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0 24px; }
+        @media(max-width:600px) { .feature-grid { grid-template-columns: 1fr; } }
+        .feature-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; }
+        .feature-card .fc-title { font-weight: 600; color: var(--ink); margin-bottom: 5px; display: flex; align-items: center; gap: 7px; font-size: 13.5px; }
+        .feature-card p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; }
+
+        /* ═══ VIZ WRAP ═══ */
+        .viz-wrap { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 0 20px 24px; margin: 24px 0; overflow: visible; }
+
+        /* ── CONTROLS BAR ── */
+        .controls-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 16px 0 14px; border-bottom: 1px solid var(--faint); margin-bottom: 16px; }
+        .ctrl-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; white-space: nowrap; }
+        .seg-toggles { display: flex; flex-wrap: wrap; gap: 6px; }
+        .seg-btn { display: flex; align-items: center; gap: 5px; border: 1px solid var(--rule); border-radius: 20px; background: white; padding: 4px 10px; font-size: 12px; font-family: 'IBM Plex Sans', sans-serif; cursor: pointer; transition: all .15s; color: var(--ink2); }
+        .seg-btn .swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+        .seg-btn.active { border-color: transparent; color: white; }
+        .seg-btn.active[data-idx="0"] { background: var(--c1); }
+        .seg-btn.active[data-idx="1"] { background: var(--c2); }
+        .seg-btn.active[data-idx="2"] { background: var(--c3); }
+        .seg-btn.active[data-idx="3"] { background: var(--c4); }
+        .seg-btn.active[data-idx="4"] { background: var(--c5); }
+        .seg-btn:not(.active) { opacity: .45; }
+        .highlight-select { margin-left: auto; display: flex; align-items: center; gap: 8px; position: relative; }
+        .age-filter-btn { font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; border: 1px solid var(--rule); border-radius: 6px; padding: 5px 12px; background: white; color: var(--ink2); cursor: pointer; white-space: nowrap; transition: border-color .15s; }
+        .age-filter-btn:hover, .age-filter-btn.open { border-color: var(--accent); color: var(--accent); }
+        .age-dropdown { position: absolute; top: calc(100% + 6px); right: 0; background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; z-index: 100; box-shadow: 0 6px 24px rgba(0,0,0,.1); min-width: 220px; }
+        .age-dd-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--faint); }
+        .age-dd-action { font-family: 'IBM Plex Sans', sans-serif; font-size: 11px; padding: 2px 8px; border: 1px solid var(--rule); border-radius: 4px; cursor: pointer; background: white; color: var(--accent); font-weight: 500; }
+        .age-dd-action:hover { background: var(--faint); }
+        .age-checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+        .age-cb-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink2); cursor: pointer; padding: 3px 0; }
+        .age-cb-item input[type=checkbox] { accent-color: var(--accent); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0; }
+
+        /* ── GENDER STRIP ── */
+        .gender-strip { display: flex; margin-bottom: 6px; }
+        .gs-male { flex: 1; background: #ddeaf8; border: 1px solid #b8d0ee; border-right: none; border-radius: 6px 0 0 6px; padding: 7px 14px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--male-col); display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
+        .gs-male::after { content: '◀'; font-size: 9px; opacity: .6; }
+        .gs-age { width: 80px; flex-shrink: 0; background: #f0f0f0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); text-align: center; font-size: 10px; font-weight: 600; color: #666; letter-spacing: .05em; text-transform: uppercase; display: flex; align-items: center; justify-content: center; }
+        .gs-fem { flex: 1; background: #fce8ec; border: 1px solid #f0b8c4; border-left: none; border-radius: 0 6px 6px 0; padding: 7px 14px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--fem-col); display: flex; align-items: center; gap: 5px; }
+        .gs-fem::before { content: '▶'; font-size: 9px; opacity: .6; }
+
+        /* ── CHART ROWS ── */
+        .row-group { display: flex; flex-direction: column; gap: 4px; }
+        .chart-row { display: flex; align-items: center; height: 34px; position: relative; border-radius: 4px; }
+        .chart-row.row-hidden { display: none; }
+        .chart-row.highlighted .wing.male { background: linear-gradient(to left, #c8ddf5, #ddeaf8); }
+        .chart-row.highlighted .wing.fem  { background: linear-gradient(to right, #f5c2cc, #fce8ec); }
+        .wing { flex: 1; display: flex; align-items: center; height: 100%; position: relative; }
+        .wing.male { justify-content: flex-end; padding-left: 44px; background: var(--male-bg); border-radius: 4px 0 0 4px; }
+        .wing.fem  { justify-content: flex-start; padding-right: 44px; background: var(--fem-bg); border-radius: 0 4px 4px 0; }
+        .age-col { width: 80px; flex-shrink: 0; text-align: center; font-size: 11.5px; font-weight: 600; color: #444; z-index: 4; background: #ebebeb; height: 100%; display: flex; align-items: center; justify-content: center; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+        .bar-wrap { position: relative; height: 22px; display: flex; align-items: center; flex-shrink: 0; }
+        .stacked { display: flex; height: 100%; border-radius: 3px; overflow: hidden; width: 100%; }
+        .wing.male .stacked { flex-direction: row-reverse; border-radius: 3px 0 0 3px; }
+        .wing.fem  .stacked { flex-direction: row; border-radius: 0 3px 3px 0; }
+        .seg { transition: filter .15s, width .4s cubic-bezier(.22,.68,0,1.2); }
+        .chart-row:hover .seg { filter: brightness(1.08); }
+        .emp-tip { position: absolute; font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; pointer-events: none; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(30,40,60,0.72); padding: 2px 6px; border-radius: 4px; letter-spacing: .02em; }
+        .wing.male .emp-tip { right: calc(100% + 6px); left: auto; }
+        .wing.fem  .emp-tip { left: calc(100% + 6px); right: auto; }
+
+        /* ── AXIS ── */
+        .axis-strip { display: flex; margin-top: 6px; font-size: 10.5px; color: var(--muted); }
+        .ax-half { flex: 1; display: flex; }
+        .ax-half.male { justify-content: flex-end; }
+        .ax-age-gap { width: 80px; flex-shrink: 0; }
+        .tick-list { display: flex; width: 100%; justify-content: space-between; }
+        .x-label { text-align: center; font-size: 11.5px; font-style: italic; color: var(--muted); margin-top: 4px; }
+
+        /* ── LEGEND ── */
+        .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: center; margin-top: 18px; }
+        .leg-item { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+        .leg-swatch { width: 20px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+        .source { font-size: 11px; color: #a1a1aa; text-align: center; margin-top: 14px; letter-spacing: .02em; }
+
+        /* ── TOOLTIP ── */
+        .butterfly-tooltip { position: fixed; background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 12px 16px; font-size: 12px; pointer-events: none; z-index: 9999; min-width: 240px; display: none; box-shadow: 0 8px 28px rgba(0,0,0,.13); }
+        .tt-head { font-family: 'Lora', serif; font-size: 13.5px; margin-bottom: 8px; }
+        .tt-emp { display: flex; justify-content: space-between; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--faint); font-size: 13px; }
+        .tt-row { display: flex; justify-content: space-between; align-items: center; padding: 2.5px 0; gap: 12px; }
+        .tt-lbl { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+        .tt-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+        .tt-val { font-weight: 600; color: var(--ink); font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+        .tt-note { font-size: 10.5px; color: var(--muted); margin-top: 5px; padding-top: 5px; border-top: 1px solid var(--faint); }
+        /* ── SECTION 5: EXTRA COLOUR TOKENS ── */
+        :root {
+          --green: #059669;
+          --amber: #b45309;
+          --red:   #b91c1c;
+          --accent2: #2d6a9f;
+        }
+
+        /* ── CALLOUT COLOUR VARIANTS (green / amber) ── */
+        .callout-custom.green { border-color: var(--green); background: #ecfdf5; }
+        .callout-custom.amber { border-color: var(--amber); background: #fffbeb; }
+        .callout-custom.green strong { color: var(--green); }
+        .callout-custom.amber strong { color: var(--amber); }
+
+        /* ── DATASET CARDS ── */
+        .ds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0 28px; }
+        @media(max-width:640px) { .ds-grid { grid-template-columns: 1fr; } }
+        .ds-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 18px 14px; position: relative; overflow: hidden; }
+        .ds-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); border-radius: 10px 10px 0 0; }
+        .ds-badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+        .ds-title { font-family: 'Lora', serif; font-size: .95rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; line-height: 1.35; }
+        .ds-meta { font-size: 12px; color: var(--muted); line-height: 1.6; }
+        .ds-meta strong { color: var(--ink2); }
+        .ds-tag { display: inline-block; background: #f0f4f8; border: 1px solid var(--rule); border-radius: 4px; font-size: 11px; padding: 1px 7px; margin: 3px 2px 0 0; color: var(--ink2); font-family: 'IBM Plex Mono', monospace; }
+
+        /* ── PIPELINE STEPS ── */
+        .pipeline-wrap { margin: 20px 0 28px; }
+        .pipe-step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--faint); }
+        .pipe-step:last-child { border-bottom: none; }
+        .pipe-num { flex-shrink: 0; width: 34px; height: 34px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; margin-top: 1px; font-family: 'IBM Plex Mono', monospace; }
+        .pipe-body { flex: 1; }
+        .pipe-title { font-weight: 600; color: var(--ink); font-size: 14.5px; margin-bottom: 4px; }
+        .pipe-desc { font-size: 13.5px; color: var(--ink2); line-height: 1.6; }
+        .pipe-desc code { font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #f1f5f9; padding: 1px 5px; border-radius: 3px; color: var(--accent2); }
+        .pipe-tags { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 5px; }
+        .pipe-tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; background: #eef2f9; border: 1px solid #c7d5e8; color: var(--accent); padding: 2px 8px; border-radius: 4px; }
+
+        /* ── CHALLENGE TABLE ── */
+        .challenge-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 16px 0 24px; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+        .challenge-table thead tr { background: var(--accent); color: white; }
+        .challenge-table thead th { padding: 10px 14px; text-align: left; font-weight: 500; letter-spacing: .03em; }
+        .challenge-table tbody tr { border-bottom: 1px solid var(--faint); }
+        .challenge-table tbody tr:last-child { border-bottom: none; }
+        .challenge-table tbody tr:nth-child(even) { background: #f7f8fa; }
+        .challenge-table tbody td { padding: 10px 14px; vertical-align: top; line-height: 1.55; }
+        .challenge-table tbody td:first-child { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--accent2); white-space: nowrap; font-weight: 500; }
+        .sev-high { color: var(--red);   font-weight: 600; }
+        .sev-med  { color: var(--amber); font-weight: 600; }
+        .sev-low  { color: var(--green); font-weight: 600; }
+
+        /* ── OUTPUT SCHEMA CARDS ── */
+        .schema-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 24px; }
+        @media(max-width:600px) { .schema-wrap { grid-template-columns: 1fr; } }
+        .schema-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; }
+        .schema-card .sc-head { font-weight: 700; font-size: 13px; color: var(--ink); margin-bottom: 8px; border-bottom: 1px solid var(--faint); padding-bottom: 6px; font-family: 'IBM Plex Mono', monospace; }
+        .schema-card .sc-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12.5px; }
+        .schema-card .sc-col { color: var(--accent2); font-family: 'IBM Plex Mono', monospace; }
+        .schema-card .sc-type { color: var(--muted); font-size: 11.5px; }
+        .schema-card .sc-note { font-size: 11.5px; color: var(--muted); margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--faint); line-height: 1.5; }
+
+        /* ── REPRODUCIBILITY CARDS ── */
+        .repro-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0 24px; }
+        @media(max-width:640px) { .repro-grid { grid-template-columns: 1fr; } }
+        .repro-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; }
+        .repro-card .rc-icon  { font-size: 22px; margin-bottom: 7px; display: block; }
+        .repro-card .rc-title { font-weight: 600; font-size: 13.5px; color: var(--ink); margin-bottom: 5px; }
+        .repro-card .rc-body  { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+        </style>
 execute:
   echo: true
   warning: false
@@ -31,19 +312,33 @@ opts_chunk$set(echo = TRUE)
 
 # Team Information
 
-|Name|Student ID|
+| Name | Student ID |
 |---|---|
-|Adheesh|2500670|
-|Shannon|2403263|
-|Thiha Thein|2502266|
-|Jing Hong|2503049|
-|Zafri|2403108|
+| Adheesh | 2500670 |
+| Shannon | 2403263 |
+| Thiha Thein | 2502266 |
+| Jing Hong | 2503049 |
+| Zafri | 2403108 |
 
 ---
 
-## 1. The Chosen Visualization and Its Story
+# 1. Introduction and Project Overview {#sec-original}
 
-### 1.1 Source & Context
+## 1.1 The Story We're Telling
+
+Singapore's workforce has undergone a profound educational transformation over the past three decades. University-educated workers now make up the majority of employed residents in the 25–44 age bands, yet public debate continues to ask whether the labour market has truly absorbed this surge in graduate supply — or whether a structural mismatch has quietly emerged between qualifications and available jobs.
+
+Our project seeks to answer three interrelated questions using official 2024 Ministry of Manpower data. 
+
+**First**, how does educational attainment among *employed* Singaporeans actually vary across age groups — and does the composition differ meaningfully from what population-level data alone suggests?
+
+**Second**, are there meaningful gender gaps in the education–employment relationship that aggregate statistics conceal? The original visualization hints at gender differences but its crowded layout makes them impossible to quantify.
+
+**Third**, does employment rate data by age and sex support or challenge the narrative that younger, highly educated cohorts face disproportionate labour market difficulty?
+
+Our improved chart aims answers all three questions in a single view by encoding four dimensions simultaneously: age group, sex, employment rate, and education composition. The redesign moves beyond the original chart's population-count framing to focus on the *employed* resident workforce, revealing where educational capital is concentrated, where gender gaps are widest, and which cohorts — if any — show signs of underemployment relative to their qualifications.
+
+## 1.2 Source & Context
 
 The original visualization was published by **FYT Consultants** in a blog post titled *"A Data-Driven Look at Singapore's Graduate Unemployment Debate"* (September 2025), available at:
 
@@ -51,34 +346,37 @@ The original visualization was published by **FYT Consultants** in a blog post t
 
 The underlying data comes from the **Singapore Department of Statistics (SingStat)**, specifically the annual dataset: *Singapore Residents Aged 25 Years and Over by Highest Qualification Attained (HQA), Sex and Age Group*.
 
-### 1.2 The Visualization
+## 1.2 Our Chosen Visualization
 
 ```{=html}
 <div style="text-align:center; margin: 24px 0;">
-  <img 
+  <img
     src="https://static.wixstatic.com/media/420198_c8e3f9f7fe3141eca81e18827ad2472d~mv2.png/v1/fill/w_705,h_1004,al_c,q_90,enc_avif,quality_auto/420198_c8e3f9f7fe3141eca81e18827ad2472d~mv2.png"
     alt="Original Visualization: Population by Education and Gender Over Time – 2024"
     style="max-width: 480px; width: 100%; border: 1px solid #dee2e6; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);"
   />
   <p style="color: #666; font-size: 0.88rem; margin-top: 10px;">
-    <em>Figure 1: Original Tableau visualization — "Population by Education and Gender Over Time – 2024"</em><br>
+    <em>Figure 1: Original Tableau Visualization — "Population by Education and Gender Over Time – 2024"</em><br>
     Source: FYT Consultants / Singapore Department of Statistics
   </p>
 </div>
 ```
 
+
+### 1.2.1 Visualization Structure and Design
+
 The visualization selected is a **dual-panel stacked bar chart** titled *"Population by Education and Gender Over Time – 2024"*. The bar chart illustrates Singapore's resident population aged 25 and above, broken down simultaneously across three dimensions:
 
-1. **Age group** - From ages 25–29 years old through to 65 years old & over
-2. **Gender** - Females and Males displayed as adjacent bar pairs within each age group
-3. **Highest Educational Attainment** - University, Diploma & Professional Qualification, Post Secondary (Non-Tertiary), Secondary, and Below Secondary
+1. **Age group** — From ages 25–29 years old through to 65 years old & over
+2. **Gender** — Females and Males displayed as adjacent bar pairs within each age group
+3. **Highest Educational Attainment** — University, Diploma & Professional Qualification, Post Secondary (Non-Tertiary), Secondary, and Below Secondary
 
-The chart comprises of two vertically stacked panels:
+The chart comprises two vertically stacked panels:
 
 - **Top panel (proportional / 100% stacked bars):** Shows the *percentage share* of each education level within a given age–gender group, enabling comparison of educational composition across cohorts.
 - **Bottom panel (absolute count bars):** Shows the *actual number of residents* in each age–gender group, providing population size context that the proportional view alone cannot convey.
 
-### 1.3 The Story Being Told
+### 1.2.2 The Story It Tells
 
 The visualization narrates a **generational shift in educational attainment in Singapore**. Several narratives emerge when analysing the stacked bar chart:
 
@@ -86,432 +384,935 @@ The visualization narrates a **generational shift in educational attainment in S
 
 **Older cohorts show high "Below Secondary" and "Secondary" attainment.** The Below Secondary (yellow) education level becomes prominent in the 60–64 and 65+ groups, reflecting limited access to higher levels of education in the earlier decades.
 
-**The 65+ age group is by far the largest in absolute size.** The bottom panel reveals a striking spike in the 65+ bars compared to all other age groups, reflecting Singapore's ageing population and contextualising the large "Below Secondary" proportion in that cohort, representing a numerically substantial group.
+**The 65+ age group is by far the largest in absolute size.** The bottom panel reveals a striking spike in the 65+ bars compared to all other age groups, reflecting Singapore's ageing population and contextualising the large "Below Secondary" proportion in that cohort.
 
 **Gender differences in educational attainment are visible but subtle.** In younger cohorts, females and males show comparable university rates; in older cohorts, males sometimes show slightly higher university proportions, reflecting historical gender gaps in access to education.
 
-The bar chart's dual-panel design is the most distinctive structural feature — it attempts to showcase two stories at once; the composition story (top chart), and the population size story (bottom chart).
+The bar chart's dual-panel design is the most distinctive structural feature — it attempts to showcase two stories at once: the composition story (top chart) and the population size story (bottom chart).
 
 ---
 
-## 2. Strengths and Weaknesses
+# 2.  Critical Analysis of Original Visualization {#sec-analysis}
 
-### Strengths
+## Strengths
 
-**S1 — Dual-panel design provides complementary context**
+The original visualizaiton demonstrates several effective design choices:
 
-The most significant design strength is the pairing of a 100% stacked bar (proportional) with an absolute count bar beneath it. A proportional chart alone can be misleading, whereby a cohort with 80% university graduates might represent only a tiny absolute population. Thus, the bottom panel justifies the misinterpretation by revealing the raw counts, making the 65+ spike immediately apparent. This design decision showcases awareness of a well-known pitfall in compositional visualization.
+**#1. Dual-panel design provides complementary context**
 
-**S2 — Consistent colour encoding across education levels**
+The most significant design strength is the pairing of a 100% stacked bar (proportional) with an absolute count bar beneath it. A proportional chart alone can be misleading — a cohort with 80% university graduates might represent only a tiny absolute population. Thus, the bottom panel mitigates misinterpretation by revealing the raw counts, making the 65+ spike immediately apparent. This design decision showcases awareness of a well-known pitfall in compositional visualization.
 
-The 5 education levels utilized in the visualization are mapped to a sequential–diverging palette, with a legend attached for easy referencing. The dark navy (University) and medium blue (Diploma) occupy the "cool" end of the colour spectrum, while the yellow-green (Below Secondary) anchors the "warm" end. The colour logic illustrated in the visualization is intuitive, whereby darker/cooler tones are associated with higher educational attainment levels and lighter/warmer tones with lower ones, making readability and understanding efficient.
+**#2. Consistent colour encoding across education levels**
 
-**S3 — Multi-variable analysis in a single chart**
+The 5 education levels are mapped to a sequential–diverging palette, with a legend attached for easy referencing. The dark navy (University) and medium blue (Diploma) occupy the "cool" end of the spectrum, while the yellow-green (Below Secondary) anchors the "warm" end. The colour logic is intuitive — darker/cooler tones are associated with higher attainment — making readability efficient.
 
-The chart successfully visualizes the intersectional characteristics of age, gender, and education in a single view from a genuinely complex multidimensional dataset. Alternative data visualization approaches such as faceted line charts and heat maps would require the viewer to toggle between multiple panels to perceive these relationships together.
+**#3. Multi-variable analysis in a single chart**
 
-**S4 — Clear legend and descriptive subtitle**
+The chart successfully visualizes the intersectional characteristics of age, gender, and education in a single view from a genuinely complex multidimensional dataset. Alternative approaches such as faceted line charts or heat maps would require the viewer to toggle between multiple panels to perceive these relationships together.
 
-The legend is well-labelled, easy to understand, and directly matches the colour categories used in the bars. The subtitle below the stacked bar chart explains what is being shown in both the top and bottom panels, which is necessary given the chart's complexity for viewers who may not be familiar with the dataset or the intended narrative behind the visualization.
+**#4. Clear legend and descriptive subtitle**
+
+The legend is well-labelled, easy to understand, and directly matches the colour categories used in the bars. The subtitle explains what is being shown in both panels, which is necessary given the chart's complexity.
 
 ---
 
-### Weaknesses
+## Weaknesses
 
-**W1 — Poor readability from severe x-axis label crowding**
+Despite its strengths, the original visualzization also has significant limitations that reduce its analytical value:
 
-The age group labels are printed vertically above the top panel, while the gender labels, "Female" and "Male" are rotated vertically below the bottom panel. With 9 age groups × 2 genders = 18 bar pairs, the labels overlap and are difficult to read at normal resolution. Additionally, since there are 9 age groups, the gender labels are printed repeatedly, which can seem overcrowding and redundant. Essentially, the viewer must invest significant effort in tracking which bar belongs to which age group, undermining immediate legibility and understanding.
+**#1. Poor readability from severe x-axis label crowding**
 
-**W2 — Visual discontinuity between the two panels**
+The age group labels are printed vertically above the top panel, while the gender labels ("Female" and "Male") are rotated vertically below the bottom panel. With 9 age groups × 2 genders = 18 bar pairs, the labels overlap and are difficult to read at normal resolution. The viewer must invest significant effort tracking which bar belongs to which age group.
 
-The top and bottom panels are not visually connected by gridlines, reference lines, nor shading. The viewer must visually and mentally align the bars across the two panels to link a proportional observation (e.g., "older females have high Below Secondary rates") with its absolute count (e.g., "and there are 400K+ of them"). The lack of a linking visual device weakens the narrative connection that is the chart's core strength.
+**#2. Visual discontinuity between the two panels**
 
-**W3 — Stacked bars make mid-segment comparison almost impossible**
+The top and bottom panels are not visually connected by gridlines, reference lines, or shading. The viewer must mentally align bars across the two panels to link a proportional observation with its absolute count. The lack of a linking visual device weakens the narrative connection that is the chart's core strength.
 
-Since (Below Secondary, yellow-green) is the only education level that is anchored to a common baseline (0% and 0K), all other education categories float at varying heights across the different age group bars. For instance, when comparing the "Post Secondary (Non-Tertiary)" share between 35–39 year old females and 55–59 year old males, the viewer is required to estimate the start and end of the floating segment in two different bars, which is a task that is almost impossible for people.
+**#3. Stacked bars make mid-segment comparison almost impossible**
 
-**W4 — The 65+ absolute bar dwarfs all other bars, distorting the bottom panel**
+Since "Below Secondary" is the only category anchored to a common baseline (0%), all other education levels float at varying heights. Comparing the "Post Secondary (Non-Tertiary)" share between, say, 35–39 year-old females and 55–59 year-old males requires estimating floating segment boundaries across two different bars — a task that is cognitively very demanding.
 
-The 65+ cohort is so much larger (400K+) that all other bars in the bottom panel appear compressed and difficult to differentiate. The y-axis scale is set to accommodate the maximum value, which reduces comparative resolution across all other age groups. A log scale or a callout inset for the 65+ group could have mitigated this and improve the overall readability of the absolute panel.
+**#4. The 65+ absolute bar dwarfs all other bars, distorting the bottom panel**
 
-**W5 — No direct value annotations**
+The 65+ cohort is so much larger (400K+) that all other bars in the bottom panel appear compressed. The y-axis scale accommodates the maximum value, reducing comparative resolution across all other age groups.
 
-Neither panel included data labels or tooltips for all the bars as the visualization appears to be a static export. Consequently, the viewer cannot determine the precise percentages or counts without a reference grid, making it difficult to cite specific values or make quantitative comparisons beyond rough visual estimation.
+**#5. No direct value annotations**
 
-**W6 — Colour palette has accessibility concerns**
+Neither panel includes data labels or tooltips, as the visualization is a static export. The viewer cannot determine precise percentages or counts without a reference grid.
 
-The distinction between the light blue (Diploma & Professional Qualification) and light green (Post Secondary Non-Tertiary) segments is subtle and may be difficult to distinguish for viewers with colour vision deficiencies. The visualization could have utilized a colour palette with greater luminance contrast so as to allow colourblind individuals to view the visualization with greater ease, improving overall inclusivity.
+**#6. Colour palette has accessibility concerns**
+
+The distinction between the light blue (Diploma & Professional Qualification) and light green (Post Secondary Non-Tertiary) segments is subtle and may be difficult for viewers with colour vision deficiencies.
 
 ---
 
 # 3. Proposed Improvements {#sec-improvements}
 
-## 3.1 Enhancement Strategy 
+## 3.1 Enhancement Strategy
 
-Based on the weaknesses identified above, we propose five concrete improvements:
+Based on the six weaknesses identified in Section 2, we propose six concrete, targeted improvements. The table below maps each improvement to the weakness it directly addresses, and notes which original strengths are preserved.
 
-| # | Weakness Addressed | Improvement | Method |
-|---|---|---|---|
-| I1 | W1 — No time trend | Add a time-series chart (2000–2024) showing university attainment % rising by age cohort | Line chart, Chart.js |
-| I2 | W2 — No labour market data | Add labour force composition by education (2010–2024) to show demand-side context | Stacked area/bar chart |
-| I3 | W3, W4 — Layout clutter, distortion | Replace the dual-panel with a diverging butterfly chart (Females ← → Males), excluding 65+ outlier where appropriate | Horizontal diverging bar |
-| I4 | W6 — No annotations | Add threshold line at 50% and call out the year each cohort crossed majority-graduate status | Annotation layer |
-| I5 | W7 — Few dimensions | Encode 6 dimensions: Age Group, Education, Gender, Year, Count, Labour Force Size | Multi-chart dashboard |
+```{=html}
+<div class="imp-table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Weakness Addressed</th>
+      <th>Improvement</th>
+      <th>Method / Technique</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>I1</td>
+      <td><span class="badge badge-w">W1</span></td>
+      <td>Replace rotated age labels with a centred spine column between the two wings. Every label is horizontal, legible, and visually anchored between its male and female bars — the butterfly spine eliminates the 18-label crowding entirely.</td>
+      <td>Flexbox butterfly layout; fixed-width centre column</td>
+    </tr>
+    <tr>
+      <td>I2</td>
+      <td><span class="badge badge-w">W2</span> <span class="badge badge-w">W3</span></td>
+      <td>Merge the two panels into one dual-encoded bar: width encodes employment rate (%), fill encodes education composition (%). Dual encoding eliminates panel discontinuity (W2) and anchors all segments to a consistent proportional baseline (W3).</td>
+      <td>Dual-encoding on a single bar axis</td>
+    </tr>
+    <tr>
+      <td>I3</td>
+      <td><span class="badge badge-w">W3</span></td>
+      <td>Segment visibility toggle — clicking any education category recalculates the remaining proportions to sum to 100%, enabling direct comparison of selected categories on a consistent scale without floating baselines.</td>
+      <td>Interactive segment filter; live proportion recalculation</td>
+    </tr>
+    <tr>
+      <td>I4</td>
+      <td><span class="badge badge-w">W4</span></td>
+      <td>Encode employment rate as bar <em>width</em> (0–100%) rather than absolute count. The 65+ and 70+ cohorts naturally produce shorter bars due to lower participation, eliminating the axis distortion caused by the 65+ population spike.</td>
+      <td>Rate-normalised bar width instead of absolute count axis</td>
+    </tr>
+    <tr>
+      <td>I5</td>
+      <td><span class="badge badge-w">W5</span></td>
+      <td>Employment rate printed directly as a pill label at each bar end. Hovering reveals a tooltip with the exact rate and all active education breakdowns to 2 d.p., recalculated for visible segments — surfacing values that were invisible in the static original.</td>
+      <td>Inline bar-end pill labels; floating rich tooltip on hover</td>
+    </tr>
+    <tr>
+      <td>I6</td>
+      <td><span class="badge badge-w">W6</span></td>
+      <td>Replace the original palette with the Wong (2011) colourblind-safe set: Dark Gray, Blue, Orange, Purple, Green — each pair maintaining sufficient luminance contrast under deuteranopia and protanopia. Segment toggle further reduces colour dependency.</td>
+      <td>Wong (2011) CB-safe palette; interactive segment isolation</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="strengths-preserved">
+  <div class="sp-title">✅ Original Strengths Preserved</div>
+  <div class="sp-row">
+    <span class="sp-badge">S1</span>
+    <span class="sp-text"><strong>Gender comparison retained.</strong> The butterfly layout keeps males and females in direct visual opposition about a shared age spine — the core comparative intent of the original is maintained, and actually strengthened by eliminating label clutter.</span>
+  </div>
+  <div class="sp-row">
+    <span class="sp-badge">S2</span>
+    <span class="sp-text"><strong>Colour encoding consistent.</strong> Education levels retain a consistent colour identity across all bars. The Wong palette replaces the original while preserving the principle of one colour per education category, with the added benefit of colourblind accessibility.</span>
+  </div>
+  <div class="sp-row">
+    <span class="sp-badge">S3</span>
+    <span class="sp-text"><strong>Single multi-variable view.</strong> Age, gender, employment rate, and education composition are all visible simultaneously in one chart — no panel-switching required. The redesign adds a fourth dimension (employment rate) while keeping the single-view principle intact.</span>
+  </div>
+</div>
+```
 
 ## 3.2 Justification for Redesign Approach
 
-Rather than reconstructing the Tableau chart identically, we redesign it as an **interactive HTML dashboard** (rendered in Quarto). This is justified because:
+Rather than reconstructing the original Tableau chart identically, we redesign it as a fully interactive HTML visualization. Three core principles underpin this decision:
 
-1. The original is a static image with no interactivity; tooltips and filters greatly enhance explorability
-2. A Quarto document allows the visualization and its explanation to coexist — fulfilling both the "effective communication" and "aesthetically pleasing and professional" requirements
-3. The enriched dataset (Labour Force + Employment Rate) adds dimensions that cannot be shoe-horned into the original's layout without a redesign
+```{=html}
+<div class="justify-grid">
+  <div class="jcard">
+    <span class="jcard-icon">🔄</span>
+    <div class="jcard-title">Interactivity Resolves Structural Weaknesses</div>
+    <div class="jcard-body">The original is a <strong>static image</strong>. As identified in W3 and W5, the inability to isolate segments or surface exact values is a structural limitation of the static format — not a design choice. An interactive redesign resolves these directly: segment toggles anchor floating comparisons, and hover tooltips surface precise values on demand.</div>
+  </div>
+  <div class="jcard">
+    <span class="jcard-icon">📐</span>
+    <div class="jcard-title">Dual Encoding Adds a Labour Market Dimension</div>
+    <div class="jcard-body">The original encodes only education composition. Our redesign layers in <strong>employment rates from MOM Table B1</strong>, adding a critical labour-market dimension. Bar width now encodes participation while fill encodes composition — simultaneously answering "who is employed?" and "how educated are they?" without requiring a second panel.</div>
+  </div>
+  <div class="jcard">
+    <span class="jcard-icon">💡</span>
+    <div class="jcard-title">Self-Annotating Chart Integrates Explanation</div>
+    <div class="jcard-body">Controls, tooltips, and inline bar-end labels <strong>replace the need for a separate narrative</strong>. The chart is self-annotating — a reader can extract precise values, filter by cohort, and isolate education segments without leaving the visual. This fulfils both the "effective communication" and "aesthetically pleasing and professional" criteria simultaneously.</div>
+  </div>
+</div>
+
+<div class="callout-custom insight">
+  <strong>🔍 Design Principle</strong>
+  The butterfly (diverging bar) layout eliminates the 18-label crowding problem while preserving the gender comparison that was the core intent of the original. The mirror-image structure is perceptually natural — viewers read left as one group and right as another, with the central age spine as the reference point.
+</div>
+```
 
 ## 3.3 Proposed Visualization Design
 
-### Interactive Horizontally Stacked Butterfly Chart
+### 3.3.1 Interactive Butterfly Chart — Employment Rate by Age, Gender & Education Level (2024)
 
-*Chart Type*: Butterfly Chart with interactive filters and tooltip features
-
-*Visual Design structure*:
-
-The three charts below constitute our improved visualization. They are fully interactive (hover for values) and together encode **6 dimensions**: Age Group, Education Level, Gender, Year, Population Count, and Labour Force Size.
+The visualization below encodes **four dimensions simultaneously**: age group, gender, employment rate, and education level share. Hovering over any bar reveals the exact employment rate and the precise percentage breakdown across visible education categories for that age × gender group.
 
 ```{=html}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
-<style>
-  .viz-section {
-    background: #f8f9fc;
-    border: 1px solid #dee2e6;
-    border-radius: 10px;
-    padding: 24px 28px;
-    margin: 28px 0;
-  }
-  .viz-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #1a2744;
-    margin-bottom: 4px;
-  }
-  .viz-subtitle {
-    font-size: 0.85rem;
-    color: #6c757d;
-    margin-bottom: 18px;
-  }
-  .insight-pill {
-    display: inline-block;
-    background: #1a2744;
-    color: white;
-    font-size: 0.78rem;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-  }
-  .improvement-tag {
-    display: inline-block;
-    background: #2d7d9a;
-    color: white;
-    font-size: 0.75rem;
-    padding: 2px 10px;
-    border-radius: 12px;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-  .annotation-50 {
-    font-size:0.82rem; color:#888; font-style:italic; margin-top:8px;
-  }
-</style>
-
-<!-- ══════════════════════════════════════════════
-     CHART 2 — Diverging butterfly (2024, 30–34 age group)
-     Improvement: Replaces cluttered dual-chart (W3), excludes 65+ distortion (W4)
-═══════════════════════════════════════════════ -->
-<div class="viz-section">
-  <div class="viz-title">
-    Chart 2: Education Breakdown by Gender — Age 30–34 (2024)
-    <span class="improvement-tag">Improves W3: Cleaner gender layout</span>
-    <span class="improvement-tag">Improves W4: Working-age focus</span>
-  </div>
-  <div class="viz-subtitle">
-    Diverging bar chart: females extend left (orange), males extend right (navy). 
-    Bars show number of residents. In the 30–34 group, females outpace males in university attainment (65.9% vs 57.7%).
-  </div>
-  <canvas id="chart2" height="160"></canvas>
-  <p class="annotation-50">
-    💡 <strong>Key insight:</strong> Among 30–34 year olds, there are 100,500 female university graduates 
-    vs 81,200 male — females have both a higher share (65.9%) and higher absolute count. 
-    The original chart's layout made this near-impossible to see clearly.
-  </p>
+<div class="dim-grid">
+  <div class="dim-pill"><span class="dim-icon">👥</span><span class="dim-label">Age Group <span style="font-weight:300;font-size:12px">(y-axis, 12 groups)</span></span></div>
+  <div class="dim-pill"><span class="dim-icon">⚧</span><span class="dim-label">Gender <span style="font-weight:300;font-size:12px">(left / right wings)</span></span></div>
+  <div class="dim-pill"><span class="dim-icon">📊</span><span class="dim-label">Employment Rate % <span style="font-weight:300;font-size:12px">(bar width)</span></span></div>
+  <div class="dim-pill"><span class="dim-icon">🎓</span><span class="dim-label">Education Share % <span style="font-weight:300;font-size:12px">(stacked fill colour)</span></span></div>
 </div>
 
+<!-- ═══ INTERACTIVE BUTTERFLY CHART ═══ -->
+<div class="viz-wrap">
+  <div class="controls-bar">
+    <span class="ctrl-label">Show segments:</span>
+    <div class="seg-toggles" id="segToggles"></div>
+    <div class="highlight-select">
+      <span class="ctrl-label">Filter ages:</span>
+      <button id="ageFilterBtn" class="age-filter-btn">All ages ▾</button>
+      <div id="ageDropdown" class="age-dropdown" style="display:none;">
+        <div class="age-dd-header">
+          <span style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Select age groups</span>
+          <div style="display:flex;gap:6px;">
+            <button class="age-dd-action" id="selectAll">All</button>
+            <button class="age-dd-action" id="clearAll">Clear</button>
+          </div>
+        </div>
+        <div class="age-checkbox-grid" id="ageCheckboxes"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gender-strip">
+    <div class="gs-male">Male</div>
+    <div class="gs-age">Age</div>
+    <div class="gs-fem">Female</div>
+  </div>
+
+  <div class="row-group" id="rowGroup"></div>
+  <div class="axis-strip" id="axisTicks"></div>
+  <div class="x-label">Employment Rate (%)</div>
+  <div class="legend" id="legend"></div>
+  <p class="source">Source: MOM Comprehensive Labour Force Survey 2024 · Table B1 (employment rates by age and sex) · Table G4 (education counts by age and sex) · Manpower Research &amp; Statistics Department, Ministry of Manpower, Singapore.</p>
+</div>
+
+<div class="butterfly-tooltip" id="butterfly-tooltip"></div>
+
 <script>
-// ── Shared colour palette ──────────────────────────────────────
-const EDU_COLORS = {
-  'University':                         '#1a2744',
-  'Diploma & Prof. Qual.':              '#2d7d9a',
-  'Post-Secondary (Non-Tert.)':         '#4db6ac',
-  'Secondary':                          '#78909c',
-  'Below Secondary':                    '#b0bec5',
-};
+(function() {
+  const EDU_LABELS = ["Below Secondary","Secondary","Post-Secondary (Non-Tertiary)","Diploma & Professional Qual.","Degree"];
+  const EDU_COLORS = ["#5a5a5a","#0072b2","#e69f00","#7b2d8b","#009e73"];
+  const AGE_GROUPS = ["15\u201319","20\u201324","25\u201329","30\u201334","35\u201339","40\u201344","45\u201349","50\u201354","55\u201359","60\u201364","65\u201369","70 & Over"];
 
-// ══════════════════════════════════════════════════════════
-// CHART 2 DATA — Diverging butterfly, 30-34 age group, 2024
-// ══════════════════════════════════════════════════════════
-const eduLabels = ['Below Secondary', 'Secondary', 'Post-Secondary\n(Non-Tert.)', 'Diploma &\nProf. Qual.', 'University'];
-const maleData   = [3000,  10200, 13400, 32800, 81200];
-const femaleData = [-4000, -8300, -8300,-31300,-100500];
+  const EMP = {
+    Male:  {"15\u201319":15.2,"20\u201324":52.0,"25\u201329":81.8,"30\u201334":93.3,"35\u201339":95.2,"40\u201344":94.9,"45\u201349":93.6,"50\u201354":89.7,"55\u201359":84.6,"60\u201364":76.0,"65\u201369":58.8,"70 & Over":28.8},
+    Female:{"15\u201319":8.5, "20\u201324":47.9,"25\u201329":89.2,"30\u201334":89.6,"35\u201339":86.0,"40\u201344":84.1,"45\u201349":79.7,"50\u201354":77.2,"55\u201359":66.0,"60\u201364":56.3,"65\u201369":40.1,"70 & Over":17.1}
+  };
 
-const ctx2 = document.getElementById('chart2').getContext('2d');
-new Chart(ctx2, {
-  type: 'bar',
-  data: {
-    labels: ['Below\nSecondary','Secondary','Post-Secondary\n(Non-Tert.)','Diploma &\nProf. Qual.','University'],
-    datasets: [
-      { label: 'Males',   data: maleData,   backgroundColor: '#1a2744', borderRadius: 4 },
-      { label: 'Females', data: femaleData, backgroundColor: '#e67e22', borderRadius: 4 }
-    ]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      legend: { position: 'top', labels: { boxWidth: 14, font: { size: 11 } } },
-      tooltip: {
-        callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${Math.abs(ctx.parsed.x).toLocaleString()} residents`
-        }
-      }
-    },
-    scales: {
-      x: {
-        title: { display: true, text: '← Females   |   Males →' },
-        ticks: { callback: v => Math.abs(v).toLocaleString() },
-        grid: { color: '#ebebeb' }
-      },
-      y: { grid: { display: false } }
-    }
+  const EDU_RAW = {
+    Male:  {"15\u201319":[1.1,5.8,8.7,0.8,0.0],"20\u201324":[0.9,6.0,19.8,29.9,2.5],"25\u201329":[1.4,6.2,11.0,29.1,51.5],"30\u201334":[2.3,9.5,12.0,30.8,77.7],"35\u201339":[3.4,9.1,12.5,29.5,85.4],"40\u201344":[4.7,10.9,12.7,30.4,84.3],"45\u201349":[7.9,14.2,9.6,29.6,73.4],"50\u201354":[11.7,19.9,14.0,27.1,62.7],"55\u201359":[24.2,22.9,15.2,19.1,39.2],"60\u201364":[33.8,27.1,17.4,13.4,22.8],"65\u201369":[28.7,18.9,12.5,8.5,8.8],"70 & Over":[30.3,12.9,11.0,5.5,6.3]},
+    Female:{"15\u201319":[0.9,4.5,2.8,0.5,0.0],"20\u201324":[0.5,3.7,8.8,18.2,16.2],"25\u201329":[0.8,3.7,5.5,25.0,69.6],"30\u201334":[2.1,6.7,6.7,27.3,94.4],"35\u201339":[3.4,10.0,6.3,28.2,94.4],"40\u201344":[6.3,12.2,8.7,32.1,82.7],"45\u201349":[7.7,16.0,10.1,32.2,62.0],"50\u201354":[13.3,22.2,16.1,26.0,47.7],"55\u201359":[17.7,22.9,16.0,17.6,25.4],"60\u201364":[24.3,24.2,13.7,11.9,14.0],"65\u201369":[19.7,14.8,11.9,6.0,4.2],"70 & Over":[24.7,9.9,7.1,3.4,2.6]}
+  };
+
+  function normalizeSubset(raw, activeIndices) {
+    const vals = activeIndices.map(i => raw[i]);
+    const total = vals.reduce((a,b)=>a+b, 0);
+    if (!total) return activeIndices.map(()=>0);
+    const rounded = vals.map(v => Math.round(v/total*10000)/100);
+    const diff = Math.round((100 - rounded.reduce((a,b)=>a+b,0))*100)/100;
+    const maxI = rounded.indexOf(Math.max(...rounded));
+    rounded[maxI] = Math.round((rounded[maxI]+diff)*100)/100;
+    return rounded;
   }
-});
+
+  let activeSegs = new Set([0,1,2,3,4]);
+  let selectedAges = new Set(AGE_GROUPS);
+  const tooltip = document.getElementById('butterfly-tooltip');
+
+  /* LEGEND */
+  const legendEl = document.getElementById('legend');
+  EDU_LABELS.forEach((l,i) => {
+    const d = document.createElement('div'); d.className='leg-item';
+    d.innerHTML=`<div class="leg-swatch" style="background:${EDU_COLORS[i]}"></div>${l}`;
+    legendEl.appendChild(d);
+  });
+
+  /* SEG TOGGLES */
+  const segTogglesCt = document.getElementById('segToggles');
+  EDU_LABELS.forEach((l,i) => {
+    const b = document.createElement('button');
+    b.className='seg-btn active'; b.dataset.idx=i;
+    b.innerHTML=`<span class="swatch" style="background:${EDU_COLORS[i]}"></span>${l.replace(' (Non-Tertiary)','').replace(' & Professional Qual.','+')}`;
+    b.addEventListener('click', () => {
+      if (activeSegs.has(i)) { if (activeSegs.size===1) return; activeSegs.delete(i); b.classList.remove('active'); }
+      else { activeSegs.add(i); b.classList.add('active'); }
+      rebuildAllBars();
+    });
+    segTogglesCt.appendChild(b);
+  });
+
+  /* AXIS */
+  document.getElementById('axisTicks').innerHTML=`
+  <div class="ax-half male"><div class="tick-list">${[100,80,60,40,20,0].map(t=>`<span>${t}%</span>`).join('')}</div></div>
+  <div class="ax-age-gap"></div>
+  <div class="ax-half fem"><div class="tick-list">${[0,20,40,60,80,100].map(t=>`<span>${t}%</span>`).join('')}</div></div>`;
+
+  /* BUILD ROWS */
+  const rowGroup = document.getElementById('rowGroup');
+  const rowEls = {}, segDomEls = {};
+
+  AGE_GROUPS.forEach(age => {
+    const mE = EMP.Male[age], fE = EMP.Female[age];
+    const row = document.createElement('div'); row.className='chart-row'; row.dataset.age=age;
+
+    function makeWing(gender, emp) {
+      const wing = document.createElement('div');
+      wing.className = `wing ${gender==='Male'?'male':'fem'}`;
+      const bw = document.createElement('div');
+      bw.className='bar-wrap'; bw.style.width=`${emp}%`;
+      const stk = document.createElement('div'); stk.className='stacked';
+      const segs = EDU_LABELS.map((_, i) => {
+        const s = document.createElement('div');
+        s.className='seg'; s.dataset.segIdx=i;
+        s.style.background = EDU_COLORS[i];
+        s.style.width = '0%';
+        stk.appendChild(s);
+        return s;
+      });
+      bw.appendChild(stk);
+      const tip = document.createElement('span');
+      tip.className='emp-tip'; tip.textContent=`${emp}%`;
+      bw.appendChild(tip);
+      wing.appendChild(bw);
+      return {wing, segs};
+    }
+
+    const m = makeWing('Male', mE);
+    const ageCol = document.createElement('div');
+    ageCol.className='age-col'; ageCol.textContent=age;
+    const f = makeWing('Female', fE);
+
+    row.appendChild(m.wing); row.appendChild(ageCol); row.appendChild(f.wing);
+    rowGroup.appendChild(row);
+    rowEls[age] = row;
+    segDomEls[age] = {Male: m.segs, Female: f.segs};
+
+    function buildTT(gender, emp) {
+      const col = gender==='Male' ? '#1e3a5f' : '#7c2d12';
+      const raw = EDU_RAW[gender][age];
+      const activeArr = [...activeSegs].sort((a,b)=>a-b);
+      const pcts = normalizeSubset(raw, activeArr);
+      const rows = activeArr.map((si,j) => `
+        <div class="tt-row">
+          <span class="tt-lbl"><span class="tt-dot" style="background:${EDU_COLORS[si]}"></span>${EDU_LABELS[si]}</span>
+          <span class="tt-val">${pcts[j].toFixed(2)}%</span>
+        </div>`).join('');
+      const hiddenCount = 5 - activeArr.length;
+      const note = hiddenCount > 0 ? `<div class="tt-note">${hiddenCount} category${hiddenCount>1?'s':''} hidden — proportions recalculated for visible segments</div>` : '';
+      return `<div class="tt-head" style="color:${col}">${age} · ${gender}</div>
+<div class="tt-emp"><span style="color:var(--muted)">Employment Rate</span><span class="tt-val">${emp}%</span></div>
+${rows}${note}`;
+    }
+
+    function mv(e){
+      const x=e.clientX+16, y=e.clientY-8;
+      const w=tooltip.offsetWidth, h=tooltip.offsetHeight;
+      tooltip.style.left=(x+w>window.innerWidth-10?x-w-32:x)+'px';
+      tooltip.style.top=(y+h>window.innerHeight-10?y-h:y)+'px';
+    }
+    m.wing.addEventListener('mouseenter', e=>{tooltip.style.display='block';tooltip.innerHTML=buildTT('Male',mE);mv(e);});
+    m.wing.addEventListener('mousemove', mv);
+    m.wing.addEventListener('mouseleave', ()=>tooltip.style.display='none');
+    f.wing.addEventListener('mouseenter', e=>{tooltip.style.display='block';tooltip.innerHTML=buildTT('Female',fE);mv(e);});
+    f.wing.addEventListener('mousemove', mv);
+    f.wing.addEventListener('mouseleave', ()=>tooltip.style.display='none');
+  });
+
+  function rebuildAllBars() {
+    const activeArr = [...activeSegs].sort((a,b)=>a-b);
+    AGE_GROUPS.forEach(age => {
+      ['Male','Female'].forEach(gender => {
+        const raw = EDU_RAW[gender][age];
+        const pcts = normalizeSubset(raw, activeArr);
+        const segs = segDomEls[age][gender];
+        segs.forEach(s => s.style.width = '0%');
+        activeArr.forEach((si, j) => { segs[si].style.width = pcts[j] + '%'; });
+      });
+    });
+  }
+
+  rebuildAllBars();
+
+  /* AGE FILTER */
+  const ageBtn = document.getElementById('ageFilterBtn');
+  const ageDd  = document.getElementById('ageDropdown');
+  const ageCbs = document.getElementById('ageCheckboxes');
+
+  AGE_GROUPS.forEach(age => {
+    const lbl = document.createElement('label'); lbl.className='age-cb-item';
+    const cb  = document.createElement('input'); cb.type='checkbox'; cb.checked=true; cb.value=age;
+    cb.addEventListener('change', applyFilter);
+    lbl.appendChild(cb); lbl.appendChild(document.createTextNode(age));
+    ageCbs.appendChild(lbl);
+  });
+  ageBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const o = ageDd.style.display !== 'none';
+    ageDd.style.display = o ? 'none' : 'block';
+    ageBtn.classList.toggle('open', !o);
+  });
+  document.addEventListener('click', () => { ageDd.style.display='none'; ageBtn.classList.remove('open'); });
+  ageDd.addEventListener('click', e => e.stopPropagation());
+  document.getElementById('selectAll').addEventListener('click', () => { ageCbs.querySelectorAll('input').forEach(c=>c.checked=true); applyFilter(); });
+  document.getElementById('clearAll').addEventListener('click', () => {
+    const cs = [...ageCbs.querySelectorAll('input')];
+    cs.forEach((c,i) => c.checked = i===0);
+    applyFilter();
+  });
+
+  function applyFilter() {
+    selectedAges.clear();
+    ageCbs.querySelectorAll('input:checked').forEach(c => selectedAges.add(c.value));
+    const n = selectedAges.size;
+    ageBtn.textContent = n===AGE_GROUPS.length ? 'All ages ▾' : `${n} age${n>1?'s':''} selected ▾`;
+    Object.entries(rowEls).forEach(([age, row]) => {
+      row.classList.toggle('row-hidden', !selectedAges.has(age));
+      row.classList.toggle('highlighted', selectedAges.has(age) && n < AGE_GROUPS.length);
+    });
+  }
+
+  /* ENTRANCE ANIMATION */
+  document.querySelectorAll('.bar-wrap').forEach((el,i) => {
+    el.style.opacity='0'; el.style.transform='scaleX(0)';
+    el.style.transformOrigin = el.closest('.male') ? 'right center' : 'left center';
+    el.style.transition = `opacity .45s ${i*18}ms, transform .45s ${i*18}ms cubic-bezier(.22,.68,0,1.2)`;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{ el.style.opacity='1'; el.style.transform='scaleX(1)'; }));
+  });
+  document.querySelectorAll('.emp-tip').forEach((el,i) => {
+    el.style.opacity='0';
+    setTimeout(()=>{ el.style.transition='opacity .3s'; el.style.opacity='1'; }, i*18+500);
+  });
+})();
 </script>
 ```
 
-
-*Interaction Features*: Hovering over any bar segment reveals a tooltip with the exact count and percentage for that education level. 
-
-*Toggle Filters*: Dropdowns allow users to switch between age groups (25–29, 30–34, etc.) and years (2000–2024), dynamically updating the chart to show how the gender gap in educational attainment has evolved over time and across cohorts.
-
 ### 3.3.2 Key Design Decisions
 
-1. **Diverging butterfly layout**: Clear left-right separation of genders while maintaining the same education categories on the y-axis. This eliminates diagonal labels and allows for direct visual comparison.
+```{=html}
+<ul class="decision-list">
+  <li>
+    <div class="decision-num">1</div>
+    <div><strong>Diverging butterfly layout</strong> <span class="badge badge-i">I1 → W1</span><br>The mirror-image horizontal bar structure places male and female bars about a central age spine, eliminating the 18-label crowding of the original entirely. Every label is horizontal, legible, and unambiguously linked to its bars.</div>
+  </li>
+  <li>
+    <div class="decision-num">2</div>
+    <div><strong>Dual encoding: width × fill</strong> <span class="badge badge-i">I2 → W2 + W3</span><br>Bar <em>width</em> maps to employment rate (0–100%) while bar <em>fill segments</em> map to education composition. This merges the original's two disconnected panels into one view — simultaneously eliminating panel discontinuity and anchoring all segments to a consistent baseline.</div>
+  </li>
+  <li>
+    <div class="decision-num">3</div>
+    <div><strong>Live proportion recalculation on segment toggle</strong> <span class="badge badge-i">I3 → W3</span><br>Deselecting any education category removes it from the chart and redistributes proportions so the remaining segments always sum to 100%. This ensures the stacked fill remains visually coherent and percentages in the tooltip reflect only the visible categories.</div>
+  </li>
+  <li>
+    <div class="decision-num">4</div>
+    <div><strong>Rate-normalised bar width</strong> <span class="badge badge-i">I4 → W4</span><br>By using employment rate (%) rather than absolute count as bar width, all 12 age groups are placed on the same 0–100% scale. The 65+ and 70+ cohorts naturally produce shorter bars, eliminating the axis distortion caused by the 65+ population spike.</div>
+  </li>
+  <li>
+    <div class="decision-num">5</div>
+    <div><strong>Prominent pill labels + rich tooltip</strong> <span class="badge badge-i">I5 → W5</span><br>Employment rates are displayed as bold pill labels at each bar end for immediate readability. Hovering reveals the full education breakdown, recalculated for currently active segments, surfacing values that were entirely invisible in the static original.</div>
+  </li>
+  <li>
+    <div class="decision-num">6</div>
+    <div><strong>Wong (2011) colourblind-safe palette</strong> <span class="badge badge-i">I6 → W6</span><br>Five education categories mapped to Dark Gray, Blue, Orange, Purple, and Green — each pair maintaining sufficient luminance contrast under deuteranopia and protanopia simulation. The segment toggle further reduces dependence on colour alone.</div>
+  </li>
+</ul>
+```
 
-2. **Colour consistency**: We maintain the original's education-level colour scheme for continuity, while using a diverging layout to separate genders. 
+### 3.3.3 Interaction Features
+
+The visualization supports three interactive features, each resolving a specific analytical limitation of the static original:
+
+```{=html}
+<div class="feature-grid">
+  <div class="feature-card">
+    <div class="fc-title"><span>🎛️</span> Segment Toggle</div>
+    <p>Click any education category to remove it from view. Remaining segments recalculate to sum to 100%, enabling clean comparison of any subset of education levels with a consistent proportional scale.</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-title"><span>🔦</span> Multi-Select Age Filter</div>
+    <p>A dropdown panel lets users check or uncheck any combination of age groups. Deselected rows are removed completely from the chart — not merely dimmed — keeping the view uncluttered.</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-title"><span>💬</span> Rich Tooltip on Hover</div>
+    <p>Hovering any bar reveals the employment rate and the recalculated percentage split across all currently active education categories (2 d.p., summing to 100%), keeping the tooltip consistent with what is visible in the chart.</p>
+  </div>
+</div>
+```
 
 ---
 
 # 4. Data Sources & Data Quality {#sec-data}
 
-## selected Data Sources
+## 4.1 Selected Datasets
 
-We use all three datasets provided, each sourced from **Singapore Department of Statistics (SingStat)** via [data.gov.sg](https://data.gov.sg):
+Our improved butterfly visualization requires two datasets from the **Ministry of Manpower (MOM) Comprehensive Labour Force Survey 2024**, both sourced from the [MOM Statistics portal](https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2024.aspx). Both are contained within the official published workbooks and are used exclusively for the year **2024**.
 
-| # | Dataset | Time Span | Format | Role in Project |
-|---|---|---|---|---|
-| 1 | *Singapore Residents Aged 25+ by HQA, Sex & Age Group (Annual)* | 1990–2024 | CSV (wide) | **Primary** — direct source of the original visualization |
-| 2 | *Resident Labour Force Aged 15+ by HQA and Sex, End June (Annual)* | 1997–2025 | CSV (wide) | **Enrichment** — adds labour market supply dimension |
-| 3 | *Employment Rate of Residents Aged 25–64 (Total)* | 1991–2022 | CSV (long) | **Context** — validates whether the market absorbed graduates |
+```{=html}
+<div class="ds-grid">
 
-## Dataset Justifications
+  <div class="ds-card">
+    <div class="ds-badge">Primary Dataset</div>
+    <div class="ds-title">Table B1 — Resident Employment Rate by Age and Sex, 2014–2024</div>
+    <div class="ds-meta">
+      <strong>File:</strong> LFR2024_SectionB_EmploymentRate.xlsx, Sheet <code>B1</code><br>
+      <strong>Publisher:</strong> Manpower Research &amp; Statistics Dept, MOM Singapore<br>
+      <strong>Unit:</strong> Per cent (%)<br>
+      <strong>Coverage:</strong> 12 age groups × 3 sex categories (Total, Male, Female) × 11 years<br>
+      <strong>We use:</strong> Male and Female rows, year 2024 column only
+      <div style="margin-top:8px;">
+        <span class="ds-tag">employment rate</span>
+        <span class="ds-tag">age group</span>
+        <span class="ds-tag">sex</span>
+        <span class="ds-tag">2024</span>
+      </div>
+    </div>
+  </div>
 
-Dataset 1 directly matches the original visualization and contains 35 years of history that were ignored in the original chart (Weakness W1). Dataset 2 allows us to close the "PMET jobs" narrative gap (Weakness W2) by showing how the composition of the labour force itself has shifted. Dataset 3 provides a macro check: if employment rates stayed high despite graduate surges, the "oversupply crisis" framing may be overstated.
+  <div class="ds-card">
+    <div class="ds-badge">Secondary Dataset</div>
+    <div class="ds-title">Table G4 — Employed Residents by Highest Qualification, Age and Sex, 2024</div>
+    <div class="ds-meta">
+      <strong>File:</strong> LFR2024_SectionG_MedianAgeDemographicProfile.xlsx, Sheet <code>G4</code><br>
+      <strong>Publisher:</strong> Manpower Research &amp; Statistics Dept, MOM Singapore<br>
+      <strong>Unit:</strong> Thousands of employed residents<br>
+      <strong>Coverage:</strong> 12 age groups × 3 sex categories × 5 education levels<br>
+      <strong>We use:</strong> Male and Female rows, all 5 education level columns, 2024 only
+      <div style="margin-top:8px;">
+        <span class="ds-tag">education level</span>
+        <span class="ds-tag">age group</span>
+        <span class="ds-tag">sex</span>
+        <span class="ds-tag">count (thousands)</span>
+      </div>
+    </div>
+  </div>
 
-Together, the three datasets yield **6 active dimensions** in our improved visualization: Age Group, Education Level, Gender, Year (2000–2024), Population Count, and Labour Force Count — well exceeding the 4-dimension minimum requirement.
-
-## 4.3 Data Quality Assessment
-
-### 4.3.1 Strengths
-
-1. Trusted Sources: All three datasets are official government statistics, collected through rigorous surveys and administrative records. They are widely cited in academic research and policy discussions, lending them high credibility. The data is complete for the specified time spans, with no known major revisions or anomalies.
-
-2. Standardized Definitions: The datasets use consistent definitions for key variables (e.g., education levels, age groups) across years, enabling valid longitudinal analysis. The "Highest Qualification Attained" categories are well-defined and align with international standards.
-
-### 4.3.2 Limitations
-
-1. Inconsistent Formatting: The raw CSV files are in wide format with years as column headers, and hierarchical data encoded through indentation in the "DataSeries" column. This non-tidy structure requires significant cleaning and transformation to be usable for visualization.
-
-2. Missing Data: The Labour Force dataset uses "na" string literals for missing years (pre-2008), which must be handled carefully to avoid misinterpretation as zero values.
-
-3. Age Group Binning: The "65 Years & Over" category aggregates a wide range of ages, distorting comparisons with the more granular 5-year bands. This requires careful consideration in the visualization to avoid misleading impressions about the working-age population.
-
----
-
-# 5. Data Engineering Workflow {#sec-pipeline}
-
-## 5.1 Raw Data Structure
-
-All three SingStat files arrive in **wide format**: years as column headers, with a hierarchical `DataSeries` column that encodes multiple attributes (gender × education × age group) through indentation and naming conventions.
-
-**Example of raw structure (Dataset 1):**
-
-```
-DataSeries                              | 2024   | 2023   | ...
-Total                                   | 3145000| 3100900| ...
-    25 - 29 Years                       | 222000 | 238000 | ...
-    30 - 34 Years                       | 293200 | 307600 | ...
-...
-Total Males - University                | ...    | ...    | ...
-    25 - 29 Years                       | 55800  | 60200  | ...
+</div>
 ```
 
-Key structural challenges:
-- Age groups appear as **child rows** beneath their parent (gender × education) row, identified only by leading whitespace and positional index
-- "Secondary" is labelled inconsistently as `"Total- Secondary"` (no space before dash) vs. `"Total - Below Secondary"` (space before dash)
-- Dataset 2 uses `"na"` string literals for missing years (pre-2008) rather than blank cells
+## 4.2 Justification for Dataset Selection
 
-## 5.2 Cleaning Decisions
+These two datasets were chosen over all other available MOM tables for three specific reasons that directly serve the improved visualization design:
 
-| Issue | Decision | Rationale |
-|---|---|---|
-| Hierarchical rows encoded via indentation | Strip whitespace, then extract child rows by positional offset (next 9 rows after each parent) | Structure is perfectly consistent throughout file; regex would be brittle |
-| `"Total- Secondary"` (no space) | Hard-coded exception in key lookup | Single known anomaly; explicit is safer than a fuzzy match |
-| `"na"` strings in Labour Force data | `pd.to_numeric(errors='coerce')` → NaN; excluded from chart for those years | Avoids silent zero-imputation for genuinely missing historical data |
-| Wide format (years as columns) | `pd.melt()` to long format | Required by all chart libraries; enables filtering by year |
-| 65+ group distorts absolute counts | Retained in % chart; flagged in absolute chart with visual note | Suppressing data would misrepresent the population; annotation is cleaner |
-| Different year ranges across datasets | Left-join on Year using Dataset 1 as primary; gaps shown as missing in chart | Dataset 1 is the primary source; others are supplementary |
+**B1 resolves the 65+ distortion problem (W4).** The original visualization used absolute resident population counts as bar lengths, which caused the 65+ cohort to dwarf all other groups. By using employment *rates* from B1 as bar width instead, all 12 age groups are placed on a uniform 0–100% scale. The 65+ and 70+ cohorts naturally produce shorter bars that reflect their lower labour market participation, without any axis distortion.
 
-## 5.3 Annotated Pipeline Code
+**G4 provides the education composition for employed residents specifically.** The original chart used *all residents* (employed and non-employed) from SingStat population data. Our redesign focuses the education breakdown on *employed residents only* — the population actually participating in the labour market. This is a more analytically meaningful lens and directly justifies why B1 and G4 must come from the same MOM Labour Force Survey rather than from separate sources.
 
-```python
-# ============================================================
-# Data Engineering Pipeline
-# Singapore Education & Workforce Project
-# ============================================================
+**Together they enable dual encoding across four dimensions.** No single table alone supports the butterfly chart's design. Joining B1 (employment rates) with G4 (education composition counts) creates the combined structure needed to encode age, sex, employment rate, and education simultaneously in one visualization.
 
-import pandas as pd
-import numpy as np
-
-# ── 1. LOAD ──────────────────────────────────────────────────
-pop_raw = pd.read_csv("SingaporeResidents_HQA_Sex_AgeGroup.csv")
-lf_raw  = pd.read_csv("ResidentLabourForce_HQA_Sex.csv")
-emp_raw = pd.read_csv("EmploymentRate_25to64.csv")
-
-# ── 2. CLEAN LABELS ──────────────────────────────────────────
-# Leading/trailing whitespace in DataSeries is structural in the raw file
-pop_raw["DataSeries"] = pop_raw["DataSeries"].str.strip()
-lf_raw["DataSeries"]  = lf_raw["DataSeries"].str.strip()
-
-# ── 3. DEFINE CONSTANTS ──────────────────────────────────────
-AGE_GROUPS = [
-    "25 - 29 Years", "30 - 34 Years", "35 - 39 Years",
-    "40 - 44 Years", "45 - 49 Years", "50 - 54 Years",
-    "55 - 59 Years", "60 - 64 Years", "65 Years & Over"
-]
-EDU_LEVELS = [
-    "Below Secondary", "Secondary",
-    "Post Secondary (Non-Tertiary)",
-    "Diploma & Professional Qualification", "University"
-]
-YEARS = [str(y) for y in range(2000, 2025)]
-
-# ── 4. EXTRACT HELPER FUNCTION ───────────────────────────────
-def extract_block(df, key, age_groups, years):
-    """
-    Locate a parent DataSeries row by exact key match,
-    then extract the 9 age-group child rows below it.
-    Returns long-format DataFrame: (age_group, year, count).
-    """
-    idx = df[df["DataSeries"] == key].index[0]
-    records = []
-    for ag in age_groups:
-        sub = df.iloc[idx + 1 : idx + 10]
-        row = sub[sub["DataSeries"] == ag]
-        if row.empty:
-            continue
-        for yr in years:
-            try:
-                val = int(row[yr].values[0])
-            except (ValueError, IndexError):
-                val = np.nan
-            records.append({"age_group": ag, "year": int(yr), "count": val})
-    return pd.DataFrame(records)
-
-# ── 5. BUILD TIDY POPULATION TABLE ───────────────────────────
-GENDER_MAP = {
-    "Total":         "Both",
-    "Total Males":   "Males",
-    "Total Females": "Females"
-}
-
-all_records = []
-for gender_key, gender_label in GENDER_MAP.items():
-
-    # Denominator: total population for this gender × age × year
-    total_block = extract_block(
-        pop_raw, gender_key, AGE_GROUPS, YEARS
-    ).rename(columns={"count": "total"})
-
-    for edu in EDU_LEVELS:
-        # Quirk: "Secondary" has inconsistent dash spacing
-        if gender_key == "Total":
-            edu_key = ("Total- Secondary"
-                       if edu == "Secondary"
-                       else f"Total - {edu}")
-        else:
-            edu_key = f"{gender_key} - {edu}"
-
-        block = extract_block(pop_raw, edu_key, AGE_GROUPS, YEARS)
-        if block.empty:
-            continue
-
-        merged = block.merge(total_block, on=["age_group", "year"])
-        merged["pct"]       = (merged["count"] / merged["total"] * 100).round(2)
-        merged["gender"]    = gender_label
-        merged["education"] = edu
-        all_records.append(merged)
-
-pop_tidy = pd.concat(all_records, ignore_index=True)
-# Shape: ~3,375 rows × 7 cols (age_group, year, count, total, pct, gender, education)
-
-# ── 6. CLEAN LABOUR FORCE DATA ───────────────────────────────
-yr_cols = sorted(c for c in lf_raw.columns if c.isdigit())
-lf_long = lf_raw.melt(
-    id_vars=["DataSeries"], value_vars=yr_cols,
-    var_name="year", value_name="lf_thousands"
-)
-lf_long["year"]         = lf_long["year"].astype(int)
-lf_long["lf_thousands"] = pd.to_numeric(
-    lf_long["lf_thousands"], errors="coerce"  # "na" → NaN
-)
-
-# ── 7. EXPORT VISUALIZATION-READY FILES ──────────────────────
-# Snapshot: 2024 cross-section for redesigned bar/butterfly chart
-pop_tidy[pop_tidy["year"] == 2024].to_csv("snapshot_2024.csv", index=False)
-
-# Time series: 2000–2024, both genders, for trend chart
-pop_tidy[pop_tidy["gender"] == "Both"].to_csv("timeseries.csv", index=False)
-
-# Labour force: 2010–2024 by education category
-lf_long[lf_long["year"] >= 2010].to_csv("labourforce.csv", index=False)
-
-print("✅ Pipeline complete.")
+```{=html}
+<div class="callout-custom green">
+  <strong>Minimum Dimension Requirement</strong>
+  The project requires at least 4 dimensions in the final visualization. The joined dataset encodes <strong>4 dimensions simultaneously</strong>: Age Group (y-axis), Sex (left/right butterfly wings), Employment Rate % (bar width), and Education Level (stacked fill colour). This satisfies the requirement within a single chart without a secondary panel.
+</div>
 ```
 
 ---
 
-# 6. Insights & Analysis {#sec-analysis}
+## 4.3 Raw Data Structure and Known Challenges
+
+### 4.3.1 B1 Raw Layout
+
+The B1 sheet does not follow a simple rectangular table structure. It uses a **multi-block layout** where each sex group (Total, Male, Female) occupies a separate vertical block of rows, preceded by several metadata rows. The structure is as follows:
+
+```
+Row 1       : "Contents"           ← sheet navigation label, skip
+Row 2       : "TABLE B1"           ← title, skip
+Row 3       : long title string    ← skip
+Rows 4–6    : blank / units row    ← skip
+Row 7       : [NULL, NULL, 2014, 2015, ..., 2024]   ← year headers
+Row 8       : "Total", "Total", 64.5, ...            ← Total block header
+Rows 9–19   : NULL, "15 - 19" ... "70 & Over"       ← 12 age rows (Total)
+Rows 20–25  : blank + sub-aggregates                 ← skip
+Row 27      : "Male", "Total", 73.3, ...             ← Male block header
+Rows 28–38  : NULL, "15 - 19" ... "70 & Over"       ← 12 age rows (Male)
+Rows 39–45  : blank + sub-aggregates                 ← skip
+Row 46      : "Female", "Total", 56.2, ...           ← Female block header
+Rows 47–57  : NULL, "15 - 19" ... "70 & Over"       ← 12 age rows (Female)
+```
+
+The year 2024 occupies **column 13** (columns 1–2 are labels; column 3 is 2014, incrementing one column per year).
+
+### 4.3.2 G4 Raw Layout
+
+G4 follows the same multi-block convention but has an additional complexity: the **education levels appear as column headers** (not rows), making it a two-dimensional table within each sex block.
+
+```
+Row 1       : "Contents"           ← skip
+Row 2       : "TABLE G4"           ← skip
+Row 3       : long title string    ← skip  
+Rows 4–6    : blank / units row    ← skip
+Row 7       : ["", NULL, "Total", "Below Secondary", "Secondary",
+               "Post-Secondary (Non-Tertiary)",
+               "Diploma & Professional Qualification", "Degree"]
+Row 8       : "Total", "Total", 2365.6, 271.7, ...   ← Both sexes total block
+Rows 9–19   : NULL, "15 - 19" ... "70 & Over"        ← 12 age rows (Both)
+Row 20      : blank separator
+Row 21      : "Male", "Total", 1238.0, 150.2, ...    ← Male block header
+Rows 22–32  : NULL, "15 - 19" ... "70 & Over"        ← 12 age rows (Male)
+Row 33      : blank separator
+Row 34      : "Female", "Total", 1127.6, 121.5, ...  ← Female block header
+Rows 35–45  : NULL, "15 - 19" ... "70 & Over"        ← 12 age rows (Female)
+```
+
+### 4.3.3 Identified Data Quality Challenges
+
+The table below catalogues every known structural issue in the raw files and assigns a severity rating based on how likely it is to cause silent data errors if not handled correctly.
+
+```{=html}
+<table class="challenge-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>File / Sheet</th>
+      <th>Challenge</th>
+      <th>Severity</th>
+      <th>Planned Resolution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C1</td>
+      <td>Both files</td>
+      <td>Multiple metadata header rows precede the data table. Reading the file naively (e.g. with default <code>read_excel()</code>) will consume header rows as data rows.</td>
+      <td><span class="sev-high">High</span></td>
+      <td>Use <code>col_names = FALSE</code> on ingestion to preserve all rows, then extract data using fixed row offsets derived from visual inspection and documented as named constants in the code.</td>
+    </tr>
+    <tr>
+      <td>C2</td>
+      <td>Both files</td>
+      <td>Data is split across three vertical blocks (Total / Male / Female) within a single sheet. There are no column markers indicating which block a row belongs to — only positional structure.</td>
+      <td><span class="sev-high">High</span></td>
+      <td>Extract each gender block independently using its known start row. Male and Female start rows are stored as named constants (<code>B1_MALE_START</code>, <code>G4_FEMALE_START</code>, etc.) so the logic is transparent and auditable.</td>
+    </tr>
+    <tr>
+      <td>C3</td>
+      <td>G4</td>
+      <td>Negligible or suppressed counts are represented as the string <code>"-"</code> rather than <code>0</code> or <code>NA</code>. This occurs for cells such as the 15–19 Degree group where the count is effectively zero. Calling <code>as.numeric()</code> on <code>"-"</code> produces <code>NA</code>, which would silently corrupt proportion calculations.</td>
+      <td><span class="sev-high">High</span></td>
+      <td>Explicitly test for <code>"-"</code> before numeric coercion and replace with <code>0</code>. This is the statistically correct interpretation — the count is not missing, it is zero or suppressed due to rounding.</td>
+    </tr>
+    <tr>
+      <td>C4</td>
+      <td>G4</td>
+      <td>Counts are published as <strong>rounded thousands</strong> (e.g. 132.3 means 132,300 people). Because of this rounding, the five education-level counts within an age × sex group will not sum to exactly the published total. Proportion sums will therefore deviate slightly from 1.0.</td>
+      <td><span class="sev-med">Medium</span></td>
+      <td>Compute proportions as <code>count / total</code> using the published total as the denominator. Accept deviations within ±2% as a known rounding artefact. Validate and flag in code comments. Units (thousands) will be retained throughout — no multiplication to raw counts needed.</td>
+    </tr>
+    <tr>
+      <td>C5</td>
+      <td>B1</td>
+      <td>The sheet contains sub-aggregate rows (e.g. "15–24", "25–64", "55–64") interleaved between the 12 individual age-group rows and the next sex block. These could be accidentally included in extraction if row offsets are miscounted.</td>
+      <td><span class="sev-med">Medium</span></td>
+      <td>Extract exactly 12 rows starting from the documented start row for each sex block. The 12 individual age groups immediately follow the block header row with no interruption. A spot-check assertion will confirm that the 12th extracted row corresponds to "70 & Over".</td>
+    </tr>
+    <tr>
+      <td>C6</td>
+      <td>Both files</td>
+      <td>R's <code>read_excel()</code> assigns generic column names (<code>...1</code>, <code>...2</code>, etc.) when <code>col_names = FALSE</code> is used. Columns must be referenced by numeric index rather than name, which can be brittle if the sheet layout shifts in a future MOM release.</td>
+      <td><span class="sev-low">Low</span></td>
+      <td>Reference columns by numeric index constants only (<code>B1_COL_2024 &lt;- 13L</code>, <code>G4_COL_TOTAL &lt;- 3L</code>, etc.). All index constants are defined together in a single named-constants block at the start of the pipeline and are independently verifiable against the raw sheet.</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+---
+
+# 5. Data Engineering Workflow  {#sec-workflow}
+
+## 5.1 Planned Data Engineering Pipeline 
+
+The pipeline proceeds through five sequential stages. Each stage has a clearly defined input, a set of operations, and a defined output that feeds the next stage.
+
+```{=html}
+<div class="callout-custom">
+  <strong>Pipeline Principle</strong>
+  Each stage is implemented as a named R function or a clearly commented code block. No stage modifies a previous stage's output in-place — transformations always produce new objects. This ensures every intermediate state is inspectable and the pipeline can be re-run cleanly from any stage.
+</div>
+
+<div class="pipeline-wrap">
+
+  <div class="pipe-step">
+    <div class="pipe-num">1</div>
+    <div class="pipe-body">
+      <div class="pipe-title">Ingest Raw Excel Files</div>
+      <div class="pipe-desc">
+        Both <code>.xlsx</code> workbooks will be loaded using <code>readxl::read_excel()</code> with <code>col_names = FALSE</code> and no row skipping, so that all rows — including metadata headers — are preserved as data rows. This gives us full control over which rows are treated as headers versus data. The <code>readxl</code> package is used specifically because it does not require a Java runtime, unlike the <code>xlsx</code> package, making the pipeline more portable across team members' machines. Sheets are specified by name (<code>"B1"</code>, <code>"G4"</code>) rather than position to guard against sheet order changes in future MOM releases.
+      </div>
+      <div class="pipe-tags">
+        <span class="pipe-tag">readxl::read_excel()</span>
+        <span class="pipe-tag">col_names = FALSE</span>
+        <span class="pipe-tag">sheet = "B1" / "G4"</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pipe-step">
+    <div class="pipe-num">2</div>
+    <div class="pipe-body">
+      <div class="pipe-title">Extract 2024 Cross-Section by Gender Block</div>
+      <div class="pipe-desc">
+        Using the row offset constants documented in §5.2, each gender block (Male, Female) is extracted from both sheets independently by slicing exactly 12 consecutive rows — one per age group. For B1, column 13 (year 2024) is extracted from each block. For G4, the total column and the five education-level columns are extracted from each block. The result of this stage is four raw tibbles: <code>emp_male</code>, <code>emp_female</code>, <code>edu_male</code>, <code>edu_female</code>. A spot-check will confirm that the extracted Male 30–34 employment rate matches the published value of 93.3%.
+      </div>
+      <div class="pipe-tags">
+        <span class="pipe-tag">row slicing [start:(start+11)]</span>
+        <span class="pipe-tag">column indexing by constant</span>
+        <span class="pipe-tag">as.numeric() coercion</span>
+        <span class="pipe-tag">"-" → 0 for G4</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pipe-step">
+    <div class="pipe-num">3</div>
+    <div class="pipe-body">
+      <div class="pipe-title">Reshape to Long (Tidy) Format and Standardise Labels</div>
+      <div class="pipe-desc">
+        The four extracted tibbles are combined using <code>dplyr::bind_rows()</code> — first <code>emp_male</code> and <code>emp_female</code> into <code>emp_2024</code> (24 rows), then <code>edu_male</code> and <code>edu_female</code> into <code>edu_2024</code> (120 rows). Column names are assigned explicitly as part of the extraction step: <code>sex</code>, <code>age</code>, <code>emp_rate</code> for the employment table; <code>sex</code>, <code>age</code>, <code>education</code>, <code>count_k</code>, <code>total_k</code> for the education table. Age group and education level columns are converted to ordered <code>factor</code> types with levels defined by constants, which guarantees consistent ordering throughout all downstream transformations and chart rendering.
+      </div>
+      <div class="pipe-tags">
+        <span class="pipe-tag">dplyr::bind_rows()</span>
+        <span class="pipe-tag">factor(..., levels = AGE_LABELS)</span>
+        <span class="pipe-tag">factor(..., levels = EDU_LABELS)</span>
+        <span class="pipe-tag">explicit column naming</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pipe-step">
+    <div class="pipe-num">4</div>
+    <div class="pipe-body">
+      <div class="pipe-title">Derive Proportions, Bar Extents, and Butterfly Coordinates</div>
+      <div class="pipe-desc">
+        This is the core feature engineering stage. Three new columns are derived. First, <strong>education proportion</strong> (<code>prop</code>) is computed as <code>count_k / total_k</code> within each age × sex group using <code>dplyr::group_by()</code> + <code>mutate()</code>. Second, <strong>bar extent</strong> (<code>bar_extent</code>) is computed as <code>emp_rate × prop</code> — this is the dual-encoding that maps employment rate to bar length and education composition to fill colour simultaneously. Third, <strong>cumulative stacking coordinates</strong> (<code>xmin2</code>, <code>xmax2</code>) are computed using <code>cumsum()</code> within each group, then sign-flipped for the Male wing so that male bars extend leftward (negative x-axis) to create the butterfly layout.
+      </div>
+      <div class="pipe-tags">
+        <span class="pipe-tag">prop = count_k / total_k</span>
+        <span class="pipe-tag">bar_extent = emp_rate × prop</span>
+        <span class="pipe-tag">cumsum() for stacking</span>
+        <span class="pipe-tag">sign flip for male wing</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pipe-step">
+    <div class="pipe-num">5</div>
+    <div class="pipe-body">
+      <div class="pipe-title">Join, Validate, and Export Visualization-Ready Objects</div>
+      <div class="pipe-desc">
+        The education long table and the employment rate table are joined on <code>sex</code> and <code>age</code> using <code>dplyr::left_join()</code>, with the education table as the left (primary) side. After joining, four automated validation checks will run: (1) a completeness check that the joined table has exactly 120 rows; (2) a zero-NA check across all visualization-critical columns; (3) a proportion-sum check that all age × sex groups sum within ±2% of 1.0; and (4) a plausibility check that prime working-age (35–54) employment rates exceed 75% for both sexes. Two final objects are exported for the visualization section: <code>employment_data</code> (120 rows, the main chart data) and <code>emp_pills</code> (24 rows, bar-end label data).
+      </div>
+      <div class="pipe-tags">
+        <span class="pipe-tag">left_join(by = c("sex","age"))</span>
+        <span class="pipe-tag">completeness assertion</span>
+        <span class="pipe-tag">NA check</span>
+        <span class="pipe-tag">proportion-sum check</span>
+        <span class="pipe-tag">plausibility stopifnot()</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+---
+
+## 5.2 Planned Cleaning and Transformation Decisions
+
+Every cleaning choice is listed below with an explicit rationale. This ensures that no transformation is implicit or invisible to future readers of the code.
+
+| # | Issue | Decision | Rationale |
+|---|---|---|---|
+| D1 | Metadata header rows above data | Skip using fixed row offset constants; never use `skip =` argument in `read_excel()` | `skip =` silently discards rows; constants are self-documenting and verifiable against the raw sheet |
+| D2 | `"-"` string in G4 education counts | Replace with `0` before numeric coercion | Statistically correct — these are suppressed near-zero counts, not missing values; avoids silent `NA` propagation into proportion calculations |
+| D3 | Counts published as rounded thousands | Retain in thousands; compute proportions from published totals | Multiplying to raw counts introduces false precision; thousands are sufficient for proportions and the chart does not show absolute counts |
+| D4 | Wide format (education as columns) | Reshape to long within the extraction helper function | Long format is required by `ggplot2`'s `geom_rect()` for stacked bar rendering; one row per sex × age × education |
+| D5 | No common baseline for education stacking | Pre-compute cumulative `xmin`/`xmax` positions before plotting | Passing raw proportions to `position_stack` in ggplot2 does not support the sign-flip required for the butterfly layout; pre-computation gives full control |
+| D6 | Male bars must mirror to negative x-axis | Apply sign flip after cumulative sum: `xmin2 = -xmax`, `xmax2 = -xmin` | Separates the stacking arithmetic cleanly from the butterfly layout logic; the stacking step is sex-agnostic, the flip step handles the visual layout |
+| D7 | Unordered factor levels would scramble stacking | Convert `age` and `education` to ordered factors at reshape stage | ggplot2 respects factor levels for ordering; declaring levels once at the reshape stage guarantees consistent order in all downstream objects |
+
+---
+
+## 5.3 Target Output Schema
+
+Two objects will be passed from the data engineering pipeline to the visualization section. Their schemas are defined here so that the visualization code can be written against a known, stable interface.
+
+```{=html}
+<div class="schema-wrap">
+
+  <div class="schema-card">
+    <div class="sc-head">employment_data &nbsp;·&nbsp; 120 rows</div>
+    <div class="sc-row"><span class="sc-col">age</span>       <span class="sc-type">factor (12 levels, ordered)</span></div>
+    <div class="sc-row"><span class="sc-col">sex</span>       <span class="sc-type">factor (Male / Female)</span></div>
+    <div class="sc-row"><span class="sc-col">education</span> <span class="sc-type">factor (5 levels, ordered)</span></div>
+    <div class="sc-row"><span class="sc-col">emp_rate</span>  <span class="sc-type">numeric — employment rate %</span></div>
+    <div class="sc-row"><span class="sc-col">prop</span>      <span class="sc-type">numeric — education share (0–1)</span></div>
+    <div class="sc-row"><span class="sc-col">count_k</span>   <span class="sc-type">numeric — employed residents (000s)</span></div>
+    <div class="sc-row"><span class="sc-col">total_k</span>   <span class="sc-type">numeric — total in age × sex group (000s)</span></div>
+    <div class="sc-row"><span class="sc-col">bar_extent</span><span class="sc-type">numeric — emp_rate × prop</span></div>
+    <div class="sc-row"><span class="sc-col">xmin2</span>     <span class="sc-type">numeric — segment left edge</span></div>
+    <div class="sc-row"><span class="sc-col">xmax2</span>     <span class="sc-type">numeric — segment right edge</span></div>
+    <div class="sc-note">Primary chart data. One row per age × sex × education combination. <code>xmin2</code> and <code>xmax2</code> are pre-computed for <code>geom_rect()</code>; negative values indicate male wing.</div>
+  </div>
+
+  <div class="schema-card">
+    <div class="sc-head">emp_pills &nbsp;·&nbsp; 24 rows</div>
+    <div class="sc-row"><span class="sc-col">age</span>      <span class="sc-type">factor (12 levels, ordered)</span></div>
+    <div class="sc-row"><span class="sc-col">sex</span>      <span class="sc-type">factor (Male / Female)</span></div>
+    <div class="sc-row"><span class="sc-col">emp_rate</span> <span class="sc-type">numeric — employment rate %</span></div>
+    <div class="sc-row"><span class="sc-col">bar_end</span>  <span class="sc-type">numeric — signed bar-end x position</span></div>
+    <div class="sc-note">Label data for employment rate pill annotations at each bar end. One row per age × sex group. <code>bar_end</code> is negative for males, positive for females.</div>
+  </div>
+
+</div>
+
+<div class="callout-custom green">
+  <strong>Four Dimensions Confirmed</strong>
+  The <code>employment_data</code> schema encodes exactly four dimensions used by the butterfly chart: <strong>age</strong> (y-axis), <strong>sex</strong> (left/right wings via sign of xmin2/xmax2), <strong>emp_rate</strong> (total bar width), and <strong>education</strong> (stacked fill segments). A fifth dimension — <strong>count_k</strong> — is available for tooltip display. This satisfies and exceeds the project's 4-dimension minimum requirement.
+</div>
+```
+
+---
+
+## 5.4 Illustrative Code Structure
+
+The final pipeline code will follow the structure below. This is not the complete working code — full annotated R code will be provided in the final submission — but it demonstrates the planned function signatures and data flow.
+
+```r
+# ── STAGE 1: Ingest ────────────────────────────────────────────
+raw_b1 <- read_excel(path_b, sheet = "B1", col_names = FALSE)
+raw_g4 <- read_excel(path_g, sheet = "G4", col_names = FALSE)
+
+# ── STAGE 2: Extract 2024 cross-section ────────────────────────
+# A named helper function per table type:
+extract_emp_rates()    # args: raw sheet, start row, sex label, col index
+extract_edu_counts()   # args: raw sheet, start row, sex label, col indices
+
+emp_2024 <- bind_rows(
+  extract_emp_rates(raw_b1, B1_MALE_START,   "Male",   B1_COL_2024),
+  extract_emp_rates(raw_b1, B1_FEMALE_START, "Female", B1_COL_2024)
+)
+
+edu_2024 <- bind_rows(
+  extract_edu_counts(raw_g4, G4_MALE_START,   "Male",   ...),
+  extract_edu_counts(raw_g4, G4_FEMALE_START, "Female", ...)
+)
+
+# ── STAGE 3: Reshape and label ──────────────────────────────────
+# Factor levels applied at this stage — once, and only here
+edu_2024 <- edu_2024 |>
+  mutate(
+    age       = factor(age,       levels = AGE_LABELS),
+    education = factor(education, levels = EDU_LABELS)
+  )
+
+# ── STAGE 4: Feature engineering ───────────────────────────────
+edu_2024 <- edu_2024 |>
+  group_by(sex, age) |>
+  mutate(prop = count_k / total_k)   # education share within group
+
+viz_long <- edu_2024 |>
+  left_join(emp_2024, by = c("sex", "age")) |>
+  mutate(bar_extent = emp_rate * prop) |>
+  group_by(sex, age) |>
+  mutate(
+    xmax  = cumsum(bar_extent),
+    xmin  = xmax - bar_extent,
+    xmin2 = if_else(sex == "Male", -xmax, xmin),   # butterfly flip
+    xmax2 = if_else(sex == "Male", -xmin, xmax)
+  )
+
+# ── STAGE 5: Validate and export ───────────────────────────────
+stopifnot(nrow(viz_long) == 120)          # completeness
+stopifnot(sum(is.na(viz_long)) == 0)      # no NAs
+# ... proportion-sum and plausibility checks
+
+employment_data    <- viz_long |> select(age, sex, education, emp_rate,
+                                    prop, count_k, total_k, xmin2, xmax2)
+emp_pills    <- ...   # 24-row summary for bar-end labels
+```
+
+```{=html}
+<div class="callout-custom amber">
+  <strong>Note on Code Status</strong>
+  The pseudocode above illustrates the intended function signatures and data flow. The complete, fully annotated, and tested R implementation — with all validation outputs and intermediate data previews — will be provided in the final Week 13 submission.
+</div>
+```
+
+---
+
+## 5.5 Reproducibility Considerations
+
+```{=html}
+<div class="repro-grid">
+
+  <div class="repro-card">
+    <span class="rc-icon">📁</span>
+    <div class="rc-title">File Structure</div>
+    <div class="rc-body">Both <code>.xlsx</code> source files will be stored in a <code>datasets/</code> subfolder within the project root. File paths will be resolved programmatically relative to the <code>.qmd</code> document's own directory using <code>knitr::current_input()</code>, so no absolute paths are hard-coded. The pipeline will work on any team member's machine without path editing.</div>
+  </div>
+
+  <div class="repro-card">
+    <span class="rc-icon">📦</span>
+    <div class="rc-title">Package Management</div>
+    <div class="rc-body">All required packages (<code>readxl</code>, <code>dplyr</code>, <code>tidyr</code>, <code>purrr</code>, <code>ggplot2</code>, <code>scales</code>) are loaded at the top of the pipeline section in a single <code>library()</code> block. Package versions will be captured and displayed using <code>sessionInfo()</code> at the end of the section, enabling any reviewer to verify the exact environment used for the final submission.</div>
+  </div>
+
+  <div class="repro-card">
+    <span class="rc-icon">🔒</span>
+    <div class="rc-title">Source File Integrity</div>
+    <div class="rc-body">MD5 checksums of both source <code>.xlsx</code> files will be recorded using <code>tools::md5sum()</code> and printed within the document. This allows any reader to verify that the files used to produce the outputs are the original unmodified MOM published files, and provides a clear signal if files are ever accidentally replaced or updated.</div>
+  </div>
+
+  <div class="repro-card">
+    <span class="rc-icon">📌</span>
+    <div class="rc-title">Explicit Constants</div>
+    <div class="rc-body">All row offsets and column indices derived from visual inspection of the raw sheets are stored as named constants (e.g. <code>B1_MALE_START &lt;- 28L</code>, <code>G4_COL_TOTAL &lt;- 3L</code>) in a single dedicated code block. No magic numbers appear inside extraction functions. If MOM updates the file layout, only the constants block needs updating — the extraction logic is unaffected.</div>
+  </div>
+
+  <div class="repro-card">
+    <span class="rc-icon">✅</span>
+    <div class="rc-title">Built-in Assertions</div>
+    <div class="rc-body">Four automated validation checks (<code>stopifnot()</code> assertions) will be embedded directly in the pipeline: row count completeness, zero-NA check, proportion-sum tolerance, and prime-age plausibility. If any check fails, the document will halt with an informative error message rather than silently producing incorrect output. This makes data errors impossible to overlook during rendering.</div>
+  </div>
+
+  <div class="repro-card">
+    <span class="rc-icon">🔄</span>
+    <div class="rc-title">No External Dependencies</div>
+    <div class="rc-body">The pipeline requires no internet connection, no database connections, and no API calls. All data is loaded from local files bundled with the project. The Quarto document can be rendered offline on any machine with R and the listed packages installed. There are no stochastic operations, so no random seed is needed — the output is fully deterministic.</div>
+  </div>
+
+</div>
+```
+
+---
+
+# 6. Data Analysis Plan {#sec-data-analysis}
 
 Using the cleaned data and improved visualizations, we derive three key analytical insights:
 
-**Insight 1 — The graduate majority tipping point.**  
-Among residents aged 25–34, university graduates became the majority around **2013–2015** (Chart 1). This is a cohort-level phenomenon: those born from the late 1980s onward entered a university system that had dramatically expanded capacity. By 2024, over **60%** of residents in the 30–44 age bands hold degrees — the highest in Singapore's history.
+**Insight 1 — The graduate majority tipping point.**
+Among residents aged 25–34, university graduates became the majority around **2013–2015**. This is a cohort-level phenomenon: those born from the late 1980s onward entered a university system that had dramatically expanded capacity. By 2024, over **60%** of residents in the 30–44 age bands hold degrees — the highest in Singapore's history.
 
-**Insight 2 — Females are outpacing males in educational attainment.**  
-In the 30–34 age group, female university graduates number **100,500** vs **81,200** for males — a gap of nearly 20,000 (Chart 2). Female university attainment (65.9%) exceeds male (57.7%) by 8 percentage points. This gender reversal in educational outcomes is invisible in the original visualization's cluttered layout but has significant implications for career pathway planning and workforce policy.
+**Insight 2 — Females are outpacing males in educational attainment.**
+In the 30–34 age group, female university graduates number **100,500** vs **81,200** for males — a gap of nearly 20,000. Female university attainment (65.9%) exceeds male (57.7%) by 8 percentage points. This gender reversal in educational outcomes is invisible in the original visualization's cluttered layout but has significant implications for workforce policy.
 
-**Insight 3 — Labour force degree holders nearly doubled in 14 years.**  
-Degree holders in the resident labour force grew from **565,000 (2010)** to **1,061,000 (2024)** — an 88% increase (Chart 3). Over the same period, below-secondary workers fell from 455,000 to 280,000 (−39%). The labour force is structurally shifting toward high-qualification workers, which supports the PMET-demand argument — but also raises valid concerns about whether job creation has matched this pace.
+**Insight 3 — Labour force degree holders nearly doubled in 14 years.**
+Degree holders in the resident labour force grew from **565,000 (2010)** to **1,061,000 (2024)** — an 88% increase. Over the same period, below-secondary workers fell from 455,000 to 280,000 (−39%). The labour force is structurally shifting toward high-qualification workers, raising valid questions about whether job creation has matched this pace.
 
 **Planned Analysis Methods:**
+
 - Year-on-year growth rate of university share by cohort (`pct_change()`)
 - Cohort-tracking: following the 25–29 group of 2000 as they move into older age bands over successive years
 - Gender parity index: female-to-male university attainment ratio by age group and year
@@ -537,12 +1338,67 @@ Degree holders in the resident labour force grew from **565,000 (2010)** to **1,
 
 ## 8.1 Article Source
 
-- D. Yuen, “A Data-Driven Look at Singapore’s ‘Graduate Unemployment’ Debate,” fyt-consulting, Sep. 17, 2025. https://www.fytconsultants.com/single-post/a-data-driven-look-at-singapore-s-graduate-unemployment-debate
+- D. Yuen, "A Data-Driven Look at Singapore's 'Graduate Unemployment' Debate," FYT Consultants, Sep. 17, 2025. <https://www.fytconsultants.com/single-post/a-data-driven-look-at-singapore-s-graduate-unemployment-debate>
 
 ## 8.2 Data Sources
 
-- Singapore Department of Statistics, 2026, "Singapore Residents Aged 25 Years & Over By Highest Qualification Attained (HQA), Sex And Age Group, Annual", data.gov.sg. Accessed: February 26, 2026. [Online]. Available: https://data.gov.sg/datasets/d_1020b8ee03923042a8ab8e26eef58093/view
+- Singapore Department of Statistics, 2026, "Singapore Residents Aged 25 Years & Over By Highest Qualification Attained (HQA), Sex And Age Group, Annual," data.gov.sg. Accessed: February 26, 2026. [Online]. Available: <https://data.gov.sg/datasets/d_1020b8ee03923042a8ab8e26eef58093/view>
 
-- Ministry of Manpower, “Labour Force in Singapore 2024,” Mom.gov.sg, 2024. https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2024.aspx
+- Ministry of Manpower, "Labour Force in Singapore 2024," Mom.gov.sg, 2024. <https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2024.aspx>
 
 
+---
+
+# 9. Appendix: Data Dictionary {#sec-appendix}
+
+The two tidy objects produced by the data engineering pipeline are documented
+below. Every column used by the visualization or tooltip layer is defined here
+with its source, unit, valid range, and role in the chart.
+
+## A.1 `employment_data` — Primary Visualization Table
+
+120 rows · one row per **age group × sex × education level** combination.
+
+| Column | R Type | Source | Unit / Range | Role in Chart |
+|---|---|---|---|---|
+| `age` | `factor` (12 levels) | B1 & G4 row labels | Age band e.g. `"25-29"` | Y-axis position |
+| `sex` | `factor` (2 levels) | B1 & G4 block headers | `"Male"` or `"Female"` | Left / right butterfly wing |
+| `education` | `factor` (5 levels) | G4 column headers | See level definitions below | Stacked fill colour |
+| `emp_rate` | `numeric` | B1, Sheet B1, col 13 | Percent, 0–100 | Total bar width |
+| `prop` | `numeric` | Derived: `count_k / total_k` | Proportion, 0–1 | Each segment's share of bar width |
+| `count_k` | `numeric` | G4, education columns | Thousands of employed residents | Tooltip display |
+| `total_k` | `numeric` | G4, total column | Thousands of employed residents | Proportion denominator |
+| `bar_extent` | `numeric` | Derived: `emp_rate × prop` | Percent-points, 0–100 | Width of each stacked segment |
+| `xmin2` | `numeric` | Derived: cumulative stacking + sign flip | Signed percent, −100 to +100 | Left edge of segment (`geom_rect`) |
+| `xmax2` | `numeric` | Derived: cumulative stacking + sign flip | Signed percent, −100 to +100 | Right edge of segment (`geom_rect`) |
+
+**Education level factor definitions** (in stacking order, bottom to top):
+
+| Level | Label | Description |
+|---|---|---|
+| 1 | Below Secondary | No secondary qualification attained |
+| 2 | Secondary | GCE N/O-Level or equivalent |
+| 3 | Post-Secondary (Non-Tertiary) | ITE, vocational certificates |
+| 4 | Diploma & Prof Qual | Polytechnic diploma or professional qualification |
+| 5 | Degree | Bachelor's degree or above |
+
+**Sign convention for `xmin2` / `xmax2`:** negative values place the segment on
+the Male (left) wing; positive values place it on the Female (right) wing. A
+value of `0` is the central age-group spine.
+
+---
+
+## A.2 `emp_pills` — Bar-End Label Table
+
+24 rows · one row per **age group × sex** combination.
+
+| Column | R Type | Source | Unit / Range | Role in Chart |
+|---|---|---|---|---|
+| `age` | `factor` (12 levels) | Derived from `employment_data` | Age band | Y-axis alignment |
+| `sex` | `factor` (2 levels) | Derived from `employment_data` | `"Male"` or `"Female"` | Determines label side |
+| `emp_rate` | `numeric` | B1, Sheet B1 | Percent, 0–100 | Label text displayed in pill |
+| `bar_end` | `numeric` | Derived: `−emp_rate` (Male) / `+emp_rate` (Female) | Signed percent | X-position of pill label anchor |
+
+**Note:** `emp_pills` is a summary of `employment_data` with education collapsed. It
+drives only the pill annotation layer (`geom_text`) and is not used for any bar
+geometry.
