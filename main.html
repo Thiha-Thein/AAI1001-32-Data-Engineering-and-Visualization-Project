@@ -3620,10 +3620,22 @@ Rows 35–45  : NULL, &quot;15 - 19&quot; ... &quot;70 &amp; Over&quot;        �
 <p><strong>Insight 3 — Labour force degree holders nearly doubled in 14 years.</strong> Degree holders in the resident labour force grew from <strong>565,000 (2010)</strong> to <strong>1,061,000 (2024)</strong> — an 88% increase. Over the same period, below-secondary workers fell from 455,000 to 280,000 (−39%). The labour force is structurally shifting toward high-qualification workers, raising valid questions about whether job creation has matched this pace.</p>
 <p><strong>Planned Analysis Methods:</strong></p>
 <ul>
-<li>Year-on-year growth rate of university share by cohort (<code>pct_change()</code>)</li>
-<li>Cohort-tracking: following the 25–29 group of 2000 as they move into older age bands over successive years</li>
-<li>Gender parity index: female-to-male university attainment ratio by age group and year</li>
-<li>Labour-market absorption rate: ratio of degree-holder population growth to labour force degree-holder growth</li>
+<li>Year-on-year growth rate of university share by cohort (<code>pct_change()</code>)
+<ul>
+<li>This field calculates the growth rate of educational attainment by measuring the annual percentage-point increase in university degrees within each band. By applying the pct_change() function, we can identify the specific years where the hike was the steepest as well as Singapore’s university expansion. This allows us to correlate spikes in higher education attainment with shifts such as the increase in university intake capacities during the early 2010s.</li>
+</ul></li>
+<li>Cohort-tracking: following the 25–29 group of 2000 as they move into older age bands over successive years
+<ul>
+<li>This method involves tracking the same birth cohort (e.g. those aged 25–29 in 2000) as they age into subsequent bands (30–34, 35–39, etc.) across different years. By analyzing how the university attainment of this cohort evolves over time, we can confirm whether the observed increase in university share is indeed a cohort effect rather than an age effect.</li>
+</ul></li>
+<li>Gender-Education Parity Index: female-to-male university attainment ratio by age group and year
+<ul>
+<li>This metric introduces a “Gender-Education Parity Index” (GEPI) to quantify the shifting educational landscape across different age bands. By calculating the ratio of female university attainment to male attainment within each age band, we can clearly see the point in which male dominance in tertiary education transitioned to a more balanced and/or female dominance instead . This index portrays how these educational shifts might impact future workforce employment as well as leadership opportunities for each gender.</li>
+</ul></li>
+<li>Labour-market absorption rate: ratio of degree-holder population growth to labour force degree-holder growth
+<ul>
+<li>This analysis compares the growth rate of degree holders in the resident population to the growth rate of degree holders in the labour force. By calculating this ratio, we can assess whether the labour market has been able to absorb the increasing number of degree holders. A ratio close to 1 would suggest that job creation for degree holders has kept pace with their population growth, while a ratio significantly less than 1 could indicate potential underemployment or a mismatch between educational attainment and job opportunities.</li>
+</ul></li>
 </ul>
 <hr>
 </section>

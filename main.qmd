@@ -1314,9 +1314,13 @@ Degree holders in the resident labour force grew from **565,000 (2010)** to **1,
 **Planned Analysis Methods:**
 
 - Year-on-year growth rate of university share by cohort (`pct_change()`)
+  - This field calculates the growth rate of educational attainment by measuring the annual percentage-point increase in university degrees within each band. By applying the pct_change() function, we can identify the specific years where the hike was the steepest as well as Singapore’s university expansion. This allows us to correlate spikes in higher education attainment with shifts such as the increase in university intake capacities during the early 2010s.
 - Cohort-tracking: following the 25–29 group of 2000 as they move into older age bands over successive years
-- Gender parity index: female-to-male university attainment ratio by age group and year
+  - This method involves tracking the same birth cohort (e.g. those aged 25–29 in 2000) as they age into subsequent bands (30–34, 35–39, etc.) across different years. By analyzing how the university attainment of this cohort evolves over time, we can confirm whether the observed increase in university share is indeed a cohort effect rather than an age effect.
+- Gender-Education Parity Index: female-to-male university attainment ratio by age group and year
+  - This metric introduces a "Gender-Education Parity Index" (GEPI) to quantify the shifting educational landscape across different age bands. By calculating the ratio of female university attainment to male attainment within each age band, we can clearly see the point in which male dominance in tertiary education transitioned to a more balanced and/or female dominance instead . This index portrays how these educational shifts might impact future workforce employment as well as leadership opportunities for each gender.
 - Labour-market absorption rate: ratio of degree-holder population growth to labour force degree-holder growth
+  - This analysis compares the growth rate of degree holders in the resident population to the growth rate of degree holders in the labour force. By calculating this ratio, we can assess whether the labour market has been able to absorb the increasing number of degree holders. A ratio close to 1 would suggest that job creation for degree holders has kept pace with their population growth, while a ratio significantly less than 1 could indicate potential underemployment or a mismatch between educational attainment and job opportunities.
 
 ---
 
