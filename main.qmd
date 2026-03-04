@@ -1300,27 +1300,196 @@ emp_pills    <- ...   # 24-row summary for bar-end labels
 
 # 6. Data Analysis Plan {#sec-data-analysis}
 
-Using the cleaned data and improved visualizations, we derive three key analytical insights:
+```{=html}
+<div class="callout-custom insight">
+  <strong>Purpose of Section 6</strong>
+  This section explains the <em>analysis</em> we will conduct to support and validate the insights suggested by our improved visualization.
+  The analysis is optional in the project brief, but we include it to strengthen the story and make our conclusions evidence-based.
+</div>
+```
 
-**Insight 1 — The graduate majority tipping point.**
-Among residents aged 25–34, university graduates became the majority around **2013–2015**. This is a cohort-level phenomenon: those born from the late 1980s onward entered a university system that had dramatically expanded capacity. By 2024, over **60%** of residents in the 30–44 age bands hold degrees — the highest in Singapore's history.
+## 6.1 Analysis Goals 
 
-**Insight 2 — Females are outpacing males in educational attainment.**
-In the 30–34 age group, female university graduates number **100,500** vs **81,200** for males — a gap of nearly 20,000. Female university attainment (65.9%) exceeds male (57.7%) by 8 percentage points. This gender reversal in educational outcomes is invisible in the original visualization's cluttered layout but has significant implications for workforce policy.
+Our interactive butterfly chart provides a strong 2024 snapshot. The analysis plan turns that snapshot into **testable, measurable questions**:
 
-**Insight 3 — Labour force degree holders nearly doubled in 14 years.**
-Degree holders in the resident labour force grew from **565,000 (2010)** to **1,061,000 (2024)** — an 88% increase. Over the same period, below-secondary workers fell from 455,000 to 280,000 (−39%). The labour force is structurally shifting toward high-qualification workers, raising valid questions about whether job creation has matched this pace.
+- **(G1) Tipping point:** When did degree holders become the dominant group in prime working ages?
+- **(G2) Gender reversal:** In which age bands (and when) did females begin to outperform males in degree attainment?
+- **(G3) Labour-market absorption:** Has employment growth for degree holders kept pace with the growth of degree-holder population over time?
 
-**Planned Analysis Methods:**
+```{=html}
+<div class="feature-grid">
+  <div class="feature-card">
+    <div class="fc-title"><span>📌</span> Evidence-first</div>
+    <p>Each method produces a visual output so the conclusion is shown directly, not just stated.</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-title"><span>🧮</span> Reproducible</div>
+    <p>All metrics are computed from tidy pipeline objects (no manual calculations in the write-up).</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-title"><span>🧭</span> Story-aligned</div>
+    <p>Every chart answers one of the project questions introduced in Section 1.</p>
+  </div>
+</div>
+```
 
-- Year-on-year growth rate of university share by cohort (`pct_change()`)
-  - This field calculates the growth rate of educational attainment by measuring the annual percentage-point increase in university degrees within each band. By applying the pct_change() function, we can identify the specific years where the hike was the steepest as well as Singapore’s university expansion. This allows us to correlate spikes in higher education attainment with shifts such as the increase in university intake capacities during the early 2010s.
-- Cohort-tracking: following the 25–29 group of 2000 as they move into older age bands over successive years
-  - This method involves tracking the same birth cohort (e.g. those aged 25–29 in 2000) as they age into subsequent bands (30–34, 35–39, etc.) across different years. By analyzing how the university attainment of this cohort evolves over time, we can confirm whether the observed increase in university share is indeed a cohort effect rather than an age effect.
-- Gender-Education Parity Index: female-to-male university attainment ratio by age group and year
-  - This metric introduces a "Gender-Education Parity Index" (GEPI) to quantify the shifting educational landscape across different age bands. By calculating the ratio of female university attainment to male attainment within each age band, we can clearly see the point in which male dominance in tertiary education transitioned to a more balanced and/or female dominance instead . This index portrays how these educational shifts might impact future workforce employment as well as leadership opportunities for each gender.
-- Labour-market absorption rate: ratio of degree-holder population growth to labour force degree-holder growth
-  - This analysis compares the growth rate of degree holders in the resident population to the growth rate of degree holders in the labour force. By calculating this ratio, we can assess whether the labour market has been able to absorb the increasing number of degree holders. A ratio close to 1 would suggest that job creation for degree holders has kept pace with their population growth, while a ratio significantly less than 1 could indicate potential underemployment or a mismatch between educational attainment and job opportunities.
+---
+
+## 6.2 Key Measures We Will Compute
+
+All measures below are derived from the same cleaned tables used to build the visualization.
+
+```{=html}
+<div class="schema-wrap">
+  <div class="schema-card">
+    <div class="sc-head">Core measures (per age × sex × year)</div>
+    <div class="sc-row"><span class="sc-col">University / Degree Share</span><span class="sc-type">count_k / total_k</span></div>
+    <div class="sc-row"><span class="sc-col">Employment Rate</span><span class="sc-type">emp_rate (%)</span></div>
+    <div class="sc-row"><span class="sc-col">YoY Change (pp)</span><span class="sc-type">share_t − share_(t−1)</span></div>
+    <div class="sc-note">These measures quantify the “tipping point” and how quickly the education structure changed over time.</div>
+  </div>
+
+  <div class="schema-card">
+    <div class="sc-head">Gender comparison measures</div>
+    <div class="sc-row"><span class="sc-col">GEPI</span><span class="sc-type">Female share ÷ Male share</span></div>
+    <div class="sc-row"><span class="sc-col">Gender Gap (pp)</span><span class="sc-type">Female share − Male share</span></div>
+    <div class="sc-row"><span class="sc-col">Pattern tracking</span><span class="sc-type">cohort movement across age bands</span></div>
+    <div class="sc-note">These measures translate “female advantage vs male advantage” into a single interpretable scale.</div>
+  </div>
+</div>
+```
+
+---
+
+## 6.3 Planned Analysis Methods (A1–A4)
+
+Each method below maps to **one clear question**, one **metric**, and one **visual output**.
+
+### A1 — University Share Growth (When did the tipping point happen?)
+
+**Question answered:** *When did degree holders become the majority in key working-age bands?*  
+**Method:** Track degree share (by age × sex) over time and compute year-on-year change:
+
+- **Δt = UnivShare(t) − UnivShare(t−1)** (percentage-point change)
+
+**Output:** A **faceted line chart** (male vs female) showing degree share by year, with key age bands highlighted.
+
+```{=html}
+<div class="callout-custom green">
+  <strong>Expected interpretation</strong>
+  We expect faster growth in younger/prime working-age bands (e.g., 25–44) during the 2010s, and slower change in older bands (55+),
+  supporting a generational shift rather than a uniform increase across all ages.
+</div>
+```
+
+---
+
+### A2 — Cohort Tracking (Cohort effect vs age effect)
+
+**Question answered:** *Is rising degree share mostly because each new generation is more educated, or because people gain qualifications as they age?*  
+**Method:** Construct a pseudo-panel by following approximate birth cohorts as they move through age bands across years.
+
+**Output:** A **connected dot plot / small multiples** where each cohort is a line across age bands over time.
+
+```{=html}
+<div class="callout-custom">
+  <strong>What we look for</strong>
+  If cohort lines are mostly flat (or only change slightly), that supports a <em>cohort effect</em>.
+  Large upward shifts would suggest an <em>age/upskilling effect</em>.
+</div>
+```
+
+---
+
+### A3 — Gender-Education Parity Index (GEPI) Heatmap
+
+**Question answered:** *Where and when does female advantage emerge, and how does it shift across age bands?*  
+**Method:** Compute:
+
+- **GEPI(a,t) = Female UnivShare(a,t) ÷ Male UnivShare(a,t)**
+
+Interpretation guide:
+
+- **GEPI < 1** → male advantage  
+- **GEPI = 1** → parity  
+- **GEPI > 1** → female advantage
+
+**Output:** A **diverging heatmap** (blue → white → red) across age bands (y) and years (x).
+
+```{=html}
+<div class="callout-custom amber">
+  <strong>Expected pattern</strong>
+  We expect GEPI to shift from male advantage in older cohorts to female advantage in younger cohorts,
+  with a visible “crossover” period where GEPI passes 1.0 in key age bands.
+</div>
+```
+
+---
+
+### A4 — Labour-Market Absorption (Has the economy kept up?)
+
+**Question answered:** *Has employment for degree holders grown in step with the growth of degree-holder population?*  
+**Method:** Compare growth in employed degree holders vs resident degree-holder population using an absorption-style ratio:
+
+- **AbsorptionRate(t) = (EmployedDegree(t)/EmployedDegree(2010)) ÷ (ResidentDegree(t)/ResidentDegree(2010))**
+
+**Output:** A **dual-line trend + absorption ratio line** with a reference line at **1.0**.
+
+```{=html}
+<div class="callout-custom insight">
+  <strong>How we interpret the ratio</strong>
+  If the absorption rate stays near 1.0, employment growth kept pace.
+  If it trends consistently below 1.0, it suggests graduate supply may be outpacing graduate-level employment absorption.
+</div>
+```
+
+---
+
+## 6.4 What This Section Produces 
+
+```{=html}
+<table class="summary-analysis-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question Answered</th>
+      <th>Main Output</th>
+      <th>Key Signal</th>
+      <th>Data Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A1</td>
+      <td>When did graduates become the majority?</td>
+      <td><span class="out-badge out-line">Line chart</span></td>
+      <td>Timing + growth rate of degree share</td>
+      <td>Multi-year education composition</td>
+    </tr>
+    <tr>
+      <td>A2</td>
+      <td>Cohort effect or age effect?</td>
+      <td><span class="out-badge out-dot">Dot plot</span></td>
+      <td>Flat vs rising cohort trajectories</td>
+      <td>Multi-year education composition</td>
+    </tr>
+    <tr>
+      <td>A3</td>
+      <td>How strong is the gender reversal?</td>
+      <td><span class="out-badge out-heat">Heatmap</span></td>
+      <td>GEPI crossover + movement over time</td>
+      <td>Multi-year education composition</td>
+    </tr>
+    <tr>
+      <td>A4</td>
+      <td>Has the job market absorbed graduates?</td>
+      <td><span class="out-badge out-dual">Dual trend</span></td>
+      <td>Absorption ratio around/below 1.0</td>
+      <td>Employment + education over time</td>
+    </tr>
+  </tbody>
+</table>
+```
 
 ---
 
