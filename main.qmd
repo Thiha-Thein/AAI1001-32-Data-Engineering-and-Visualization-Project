@@ -407,7 +407,7 @@ opts_chunk$set(echo = TRUE)
 
 # 1. Introduction and Project Overview {#sec-original}
 
-## 1.1 The Story We're Telling
+## 1.1 Our Project's Aim
 
 Singapore's workforce has undergone a profound educational transformation over the past three decades. University-educated workers now make up the majority of employed residents in the 25–44 age bands, yet public debate continues to ask whether the labour market has truly absorbed this surge in graduate supply — or whether a structural mismatch has quietly emerged between qualifications and available jobs.
 
@@ -1627,6 +1627,9 @@ x = Degree share, y = employment rate, points labelled by age group.
 
 - Ministry of Manpower, "Labour Force in Singapore 2024," Mom.gov.sg, 2024. <https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2024.aspx>
 
+## 8.3 Design Reference
+
+- B. Wong, “Points of View: Color Blindness,” Nature Methods, vol.8, no. 6, pp. 441–441, May 2011, doi: https://doi.org/10.1038/nmeth.1618.
 
 ---
 
