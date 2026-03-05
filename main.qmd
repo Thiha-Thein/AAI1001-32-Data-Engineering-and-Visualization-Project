@@ -1605,7 +1605,7 @@ x = Degree share, y = employment rate, points labelled by age group.
 
 | Team Member | Primary Tasks | Est. Hours |
 |---|---|---|
-| Adheesh    | Edit urself | ~12 hrs |
+| Adheesh    | Proposed improvements with detailed justifications | ~12 hrs |
 | Shannon    | Edit urself | ~12 hrs |
 | Thiha Thein Kevin| Data sources + Planned data analysis | ~10 hrs |
 | Jing Hong  | Edit urself | ~12 hrs |
