@@ -1607,7 +1607,7 @@ x = Degree share, y = employment rate, points labelled by age group.
 |---|---|---|
 | Adheesh    | Edit urself | ~12 hrs |
 | Shannon    | Edit urself | ~12 hrs |
-| Thiha Thein| Edit urself | ~12 hrs |
+| Thiha Thein Kevin| Data sources + Planned data analysis | ~10 hrs |
 | Jing Hong  | Edit urself | ~12 hrs |
 | Zafri      | Edit urself | ~12 hrs |
 | All Members | Edit urself | ~8 hrs each |
