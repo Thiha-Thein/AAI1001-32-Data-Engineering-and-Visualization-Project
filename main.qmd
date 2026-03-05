@@ -1605,13 +1605,12 @@ x = Degree share, y = employment rate, points labelled by age group.
 
 | Team Member | Primary Tasks | Est. Hours |
 |---|---|---|
-| Adheesh    | Proposed improvements with detailed justifications | ~12 hrs |
-| Shannon    | Edit urself | ~12 hrs |
-| Thiha Thein Kevin| Data sources + Planned data analysis | ~10 hrs |
-| Jing Hong  | Edit urself | ~12 hrs |
-| Zafri      | Edit urself | ~12 hrs |
-| All Members | Edit urself | ~8 hrs each |
-
+| Adheesh | Proposed improvements with detailed justifications | ~12 hrs |
+| Shannon | Data Engineering Workflow & Appendix | ~12 hrs |
+| Thiha Thein Kevin | Data sources + Planned data analysis | ~10 hrs |
+| Jing Hong | Edit urself | ~12 hrs |
+| Zafri | Edit urself | ~12 hrs |
+| All Members | Content Moderation & Document Formatting | ~8 hrs each |
 
 ---
 
@@ -1623,13 +1622,13 @@ x = Degree share, y = employment rate, points labelled by age group.
 
 ## 8.2 Data Sources
 
-- Singapore Department of Statistics, 2026, "Singapore Residents Aged 25 Years & Over By Highest Qualification Attained (HQA), Sex And Age Group, Annual," data.gov.sg. Accessed: February 26, 2026. [Online]. Available: <https://data.gov.sg/datasets/d_1020b8ee03923042a8ab8e26eef58093/view>
+- Singapore Department of Statistics, 2026, "Singapore Residents Aged 25 Years & Over By Highest Qualification Attained (HQA), Sex And Age Group, Annual," data.gov.sg. <https://data.gov.sg/datasets/d_1020b8ee03923042a8ab8e26eef58093/view>
 
 - Ministry of Manpower, "Labour Force in Singapore 2024," Mom.gov.sg, 2024. <https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2024.aspx>
 
 ## 8.3 Design Reference
 
-- B. Wong, “Points of View: Color Blindness,” Nature Methods, vol.8, no. 6, pp. 441–441, May 2011, doi: https://doi.org/10.1038/nmeth.1618.
+- B. Wong, “Points of View: Color Blindness,” Nature Methods, vol.8, no. 6, pp. 441–441, May 2011, doi: <https://doi.org/10.1038/nmeth.1618> 
 
 ---
 
