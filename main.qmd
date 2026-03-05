@@ -2,7 +2,7 @@
 title: "Singapore Employment Rate by Education Attainment Across Age & Gender"
 subtitle: "AAI1001 Team Project Proposal"
 author: "AAI1001 Team 32"
-date: "26th February 2026"
+date: "03/05/2026"
 format:
   html:
     toc: true
@@ -296,6 +296,89 @@ format:
         .repro-card .rc-icon  { font-size: 22px; margin-bottom: 7px; display: block; }
         .repro-card .rc-title { font-weight: 600; font-size: 13.5px; color: var(--ink); margin-bottom: 5px; }
         .repro-card .rc-body  { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+        
+        /* ── SECTION 2: CRITICAL ANALYSIS (cards) ── */
+        .ca-hero {
+        background: linear-gradient(135deg, #eef2f9 0%, #ffffff 55%, #eef2f9 100%);
+        border: 1px solid var(--rule);
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin: 14px 0 22px;
+        }
+        .ca-hero strong { color: var(--accent); }
+        .ca-hero p { margin: 8px 0 0; color: var(--ink2); font-size: 13.5px; line-height: 1.7; }
+        
+        .ca-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0 8px; }
+        @media(max-width: 860px){ .ca-two-col { grid-template-columns: 1fr; } }
+        
+        .ca-panel {
+          background: var(--surface);
+          border: 1px solid var(--rule);
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .ca-panel-head {
+          padding: 14px 16px 12px;
+          border-bottom: 1px solid var(--faint);
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          gap: 12px;
+        }
+        .ca-panel-title {
+          font-family: 'Lora', serif;
+          font-weight: 700;
+          font-size: 1.0rem;
+          color: var(--ink);
+          margin: 0;
+        }
+        .ca-panel-sub {
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: .12em;
+          text-transform: uppercase;
+          color: var(--muted);
+          margin: 0;
+          white-space: nowrap;
+        }
+        .ca-items { padding: 8px 0; }
+        
+        .ca-item {
+          display: grid;
+          grid-template-columns: 52px 1fr;
+          gap: 14px;
+          padding: 14px 16px;
+          border-top: 1px solid var(--faint);
+        }
+        .ca-item:first-child { border-top: none; }
+        
+        .ca-num {
+          width: 44px; height: 44px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'IBM Plex Mono', monospace;
+          font-weight: 800;
+          font-size: 13px;
+        }
+        .ca-num.s { background: #ecfdf5; border: 1px solid #a7f3d0; color: #047857; }
+        .ca-num.w { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+        
+        .ca-body h4 {
+          margin: 0 0 6px;
+          font-family: 'Lora', serif;
+          font-size: .98rem;
+          font-weight: 700;
+          line-height: 1.3;
+        }
+        .ca-body p {
+          margin: 0;
+          color: var(--ink2);
+          font-size: 13.5px;
+          line-height: 1.7;
+        }
         </style>
 execute:
   echo: true
@@ -394,55 +477,118 @@ The bar chart's dual-panel design is the most distinctive structural feature —
 
 # 2.  Critical Analysis of Original Visualization {#sec-analysis}
 
-## Strengths
+```{=html}
+<div class="ca-hero">
+  <strong>What this section does:</strong>
+  <p>We evaluate the original chart’s design choices by identifying what it does well (Strengths) and what limits its analytical value (Weaknesses). These points directly motivate the redesign decisions in Section 3.</p>
+</div>
+```
 
-The original visualizaiton demonstrates several effective design choices:
+```{=html}
+<div class="ca-two-col">
 
-**#1. Dual-panel design provides complementary context**
+  <!-- Strengths -->
+  <div class="ca-panel">
+    <div class="ca-panel-head">
+      <h3 class="ca-panel-title">Strengths</h3>
+      <p class="ca-panel-sub">What works well</p>
+    </div>
 
-The most significant design strength is the pairing of a 100% stacked bar (proportional) with an absolute count bar beneath it. A proportional chart alone can be misleading — a cohort with 80% university graduates might represent only a tiny absolute population. Thus, the bottom panel mitigates misinterpretation by revealing the raw counts, making the 65+ spike immediately apparent. This design decision showcases awareness of a well-known pitfall in compositional visualization.
+    <div class="ca-items">
+      <div class="ca-item">
+        <div class="ca-num s">S1</div>
+        <div class="ca-body">
+          <h4>Dual-panel design provides complementary context</h4>
+          <p>The most significant design strength is the pairing of a 100% stacked bar (proportional) with an absolute count bar beneath it. A proportional chart alone can be misleading — a cohort with 80% university graduates might represent only a tiny absolute population. Thus, the bottom panel mitigates misinterpretation by revealing the raw counts, making the 65+ spike immediately apparent. This design decision showcases awareness of a well-known pitfall in compositional visualization.</p>
+        </div>
+      </div>
 
-**#2. Consistent colour encoding across education levels**
+      <div class="ca-item">
+        <div class="ca-num s">S2</div>
+        <div class="ca-body">
+          <h4>Consistent colour encoding across education levels</h4>
+          <p>The 5 education levels are mapped to a sequential–diverging palette, with a legend attached for easy referencing. The dark navy (University) and medium blue (Diploma) occupy the "cool" end of the spectrum, while the yellow-green (Below Secondary) anchors the "warm" end. The colour logic is intuitive — darker/cooler tones are associated with higher attainment — making readability efficient.</p>
+        </div>
+      </div>
 
-The 5 education levels are mapped to a sequential–diverging palette, with a legend attached for easy referencing. The dark navy (University) and medium blue (Diploma) occupy the "cool" end of the spectrum, while the yellow-green (Below Secondary) anchors the "warm" end. The colour logic is intuitive — darker/cooler tones are associated with higher attainment — making readability efficient.
+      <div class="ca-item">
+        <div class="ca-num s">S3</div>
+        <div class="ca-body">
+          <h4>Multi-variable analysis in a single chart</h4>
+          <p>The chart successfully visualizes the intersectional characteristics of age, gender, and education in a single view from a genuinely complex multidimensional dataset. Alternative approaches such as faceted line charts or heat maps would require the viewer to toggle between multiple panels to perceive these relationships together.</p>
+        </div>
+      </div>
 
-**#3. Multi-variable analysis in a single chart**
+      <div class="ca-item">
+        <div class="ca-num s">S4</div>
+        <div class="ca-body">
+          <h4>Clear legend and descriptive subtitle</h4>
+          <p>The legend is well-labelled, easy to understand, and directly matches the colour categories used in the bars. The subtitle explains what is being shown in both panels, which is necessary given the chart's complexity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-The chart successfully visualizes the intersectional characteristics of age, gender, and education in a single view from a genuinely complex multidimensional dataset. Alternative approaches such as faceted line charts or heat maps would require the viewer to toggle between multiple panels to perceive these relationships together.
+  <!-- Weaknesses -->
+  <div class="ca-panel">
+    <div class="ca-panel-head">
+      <h3 class="ca-panel-title">Weaknesses</h3>
+      <p class="ca-panel-sub">What limits analysis</p>
+    </div>
 
-**#4. Clear legend and descriptive subtitle**
+    <div class="ca-items">
+      <div class="ca-item">
+        <div class="ca-num w">W1</div>
+        <div class="ca-body">
+          <h4>Poor readability from severe x-axis label crowding</h4>
+          <p>The age group labels are printed vertically above the top panel, while the gender labels ("Female" and "Male") are rotated vertically below the bottom panel. With 9 age groups × 2 genders = 18 bar pairs, the labels overlap and are difficult to read at normal resolution. The viewer must invest significant effort tracking which bar belongs to which age group.</p>
+        </div>
+      </div>
 
-The legend is well-labelled, easy to understand, and directly matches the colour categories used in the bars. The subtitle explains what is being shown in both panels, which is necessary given the chart's complexity.
+      <div class="ca-item">
+        <div class="ca-num w">W2</div>
+        <div class="ca-body">
+          <h4>Visual discontinuity between the two panels</h4>
+          <p>The top and bottom panels are not visually connected by gridlines, reference lines, or shading. The viewer must mentally align bars across the two panels to link a proportional observation with its absolute count. The lack of a linking visual device weakens the narrative connection that is the chart's core strength.</p>
+        </div>
+      </div>
 
----
+      <div class="ca-item">
+        <div class="ca-num w">W3</div>
+        <div class="ca-body">
+          <h4>Stacked bars make mid-segment comparison almost impossible</h4>
+          <p>Since "Below Secondary" is the only category anchored to a common baseline (0%), all other education levels float at varying heights. Comparing the "Post Secondary (Non-Tertiary)" share between, say, 35–39 year-old females and 55–59 year-old males requires estimating floating segment boundaries across two different bars — a task that is cognitively very demanding.</p>
+        </div>
+      </div>
 
-## Weaknesses
+      <div class="ca-item">
+        <div class="ca-num w">W4</div>
+        <div class="ca-body">
+          <h4>The 65+ absolute bar dwarfs all other bars, distorting the bottom panel</h4>
+          <p>The 65+ cohort is so much larger (400K+) that all other bars in the bottom panel appear compressed. The y-axis scale accommodates the maximum value, reducing comparative resolution across all other age groups.</p>
+        </div>
+      </div>
 
-Despite its strengths, the original visualzization also has significant limitations that reduce its analytical value:
+      <div class="ca-item">
+        <div class="ca-num w">W5</div>
+        <div class="ca-body">
+          <h4>No direct value annotations</h4>
+          <p>Neither panel includes data labels or tooltips, as the visualization is a static export. The viewer cannot determine precise percentages or counts without a reference grid.</p>
+        </div>
+      </div>
 
-**#1. Poor readability from severe x-axis label crowding**
+      <div class="ca-item">
+        <div class="ca-num w">W6</div>
+        <div class="ca-body">
+          <h4>Colour palette has accessibility concerns</h4>
+          <p>The distinction between the light blue (Diploma & Professional Qualification) and light green (Post Secondary Non-Tertiary) segments is subtle and may be difficult for viewers with colour vision deficiencies.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-The age group labels are printed vertically above the top panel, while the gender labels ("Female" and "Male") are rotated vertically below the bottom panel. With 9 age groups × 2 genders = 18 bar pairs, the labels overlap and are difficult to read at normal resolution. The viewer must invest significant effort tracking which bar belongs to which age group.
-
-**#2. Visual discontinuity between the two panels**
-
-The top and bottom panels are not visually connected by gridlines, reference lines, or shading. The viewer must mentally align bars across the two panels to link a proportional observation with its absolute count. The lack of a linking visual device weakens the narrative connection that is the chart's core strength.
-
-**#3. Stacked bars make mid-segment comparison almost impossible**
-
-Since "Below Secondary" is the only category anchored to a common baseline (0%), all other education levels float at varying heights. Comparing the "Post Secondary (Non-Tertiary)" share between, say, 35–39 year-old females and 55–59 year-old males requires estimating floating segment boundaries across two different bars — a task that is cognitively very demanding.
-
-**#4. The 65+ absolute bar dwarfs all other bars, distorting the bottom panel**
-
-The 65+ cohort is so much larger (400K+) that all other bars in the bottom panel appear compressed. The y-axis scale accommodates the maximum value, reducing comparative resolution across all other age groups.
-
-**#5. No direct value annotations**
-
-Neither panel includes data labels or tooltips, as the visualization is a static export. The viewer cannot determine precise percentages or counts without a reference grid.
-
-**#6. Colour palette has accessibility concerns**
-
-The distinction between the light blue (Diploma & Professional Qualification) and light green (Post Secondary Non-Tertiary) segments is subtle and may be difficult for viewers with colour vision deficiencies.
+</div>
+```
 
 ---
 
@@ -450,7 +596,7 @@ The distinction between the light blue (Diploma & Professional Qualification) an
 
 ## 3.1 Enhancement Strategy
 
-Based on the six weaknesses identified in Section 2, we propose six concrete, targeted improvements. The table below maps each improvement to the weakness it directly addresses, and notes which original strengths are preserved.
+Going back to the six weaknesses we flagged in Section 2, we came up with six improvements that each target a specific problem in the original chart. We tried to be deliberate about this — rather than doing a general visual refresh, each change has a clear reason behind it. The table below shows exactly which weakness each improvement responds to, and we've also noted which of the original chart's genuine strengths we made sure to carry over.
 
 ```{=html}
 <div class="imp-table-wrap">
@@ -467,37 +613,37 @@ Based on the six weaknesses identified in Section 2, we propose six concrete, ta
     <tr>
       <td>I1</td>
       <td><span class="badge badge-w">W1</span></td>
-      <td>Replace rotated age labels with a centred spine column between the two wings. Every label is horizontal, legible, and visually anchored between its male and female bars — the butterfly spine eliminates the 18-label crowding entirely.</td>
+      <td>The original's 18 rotated labels make it genuinely hard to match a bar to its age group. We swap them out for a fixed centre column that sits between the male and female wings — every age label is now horizontal and tied directly to its row, so there's no guesswork involved.</td>
       <td>Flexbox butterfly layout; fixed-width centre column</td>
     </tr>
     <tr>
       <td>I2</td>
       <td><span class="badge badge-w">W2</span> <span class="badge badge-w">W3</span></td>
-      <td>Merge the two panels into one dual-encoded bar: width encodes employment rate (%), fill encodes education composition (%). Dual encoding eliminates panel discontinuity (W2) and anchors all segments to a consistent proportional baseline (W3).</td>
+      <td>Rather than two separate panels the reader has to mentally stitch together, we combine both into a single bar — the width shows employment rate and the coloured fill shows education composition. This eliminates the panel gap (W2) and also gives every segment a shared left edge, so you can actually compare the same education category across different age groups without floating baselines (W3).</td>
       <td>Dual-encoding on a single bar axis</td>
     </tr>
     <tr>
       <td>I3</td>
       <td><span class="badge badge-w">W3</span></td>
-      <td>Segment visibility toggle — clicking any education category recalculates the remaining proportions to sum to 100%, enabling direct comparison of selected categories on a consistent scale without floating baselines.</td>
+      <td>We added a toggle that lets you click on any education category to hide it. When you do, the remaining categories automatically recalculate so they still add up to 100% — that way the proportions stay meaningful and you can cleanly compare any subset of education levels without the floating baseline problem.</td>
       <td>Interactive segment filter; live proportion recalculation</td>
     </tr>
     <tr>
       <td>I4</td>
       <td><span class="badge badge-w">W4</span></td>
-      <td>Encode employment rate as bar <em>width</em> (0–100%) rather than absolute count. The 65+ and 70+ cohorts naturally produce shorter bars due to lower participation, eliminating the axis distortion caused by the 65+ population spike.</td>
+      <td>We use employment rate as bar <em>width</em> instead of raw population count. Since older cohorts have lower participation rates, their bars are naturally shorter — no single group blows up the scale, and all 12 age groups sit on the same 0–100% axis without the 65+ spike crushing everything else.</td>
       <td>Rate-normalised bar width instead of absolute count axis</td>
     </tr>
     <tr>
       <td>I5</td>
       <td><span class="badge badge-w">W5</span></td>
-      <td>Employment rate printed directly as a pill label at each bar end. Hovering reveals a tooltip with the exact rate and all active education breakdowns to 2 d.p., recalculated for visible segments — surfacing values that were invisible in the static original.</td>
+      <td>The employment rate for each bar is shown as a small pill label right at the bar end, so the key number is always visible without needing to interact. Hovering brings up a full tooltip with the exact rate plus the education breakdown to 2 decimal places — recalculated on the fly based on whichever segments are currently active.</td>
       <td>Inline bar-end pill labels; floating rich tooltip on hover</td>
     </tr>
     <tr>
       <td>I6</td>
       <td><span class="badge badge-w">W6</span></td>
-      <td>Replace the original palette with the Wong (2011) colourblind-safe set: Dark Gray, Blue, Orange, Purple, Green — each pair maintaining sufficient luminance contrast under deuteranopia and protanopia. Segment toggle further reduces colour dependency.</td>
+      <td>The light blue and light green in the original are easy to mix up, particularly for anyone with colour vision deficiency. We switched to the Wong (2011) palette — dark gray, blue, orange, purple, and green — which keeps all five categories clearly distinguishable. The segment toggle also means colour is never the only cue.</td>
       <td>Wong (2011) CB-safe palette; interactive segment isolation</td>
     </tr>
   </tbody>
@@ -508,45 +654,45 @@ Based on the six weaknesses identified in Section 2, we propose six concrete, ta
   <div class="sp-title">✅ Original Strengths Preserved</div>
   <div class="sp-row">
     <span class="sp-badge">S1</span>
-    <span class="sp-text"><strong>Gender comparison retained.</strong> The butterfly layout keeps males and females in direct visual opposition about a shared age spine — the core comparative intent of the original is maintained, and actually strengthened by eliminating label clutter.</span>
+    <span class="sp-text"><strong>Gender comparison is kept front and centre.</strong> The butterfly layout keeps males and females facing each other across a shared age spine, so the side-by-side gender comparison that made the original useful is still immediately visible — and actually easier to read now that the label clutter is gone.</span>
   </div>
   <div class="sp-row">
     <span class="sp-badge">S2</span>
-    <span class="sp-text"><strong>Colour encoding consistent.</strong> Education levels retain a consistent colour identity across all bars. The Wong palette replaces the original while preserving the principle of one colour per education category, with the added benefit of colourblind accessibility.</span>
+    <span class="sp-text"><strong>One colour per education level, consistently applied.</strong> We kept the same logic of assigning a single colour to each education category throughout. The Wong palette is a swap made for accessibility reasons — the principle of consistent colour coding is preserved, and someone familiar with the original can still orient themselves quickly.</span>
   </div>
   <div class="sp-row">
     <span class="sp-badge">S3</span>
-    <span class="sp-text"><strong>Single multi-variable view.</strong> Age, gender, employment rate, and education composition are all visible simultaneously in one chart — no panel-switching required. The redesign adds a fourth dimension (employment rate) while keeping the single-view principle intact.</span>
+    <span class="sp-text"><strong>Still a single chart, not a dashboard of panels.</strong> Age group, gender, employment rate, and education breakdown are all readable from one view without needing to open a second panel or cross-reference another figure. We actually added a dimension compared to the original while keeping the single-view approach intact.</span>
   </div>
 </div>
 ```
 
 ## 3.2 Justification for Redesign Approach
 
-Rather than reconstructing the original Tableau chart identically, we redesign it as a fully interactive HTML visualization. Three core principles underpin this decision:
+We decided early on not to rebuild the original Tableau chart directly. Part of this was practical — several of the problems we identified in Section 2 are genuinely unsolvable within a static format, so patching the layout would only get us so far. Rebuilding as a fully interactive HTML visualization gave us the room to address those issues properly. Three main reasons drove this decision:
 
 ```{=html}
 <div class="justify-grid">
   <div class="jcard">
     <span class="jcard-icon">🔄</span>
-    <div class="jcard-title">Interactivity Resolves Structural Weaknesses</div>
-    <div class="jcard-body">The original is a <strong>static image</strong>. As identified in W3 and W5, the inability to isolate segments or surface exact values is a structural limitation of the static format — not a design choice. An interactive redesign resolves these directly: segment toggles anchor floating comparisons, and hover tooltips surface precise values on demand.</div>
+    <div class="jcard-title">Interactivity Solves What Static Cannot</div>
+    <div class="jcard-body">The original is a <strong>static image</strong>. The problems with floating segments (W3) and missing value labels (W5) are not design oversights — they are things a static chart simply cannot fix. Making it interactive is the actual solution: segment toggles give every category a consistent baseline, and hover tooltips let you read off exact figures on demand.</div>
   </div>
   <div class="jcard">
     <span class="jcard-icon">📐</span>
-    <div class="jcard-title">Dual Encoding Adds a Labour Market Dimension</div>
-    <div class="jcard-body">The original encodes only education composition. Our redesign layers in <strong>employment rates from MOM Table B1</strong>, adding a critical labour-market dimension. Bar width now encodes participation while fill encodes composition — simultaneously answering "who is employed?" and "how educated are they?" without requiring a second panel.</div>
+    <div class="jcard-title">Employment Rate Adds the Missing Half</div>
+    <div class="jcard-body">The original only shows education composition — it does not tell you how many of those people are actually employed. By pulling in <strong>employment rates from MOM Table B1</strong>, we add that labour-market context directly into the same bar. Bar width shows participation, fill shows composition, and both questions get answered at once without needing a second panel.</div>
   </div>
   <div class="jcard">
     <span class="jcard-icon">💡</span>
-    <div class="jcard-title">Self-Annotating Chart Integrates Explanation</div>
-    <div class="jcard-body">Controls, tooltips, and inline bar-end labels <strong>replace the need for a separate narrative</strong>. The chart is self-annotating — a reader can extract precise values, filter by cohort, and isolate education segments without leaving the visual. This fulfils both the "effective communication" and "aesthetically pleasing and professional" criteria simultaneously.</div>
+    <div class="jcard-title">The Chart Explains Itself</div>
+    <div class="jcard-body">Between the pill labels, the hover tooltip, and the interactive controls, most of what you'd normally need a caption to explain is just visible in the chart itself. A reader can isolate a cohort, toggle education levels, and read off exact figures <strong>without leaving the visualization</strong> — which we felt fulfilled the brief of both being analytically useful and looking professional.</div>
   </div>
 </div>
 
 <div class="callout-custom insight">
-  <strong>🔍 Design Principle</strong>
-  The butterfly (diverging bar) layout eliminates the 18-label crowding problem while preserving the gender comparison that was the core intent of the original. The mirror-image structure is perceptually natural — viewers read left as one group and right as another, with the central age spine as the reference point.
+  <strong>🔍 Why a Butterfly Layout?</strong>
+  Gender comparison is genuinely central to what this dataset is about, and the butterfly format puts that front and centre — males on the left, females on the right, age labels in the middle. You can scan any row horizontally and immediately see the gap between the two sides. As a bonus, it also takes care of the label problem naturally, since the central spine replaces all 18 rotated labels with one clean column.
 </div>
 ```
 
@@ -554,7 +700,7 @@ Rather than reconstructing the original Tableau chart identically, we redesign i
 
 ### 3.3.1 Interactive Butterfly Chart — Employment Rate by Age, Gender & Education Level (2024)
 
-The visualization below encodes **four dimensions simultaneously**: age group, gender, employment rate, and education level share. Hovering over any bar reveals the exact employment rate and the precise percentage breakdown across visible education categories for that age × gender group.
+The chart below is our redesign. It shows **four dimensions at once** — age group, gender, employment rate, and education composition — all within a single interactive view. Bar width represents employment rate, and the coloured segments within each bar show how that group is split across the five education categories. Hover over any bar for exact figures, and use the controls at the top to filter by education category or age group.
 
 ```{=html}
 <div class="dim-grid">
@@ -804,53 +950,54 @@ ${rows}${note}`;
 <ul class="decision-list">
   <li>
     <div class="decision-num">1</div>
-    <div><strong>Diverging butterfly layout</strong> <span class="badge badge-i">I1 → W1</span><br>The mirror-image horizontal bar structure places male and female bars about a central age spine, eliminating the 18-label crowding of the original entirely. Every label is horizontal, legible, and unambiguously linked to its bars.</div>
+    <div><strong>Diverging butterfly layout</strong> <span class="badge badge-i">I1 → W1</span><br>Placing males on the left and females on the right with age labels running down the centre was the most direct fix for the label problem. Each age group now has its own clearly defined row, and you can read every label without tilting your head. The left-right structure also makes gender comparison feel completely natural.</div>
   </li>
   <li>
     <div class="decision-num">2</div>
-    <div><strong>Dual encoding: width × fill</strong> <span class="badge badge-i">I2 → W2 + W3</span><br>Bar <em>width</em> maps to employment rate (0–100%) while bar <em>fill segments</em> map to education composition. This merges the original's two disconnected panels into one view — simultaneously eliminating panel discontinuity and anchoring all segments to a consistent baseline.</div>
+    <div><strong>Dual encoding: width × fill</strong> <span class="badge badge-i">I2 → W2 + W3</span><br>Making bar <em>width</em> represent employment rate and the <em>fill segments</em> represent education composition let us collapse the original's two disconnected panels into one bar. It also means all segments now share the same left edge, so you can compare the same education category across different rows without having to mentally account for shifting baselines.</div>
   </li>
   <li>
     <div class="decision-num">3</div>
-    <div><strong>Live proportion recalculation on segment toggle</strong> <span class="badge badge-i">I3 → W3</span><br>Deselecting any education category removes it from the chart and redistributes proportions so the remaining segments always sum to 100%. This ensures the stacked fill remains visually coherent and percentages in the tooltip reflect only the visible categories.</div>
+    <div><strong>Live proportion recalculation on segment toggle</strong> <span class="badge badge-i">I3 → W3</span><br>When you hide an education category, we didn't just want to dim it — we wanted the remaining categories to stay proportionally honest. So when any segment is deselected, the others automatically recalculate to sum to 100%, keeping both the chart and the tooltip values consistent with whatever is currently shown.</div>
   </li>
   <li>
     <div class="decision-num">4</div>
-    <div><strong>Rate-normalised bar width</strong> <span class="badge badge-i">I4 → W4</span><br>By using employment rate (%) rather than absolute count as bar width, all 12 age groups are placed on the same 0–100% scale. The 65+ and 70+ cohorts naturally produce shorter bars, eliminating the axis distortion caused by the 65+ population spike.</div>
+    <div><strong>Rate-normalised bar width</strong> <span class="badge badge-i">I4 → W4</span><br>Switching from absolute population count to employment rate as the bar width means every age group sits on the same 0–100% scale. Older cohorts have lower participation rates so their bars are naturally shorter — there is no 65+ spike dominating the chart and making everything else look compressed.</div>
   </li>
   <li>
     <div class="decision-num">5</div>
-    <div><strong>Prominent pill labels + rich tooltip</strong> <span class="badge badge-i">I5 → W5</span><br>Employment rates are displayed as bold pill labels at each bar end for immediate readability. Hovering reveals the full education breakdown, recalculated for currently active segments, surfacing values that were entirely invisible in the static original.</div>
+    <div><strong>Prominent pill labels + rich tooltip</strong> <span class="badge badge-i">I5 → W5</span><br>The pill label at the end of each bar shows the employment rate at a glance, without needing to hover. The tooltip goes further — hover over any bar and you get the full education breakdown, recalculated for whichever segments are currently active, all adding to exactly 100%. These two layers together mean you can always get to a precise number, which simply was not possible with the original.</div>
   </li>
   <li>
     <div class="decision-num">6</div>
-    <div><strong>Wong (2011) colourblind-safe palette</strong> <span class="badge badge-i">I6 → W6</span><br>Five education categories mapped to Dark Gray, Blue, Orange, Purple, and Green — each pair maintaining sufficient luminance contrast under deuteranopia and protanopia simulation. The segment toggle further reduces dependence on colour alone.</div>
+    <div><strong>Wong (2011) colourblind-safe palette</strong> <span class="badge badge-i">I6 → W6</span><br>The original's light blue and light green are genuinely easy to confuse, even without colour vision deficiency. The Wong (2011) palette — dark gray, blue, orange, purple, and green — was designed specifically to keep all five categories distinct under the most common forms of colour blindness. And since the segment toggle is always there, colour is never the only way to tell categories apart.</div>
   </li>
 </ul>
 ```
 
 ### 3.3.3 Interaction Features
 
-The visualization supports three interactive features, each resolving a specific analytical limitation of the static original:
+We built three interactive features into the chart, each one directly addressing something the static original could not do:
 
 ```{=html}
 <div class="feature-grid">
   <div class="feature-card">
     <div class="fc-title"><span>🎛️</span> Segment Toggle</div>
-    <p>Click any education category to remove it from view. Remaining segments recalculate to sum to 100%, enabling clean comparison of any subset of education levels with a consistent proportional scale.</p>
+    <p>Click any education category in the controls bar to remove it from the chart. The remaining segments automatically recalculate to sum to 100%, so you can compare any subset of education levels — say, just Degree vs Below Secondary — without floating baselines skewing what you see.</p>
   </div>
   <div class="feature-card">
     <div class="fc-title"><span>🔦</span> Multi-Select Age Filter</div>
-    <p>A dropdown panel lets users check or uncheck any combination of age groups. Deselected rows are removed completely from the chart — not merely dimmed — keeping the view uncluttered.</p>
+    <p>The dropdown lets you pick any combination of age groups to focus on. Rows you deselect disappear from the chart entirely rather than just fading out — so if you only want to look at the prime working-age bands, the chart redraws around just those rows.</p>
   </div>
   <div class="feature-card">
     <div class="fc-title"><span>💬</span> Rich Tooltip on Hover</div>
-    <p>Hovering any bar reveals the employment rate and the recalculated percentage split across all currently active education categories (2 d.p., summing to 100%), keeping the tooltip consistent with what is visible in the chart.</p>
+    <p>Hovering over any bar shows the employment rate for that group alongside the full education breakdown — percentages to 2 decimal places, always adding to exactly 100%. If you've toggled some categories off, the tooltip only shows what's currently visible, so the numbers always match what you're looking at.</p>
   </div>
 </div>
 ```
 
 ---
+
 
 # 4. Data Sources & Data Quality {#sec-data}
 
@@ -1300,192 +1447,153 @@ emp_pills    <- ...   # 24-row summary for bar-end labels
 
 # 6. Data Analysis Plan {#sec-data-analysis}
 
-```{=html}
-<div class="callout-custom insight">
-  <strong>Purpose of Section 6</strong>
-  This section explains the <em>analysis</em> we will conduct to support and validate the insights suggested by our improved visualization.
-  The analysis is optional in the project brief, but we include it to strengthen the story and make our conclusions evidence-based.
-</div>
-```
+## 6.1 What This Analysis Is For
 
-## 6.1 Analysis Goals 
+Our butterfly chart already shows the patterns visually, but this section adds a few simple calculations so we can state the key findings with clear numbers.
 
-Our interactive butterfly chart provides a strong 2024 snapshot. The analysis plan turns that snapshot into **testable, measurable questions**:
-
-- **(G1) Tipping point:** When did degree holders become the dominant group in prime working ages?
-- **(G2) Gender reversal:** In which age bands (and when) did females begin to outperform males in degree attainment?
-- **(G3) Labour-market absorption:** Has employment growth for degree holders kept pace with the growth of degree-holder population over time?
+- **(A1)** Which age groups show the largest **male–female employment rate gap**
+- **(A2)** How **Secondary school** qualification share differs across female age groups
+- **(A3)** Whether age groups with higher **Degree** share also tend to have higher **employment rates**
 
 ```{=html}
 <div class="feature-grid">
   <div class="feature-card">
-    <div class="fc-title"><span>📌</span> Evidence-first</div>
-    <p>Each method produces a visual output so the conclusion is shown directly, not just stated.</p>
+    <div class="fc-title"><span>🧾</span> Basic & clear</div>
+    <p>We will only use descriptive metrics (differences, shares, simple indices).</p>
   </div>
   <div class="feature-card">
-    <div class="fc-title"><span>🧮</span> Reproducible</div>
-    <p>All metrics are computed from tidy pipeline objects (no manual calculations in the write-up).</p>
+    <div class="fc-title"><span>🔍</span> Supports the chart</div>
+    <p>Each calculation corresponds to what we can see in our new butterfly chart.</p>
   </div>
   <div class="feature-card">
-    <div class="fc-title"><span>🧭</span> Story-aligned</div>
-    <p>Every chart answers one of the project questions introduced in Section 1.</p>
+    <div class="fc-title"><span>📊</span> Produces outputs</div>
+    <p>Each method produces either a table or a simple plot.</p>
   </div>
 </div>
 ```
 
 ---
 
-## 6.2 Key Measures We Will Compute
-
-All measures below are derived from the same cleaned tables used to build the visualization.
+## 6.2 Measures We Will Compute
 
 ```{=html}
 <div class="schema-wrap">
+
   <div class="schema-card">
-    <div class="sc-head">Core measures (per age × sex × year)</div>
-    <div class="sc-row"><span class="sc-col">University / Degree Share</span><span class="sc-type">count_k / total_k</span></div>
-    <div class="sc-row"><span class="sc-col">Employment Rate</span><span class="sc-type">emp_rate (%)</span></div>
-    <div class="sc-row"><span class="sc-col">YoY Change (pp)</span><span class="sc-type">share_t − share_(t−1)</span></div>
-    <div class="sc-note">These measures quantify the “tipping point” and how quickly the education structure changed over time.</div>
+    <div class="sc-head">Employment gap measures (B1, 2024)</div>
+    <div class="sc-row"><span class="sc-col">Employment rate</span><span class="sc-type">emp_rate (%, by age × sex)</span></div>
+    <div class="sc-row"><span class="sc-col">Gender employment gap</span><span class="sc-type">Gap = Male − Female (pp)</span></div>
+    <div class="sc-note">This quantifies the left/right bar-width differences you see in the butterfly chart.</div>
   </div>
 
   <div class="schema-card">
-    <div class="sc-head">Gender comparison measures</div>
-    <div class="sc-row"><span class="sc-col">GEPI</span><span class="sc-type">Female share ÷ Male share</span></div>
-    <div class="sc-row"><span class="sc-col">Gender Gap (pp)</span><span class="sc-type">Female share − Male share</span></div>
-    <div class="sc-row"><span class="sc-col">Pattern tracking</span><span class="sc-type">cohort movement across age bands</span></div>
-    <div class="sc-note">These measures translate “female advantage vs male advantage” into a single interpretable scale.</div>
+    <div class="sc-head">Education composition measures (G4, 2024)</div>
+    <div class="sc-row"><span class="sc-col">Education share</span><span class="sc-type">share = count_k / total_k</span></div>
+    <div class="sc-row"><span class="sc-col">Secondary share focus</span><span class="sc-type">share_secondary (by age × sex)</span></div>
+    <div class="sc-row"><span class="sc-col">Education concentration</span><span class="sc-type">HHI = Σ(share²)</span></div>
+    <div class="sc-note">Share supports the stacked colours; HHI tells whether a cohort is dominated by one level or more mixed.</div>
   </div>
+
 </div>
 ```
 
 ---
 
-## 6.3 Planned Analysis Methods (A1–A4)
+## 6.3 Planned Analyses 
 
-Each method below maps to **one clear question**, one **metric**, and one **visual output**.
+### A1 — Gender Employment Gap by Age (where is the gap biggest?)
 
-### A1 — University Share Growth (When did the tipping point happen?)
+**Question:** In 2024, which age group show the largest difference in employment rate between males and females?
 
-**Question answered:** *When did degree holders become the majority in key working-age bands?*  
-**Method:** Track degree share (by age × sex) over time and compute year-on-year change:
+**Metric (percentage points):**
+- **Gap(age) = emp_rate_male(age) − emp_rate_female(age)**
 
-- **Δt = UnivShare(t) − UnivShare(t−1)** (percentage-point change)
-
-**Output:** A **faceted line chart** (male vs female) showing degree share by year, with key age bands highlighted.
+**Output:** A ranked table + a dot plot (or bar chart) of gaps across age bands.
 
 ```{=html}
 <div class="callout-custom green">
-  <strong>Expected interpretation</strong>
-  We expect faster growth in younger/prime working-age bands (e.g., 25–44) during the 2010s, and slower change in older bands (55+),
-  supporting a generational shift rather than a uniform increase across all ages.
+  <strong>Insight:</strong>
+  We expect the employment gaps to be small in early working ages but widen at later ages, indicating differing labour force participation patterns by sex.
 </div>
 ```
 
 ---
 
-### A2 — Cohort Tracking (Cohort effect vs age effect)
+### A2 — “Secondary School Qualification” Share Among Employed Females 
 
-**Question answered:** *Is rising degree share mostly because each new generation is more educated, or because people gain qualifications as they age?*  
-**Method:** Construct a pseudo-panel by following approximate birth cohorts as they move through age bands across years.
+**Question:** In 2024, for employed females, how does the share of **Secondary school** qualification change across age groups?
 
-**Output:** A **connected dot plot / small multiples** where each cohort is a line across age bands over time.
+**Metric:**
+- **SecondaryShare_female(age) = SecondaryCount_female(age) ÷ TotalEmployed_female(age)**
+
+**Output:** A single line/dot plot: age bands on y-axis, secondary share on x-axis (female only).  
+(We can also add male as a comparison line.)
 
 ```{=html}
-<div class="callout-custom">
-  <strong>What we look for</strong>
-  If cohort lines are mostly flat (or only change slightly), that supports a <em>cohort effect</em>.
-  Large upward shifts would suggest an <em>age/upskilling effect</em>.
+<div class="callout-custom green">
+  <strong>Insight:</strong>
+  In 2024, we expect Secondary school qualification share among employed females to be lower in younger age groups but to rise strongly in older age groups, because diploma/degree pathways were less accessible for older cohorts and Secondary was more common as a highest qualification in that period.
 </div>
 ```
 
 ---
 
-### A3 — Gender-Education Parity Index (GEPI) Heatmap
+### A3 — Education vs Employment (do more degree-heavy cohorts also have higher employment rates?)
 
-**Question answered:** *Where and when does female advantage emerge, and how does it shift across age bands?*  
-**Method:** Compute:
+**Question:** Across 2024 age groups, is higher **Degree qualification share** associated with higher **employment rate**?
 
-- **GEPI(a,t) = Female UnivShare(a,t) ÷ Male UnivShare(a,t)**
+**Metrics:**
+- **DegreeShare(age, sex) = DegreeCount ÷ TotalEmployed**
+- Compare with **emp_rate(age, sex)**
 
-Interpretation guide:
-
-- **GEPI < 1** → male advantage  
-- **GEPI = 1** → parity  
-- **GEPI > 1** → female advantage
-
-**Output:** A **diverging heatmap** (blue → white → red) across age bands (y) and years (x).
+**Output:** 
+A scatter plot (per sex):  
+x = Degree share, y = employment rate, points labelled by age group.
 
 ```{=html}
-<div class="callout-custom amber">
-  <strong>Expected pattern</strong>
-  We expect GEPI to shift from male advantage in older cohorts to female advantage in younger cohorts,
-  with a visible “crossover” period where GEPI passes 1.0 in key age bands.
+<div class="callout-custom green">
+  <strong>Insight:</strong>
+  In 2024, age groups with a higher Degree share generally also show higher employment rates, especially in the prime working ages (25–54). However, the relationship weakens after 55 because employment rates fall sharply due to labour-force exit/retirement, even if some Degree holders remain. This would suggest education composition aligns with employment participation, but age effects are the dominant driver at older ages.
 </div>
 ```
 
----
-
-### A4 — Labour-Market Absorption (Has the economy kept up?)
-
-**Question answered:** *Has employment for degree holders grown in step with the growth of degree-holder population?*  
-**Method:** Compare growth in employed degree holders vs resident degree-holder population using an absorption-style ratio:
-
-- **AbsorptionRate(t) = (EmployedDegree(t)/EmployedDegree(2010)) ÷ (ResidentDegree(t)/ResidentDegree(2010))**
-
-**Output:** A **dual-line trend + absorption ratio line** with a reference line at **1.0**.
-
-```{=html}
-<div class="callout-custom insight">
-  <strong>How we interpret the ratio</strong>
-  If the absorption rate stays near 1.0, employment growth kept pace.
-  If it trends consistently below 1.0, it suggests graduate supply may be outpacing graduate-level employment absorption.
-</div>
-```
 
 ---
 
-## 6.4 What This Section Produces 
+## 6.4 Summary: What We Produce (2024)
 
 ```{=html}
 <table class="summary-analysis-table">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Question Answered</th>
-      <th>Main Output</th>
-      <th>Key Signal</th>
-      <th>Data Required</th>
+      <th>Question Answered (2024)</th>
+      <th>Output</th>
+      <th>Supports Which Insight</th>
+      <th>Data Needed</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>A1</td>
-      <td>When did graduates become the majority?</td>
-      <td><span class="out-badge out-line">Line chart</span></td>
-      <td>Timing + growth rate of degree share</td>
-      <td>Multi-year education composition</td>
+      <td>Where is the gender employment gap largest?</td>
+      <td><span class="out-badge out-dot">Gap plot + table</span></td>
+      <td>Bar-width differences (employment rate)</td>
+      <td>B1 (2024 only)</td>
     </tr>
     <tr>
       <td>A2</td>
-      <td>Cohort effect or age effect?</td>
-      <td><span class="out-badge out-dot">Dot plot</span></td>
-      <td>Flat vs rising cohort trajectories</td>
-      <td>Multi-year education composition</td>
+      <td>How does female Secondary school qualification share differ by age group?</td>
+      <td><span class="out-badge out-line">Line / dot plot</span></td>
+      <td>Education composition shift (Secondary)</td>
+      <td>G4 (2024 only)</td>
     </tr>
     <tr>
       <td>A3</td>
-      <td>How strong is the gender reversal?</td>
-      <td><span class="out-badge out-heat">Heatmap</span></td>
-      <td>GEPI crossover + movement over time</td>
-      <td>Multi-year education composition</td>
-    </tr>
-    <tr>
-      <td>A4</td>
-      <td>Has the job market absorbed graduates?</td>
-      <td><span class="out-badge out-dual">Dual trend</span></td>
-      <td>Absorption ratio around/below 1.0</td>
-      <td>Employment + education over time</td>
+      <td>Is degree share linked to employment rate across age groups?</td>
+      <td><span class="out-badge out-dual">Scatter plot</span></td>
+      <td>Dual-encoding logic (width × fill)</td>
+      <td>B1 + G4 (2024 only)</td>
     </tr>
   </tbody>
 </table>
@@ -1497,13 +1605,13 @@ Interpretation guide:
 
 | Team Member | Primary Tasks | Est. Hours |
 |---|---|---|
-| Member A | Data acquisition, cleaning pipeline (Steps 1–4), reproducibility check | ~12 hrs |
-| Member B | Feature engineering, dataset integration, cohort-tracking analysis | ~12 hrs |
-| Member C | Chart 1 (time-series) + Chart 3 (labour force), Quarto setup & theming | ~12 hrs |
-| Member D | Chart 2 (butterfly redesign), critique write-up, annotation layer | ~12 hrs |
-| All Members | Revealjs slides, MP4 recording, scripts, peer review | ~8 hrs each |
+| Adheesh    | Edit urself | ~12 hrs |
+| Shannon    | Edit urself | ~12 hrs |
+| Thiha Thein| Edit urself | ~12 hrs |
+| Jing Hong  | Edit urself | ~12 hrs |
+| Zafri      | Edit urself | ~12 hrs |
+| All Members | Edit urself | ~8 hrs each |
 
-> **Note:** Distribution will be adjusted based on implementation complexity. All members are responsible for reviewing one another's code, visualizations, and written sections before final submission.
 
 ---
 
