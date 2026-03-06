@@ -619,7 +619,7 @@ Going back to the six weaknesses we flagged in Section 2, we came up with six im
     <tr>
       <td>I2</td>
       <td><span class="badge badge-w">W2</span> <span class="badge badge-w">W3</span></td>
-      <td>Rather than two separate panels the reader has to mentally stitch together, we combine both into a single bar — the width shows employment rate and the coloured fill shows education composition. This eliminates the panel gap (W2) and also gives every segment a shared left edge, so you can actually compare the same education category across different age groups without floating baselines (W3).</td>
+      <td>Rather than two separate panels the reader has to mentally stitch together, we combine both into a single bar — the width shows employment rate and the coloured fill shows education composition. This eliminates the panel gap (W2) and also gives every segment a shared central spine, so you can actually compare the same education category across different age groups without floating baselines (W3).</td>
       <td>Dual-encoding on a single bar axis</td>
     </tr>
     <tr>
@@ -954,7 +954,7 @@ ${rows}${note}`;
   </li>
   <li>
     <div class="decision-num">2</div>
-    <div><strong>Dual encoding: width × fill</strong> <span class="badge badge-i">I2 → W2 + W3</span><br>Making bar <em>width</em> represent employment rate and the <em>fill segments</em> represent education composition let us collapse the original's two disconnected panels into one bar. It also means all segments now share the same left edge, so you can compare the same education category across different rows without having to mentally account for shifting baselines.</div>
+    <div><strong>Dual encoding: width × fill</strong> <span class="badge badge-i">I2 → W2 + W3</span><br>Making bar <em>width</em> represent employment rate and the <em>fill segments</em> represent education composition let us collapse the original's two disconnected panels into one bar. It also means all segments now share the same central spine, so you can compare the same education category across different rows without having to mentally account for shifting baselines.</div>
   </li>
   <li>
     <div class="decision-num">3</div>
