@@ -400,7 +400,7 @@ opts_chunk$set(echo = TRUE)
 | Adheesh | 2500670 |
 | Shannon | 2403263 |
 | Thiha Thein | 2502266 |
-| Jing Hong | 2503049 |
+| Jinghong | 2503049 |
 | Zafri | 2403108 |
 
 ---
@@ -411,7 +411,7 @@ opts_chunk$set(echo = TRUE)
 
 Singapore's workforce has undergone a profound educational transformation over the past three decades. University-educated workers now make up the majority of employed residents in the 25–44 age bands, yet public debate continues to ask whether the labour market has truly absorbed this surge in graduate supply — or whether a structural mismatch has quietly emerged between qualifications and available jobs.
 
-Our project seeks to answer three interrelated questions using official 2024 Ministry of Manpower data. 
+Our project seeks to answer three interrelated questions using Singapore's official 2024 Ministry of Manpower data. 
 
 **First**, how does educational attainment among *employed* Singaporeans actually vary across age groups — and does the composition differ meaningfully from what population-level data alone suggests?
 
@@ -419,7 +419,7 @@ Our project seeks to answer three interrelated questions using official 2024 Min
 
 **Third**, does employment rate data by age and sex support or challenge the narrative that younger, highly educated cohorts face disproportionate labour market difficulty?
 
-Our improved chart aims answers all three questions in a single view by encoding four dimensions simultaneously: age group, sex, employment rate, and education composition. The redesign moves beyond the original chart's population-count framing to focus on the *employed* resident workforce, revealing where educational capital is concentrated, where gender gaps are widest, and which cohorts — if any — show signs of underemployment relative to their qualifications.
+Our improved chart aims to answer all three questions in a single visualization by encoding four dimensions simultaneously: age group, sex, employment rate, and education composition. The redesign moves beyond the original chart's population-count framing to focus on the *employed* resident workforce, revealing where educational capital is concentrated, where gender gaps are widest, and which cohorts show signs of underemployment relative to their qualifications.
 
 ## 1.2 Source & Context
 
@@ -596,7 +596,7 @@ The bar chart's dual-panel design is the most distinctive structural feature —
 
 ## 3.1 Enhancement Strategy
 
-Going back to the six weaknesses we flagged in Section 2, we came up with six improvements that each target a specific problem in the original chart. We tried to be deliberate about this — rather than doing a general visual refresh, each change has a clear reason behind it. The table below shows exactly which weakness each improvement responds to, and we've also noted which of the original chart's genuine strengths we made sure to carry over.
+Based on the six weaknesses we flagged in Section 2 above, we came up with six improvements that each target a specific problem in the original chart. We tried to be deliberate about this — rather than doing a general visual refresh, each change has a clear reason behind it. The table below shows exactly which weakness each improvement responds to, and we've also noted which of the original chart's genuine strengths we made sure to carry over.
 
 ```{=html}
 <div class="imp-table-wrap">
@@ -1452,8 +1452,8 @@ emp_pills    <- ...   # 24-row summary for bar-end labels
 Our butterfly chart already shows the patterns visually, but this section adds a few simple calculations so we can state the key findings with clear numbers.
 
 - **(A1)** Which age groups show the largest **male–female employment rate gap**
-- **(A2)** How **Secondary school** qualification share differs across female age groups
-- **(A3)** Whether age groups with higher **Degree** share also tend to have higher **employment rates**
+- **(A2)** How the **Secondary school** qualification share differs across female age groups
+- **(A3)** Whether age groups with higher **Degree** share tend to have higher **employment rates**
 
 ```{=html}
 <div class="feature-grid">
@@ -1608,7 +1608,7 @@ x = Degree share, y = employment rate, points labelled by age group.
 | Adheesh | Proposed improvements with detailed justifications | ~12 hrs |
 | Shannon | Data Engineering Workflow & Appendix | ~12 hrs |
 | Thiha Thein Kevin | Data sources + Planned data analysis | ~10 hrs |
-| Jing Hong | Edit urself | ~12 hrs |
+| Jinghong | Project Story & Visualization Analysis | ~12 hrs |
 | Zafri | Edit urself | ~12 hrs |
 | All Members | Content Moderation & Document Formatting | ~8 hrs each |
 
