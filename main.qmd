@@ -950,27 +950,18 @@ ${rows}${note}`;
 <ul class="decision-list">
   <li>
     <div class="decision-num">1</div>
-    <div><strong>Diverging butterfly layout</strong> <span class="badge badge-i">I1 → W1</span><br>Placing males on the left and females on the right with age labels running down the centre was the most direct fix for the label problem. Each age group now has its own clearly defined row, and you can read every label without tilting your head. The left-right structure also makes gender comparison feel completely natural.</div>
+    <div><strong>Butterfly structure to foreground gender differences</strong><br>
+    The butterfly layout was selected because it provides the clearest structure for comparing male and female patterns across the same age groups. By mirroring the two sides around a shared central age axis, the chart enables quick horizontal comparison while keeping the layout visually balanced.</div>
   </li>
   <li>
     <div class="decision-num">2</div>
-    <div><strong>Dual encoding: width × fill</strong> <span class="badge badge-i">I2 → W2 + W3</span><br>Making bar <em>width</em> represent employment rate and the <em>fill segments</em> represent education composition let us collapse the original's two disconnected panels into one bar. It also means all segments now share the same central spine, so you can compare the same education category across different rows without having to mentally account for shifting baselines.</div>
+    <div><strong>Dual encoding within a single chart element</strong><br>
+    The redesign combines employment rate and education composition within the same horizontal bar. Total bar width encodes employment rate, while internal stacked segments encode qualification share. This allows the visualization to communicate multiple dimensions simultaneously without fragmenting the story into separate views, improving both compactness and interpretive flow.</div>
   </li>
   <li>
     <div class="decision-num">3</div>
-    <div><strong>Live proportion recalculation on segment toggle</strong> <span class="badge badge-i">I3 → W3</span><br>When you hide an education category, we didn't just want to dim it — we wanted the remaining categories to stay proportionally honest. So when any segment is deselected, the others automatically recalculate to sum to 100%, keeping both the chart and the tooltip values consistent with whatever is currently shown.</div>
-  </li>
-  <li>
-    <div class="decision-num">4</div>
-    <div><strong>Rate-normalised bar width</strong> <span class="badge badge-i">I4 → W4</span><br>Switching from absolute population count to employment rate as the bar width means every age group sits on the same 0–100% scale. Older cohorts have lower participation rates so their bars are naturally shorter — there is no 65+ spike dominating the chart and making everything else look compressed.</div>
-  </li>
-  <li>
-    <div class="decision-num">5</div>
-    <div><strong>Prominent pill labels + rich tooltip</strong> <span class="badge badge-i">I5 → W5</span><br>The pill label at the end of each bar shows the employment rate at a glance, without needing to hover. The tooltip goes further — hover over any bar and you get the full education breakdown, recalculated for whichever segments are currently active, all adding to exactly 100%. These two layers together mean you can always get to a precise number, which simply was not possible with the original.</div>
-  </li>
-  <li>
-    <div class="decision-num">6</div>
-    <div><strong>Wong (2011) colourblind-safe palette</strong> <span class="badge badge-i">I6 → W6</span><br>The original's light blue and light green are genuinely easy to confuse, even without colour vision deficiency. The Wong (2011) palette — dark gray, blue, orange, purple, and green — was designed specifically to keep all five categories distinct under the most common forms of colour blindness. And since the segment toggle is always there, colour is never the only way to tell categories apart.</div>
+    <div><strong>Interactive controls to support focused exploration</strong><br>
+    Interactive features were introduced to address the limitations of static presentation. Category toggles, age filtering, and hover tooltips allow the user to isolate subsets, retrieve recalculated values on the fly, and examine patterns in greater detail. These controls improve analytical usability while maintaining a clean overall design.</div>
   </li>
 </ul>
 ```
